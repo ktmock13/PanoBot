@@ -36,7 +36,7 @@ class Display:
 
   def printLog(self):
     # Draw a black filled box to clear the image.
-    self.draw.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
+    self.drawLog.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
     # Write four lines of text.
     self.drawLog.text((0,-2), self.log[3], font=self.font, fill=255)
     self.drawLog.text((0,6), self.log[2], font=self.font, fill=255)
@@ -49,7 +49,7 @@ class Display:
 
   def printMenu(self):
     # Draw a black filled box to clear the image.
-    self.draw.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
+    self.drawMenu.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
     # Write four lines of text.
     self.drawMenu.text((0,-2), self.menu[3], font=self.font, fill=255)
     self.drawMenu.text((0,6), self.menu[2], font=self.font, fill=255)
