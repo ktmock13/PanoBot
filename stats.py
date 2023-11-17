@@ -73,7 +73,7 @@ while True:
 
     # Write four lines of text.
 
-    draw.text((x, top + 0), "123456789012345678901234567890", font=font, fill=255)
+    draw.text((x, top + 0), "1234567:90123456.890123456|890", font=font, fill=255)
     draw.text((x, top + 8), "CPU load: " + CPU, font=font, fill=255)
     draw.text((x, top + 16), MemUsage, font=font, fill=255)
     draw.text((x, top + 25), Disk, font=font, fill=255)
