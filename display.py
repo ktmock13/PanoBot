@@ -8,7 +8,7 @@ def _safe_access(array, index):
   try:
       return array[index]
   except IndexError:
-      return ""
+      return " "
 class Display:
   def __init__(self, isLogging = True):
     # Create the I2C interface.
