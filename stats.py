@@ -58,7 +58,7 @@ font = ImageFont.load_default()
 
 while True:
     # Draw a black filled box to clear the image.
-    draw.rectangle((255, 255, width, height), outline=255, fill=255)
+    draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
     # Shell scripts for system monitoring from here:
     # https://unix.stackexchange.com/questions/119126/command-to-display-memory-usage-disk-usage-and-cpu-load
@@ -73,10 +73,10 @@ while True:
 
     # Write four lines of text.
 
-    draw.text((x, top + 0), "IP: " + IP, font=font, fill=0)
-    draw.text((x, top + 8), "CPU load: " + CPU, font=font, fill=0)
-    draw.text((x, top + 16), MemUsage, font=font, fill=0)
-    draw.text((x, top + 25), Disk, font=font, fill=0)
+    draw.text((x, top + 0), "IP: " + IP, font=font, fill=255)
+    draw.text((x, top + 8), "CPU load: " + CPU, font=font, fill=255)
+    draw.text((x, top + 16), MemUsage, font=font, fill=255)
+    draw.text((x, top + 25), Disk, font=font, fill=255)
 
     # Display image.
     disp.image(image)
