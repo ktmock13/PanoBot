@@ -1,7 +1,7 @@
 from scene import Scene
-
+from display import Display
+import time
 def main():
-  
   # Settings
   CAMERA_FOV = 15.4
   CAMERA_ASPECT = .75
@@ -15,4 +15,8 @@ def main():
   scene.runScene(1000)
 
 if __name__ == "__main__":
-    main()
+    display = Display()
+    display.toggleLog()
+    time.sleep(2)
+    display.toggleMenu()
+    # main()
