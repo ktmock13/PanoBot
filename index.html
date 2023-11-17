@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <canvas id="shotCanvas1" height="3600" width="3600"></canvas>
+
+  <script type="text/javascript">
+
+    const ZOOM = 10; // each pixel is represented as 1 degree, this zoom multiplier does just that
+    class Shot {
+      constructor(x, y, height, width) {
+        this.x = x;
+        this.y = y;
+        this.height = height;
+        this.width = width;
+      }
+      getFillRectValue() {
+        return [this.x, this.y, this.height, this.width]
+      }
+      getDisplayTexts() {
+        return [`x:${this.x}`, `y:${this.y}`, `h:${this.height}`, `w:${this.width}\n`]
+      }
+    }
+
+    class Camera {
+      constructor(fovDegrees, aspectRatio) {
+        this.fovDegrees = fovDegrees; // assumed to be widest dimension of rectangle
+        this.aspectRatio = aspectRatio;
+        this.isLandscape = aspectRatio >= 1
+        //calculate shotHeight and shotWidth based on fov and aspect
+      }
+      getHorizontalFov() {
+        // if this is a landscape photo, the this.fovDegrees value is the horizontal fov
+        return this.isLandscape ? this.fovDegrees : this.fovDegrees * this.aspectRatio;
+      }
+      getVerticalFov() {
+        // if this is a portrait photo, the this.fovDegrees value is the vertical fov
+        return !this.isLandscape ? this.fovDegrees : this.fovDegrees * (1 / this.aspectRatio);
+      }
+    }
+
+    class Scene {
+      constructor(camera, rangeX, rangeY, overlapPercent = 0.333, shotCanvasId = "shotCanvas1") {
+        this.camera = camera;
+        this.rangeX = rangeX; // total FOV degrees desired, ex. 100
+        this.rangeY = rangeY; // total FOV degrees desired, ex. 50
+        this.shotSequence = [] // will be computed below
+        /** @type {CanvasRenderingContext2D} */
+        this.canvas = document.getElementById(shotCanvasId).getContext("2d")
+
+        // set canvas dimensions
+        this.canvas.width = 360 * ZOOM;
+        this.canvas.height = 360 * ZOOM;
+
+        // FOV units between shots, considering overlap
+        const xSpacing = (this.camera.getHorizontalFov() * (1 - overlapPercent))
+        const ySpacing = (this.camera.getVerticalFov() * (1 - overlapPercent))
+
+        // Amount of FOV units that the shots overlap
+        const xOverlapAmount = (this.camera.getHorizontalFov() - xSpacing);
+        const yOverlapAmount = (this.camera.getVerticalFov() - ySpacing);
+
+        // Min # of photos in each dimension to cover the desired range
+        let sceneDimensionX = Math.ceil((rangeX - xOverlapAmount) / xSpacing);
+        let sceneDimensionY = Math.ceil((rangeY - yOverlapAmount) / ySpacing);
+
+        // All shots will be calculated from this frame of reference
+        const firstShot = new Shot(0, 0, this.camera.getHorizontalFov(), this.camera.getVerticalFov())
+        // Helper function to move to make new shots relative to a shot
+        const moveShot = (shot, xDistance, yDistance) => new Shot(shot.x + xDistance, shot.y + yDistance, shot.height, shot.width)
+        for (let iy = 0; iy < sceneDimensionY; iy++) {
+          for (let ix = 0; ix < sceneDimensionX; ix++) {
+            // compute each shot
+            this.shotSequence.push(moveShot(firstShot, ix * xSpacing, iy * ySpacing))
+          }
+        }
+      }
+      printShotText(shot) {
+
+        this.canvas.fillStyle = "black";
+        const fontSize = 10;
+        this.canvas.font = `${fontSize}px sans-serif`;
+        function round(num) {
+          return Math.floor(num * 100) / 100
+        }
+        const dimensionsText = `x:${round(shot.x)} y:${round(shot.y)}`
+        const cameraCode = '📸';
+        this.canvas.fillText(cameraCode, (shot.x + (shot.height / 2)) * ZOOM, (shot.y + (shot.width / 2)) * ZOOM)
+      }
+      printShot(shot) {
+        this.canvas.fillStyle = "rgb(255 0 150 / 10%)";
+        this.canvas.fillRect(...shot.getFillRectValue().map(val => val * ZOOM));
+      }
+      printShots(shots) {
+        if (shots.length) {
+          shots.forEach(shot => {
+            this.printShot(shot)
+          })
+        }
+      }
+      printScene(scene) {
+        if (scene.shotSequence.length) {
+          scene.shotSequence.forEach(shot => {
+            this.printShot(shot)
+          })
+        }
+      }
+      async slowlyPrintScene(scene, delay) {
+        function timeout(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms))
+        }
+        if (scene.shotSequence.length) {
+          for (let shot of scene.shotSequence) {
+            this.printShot(shot)
+            await timeout(delay / 2)
+            this.printShotText(shot)
+            await timeout(delay / 2)
+          }
+        }
+      }
+      printCanvasBounds() {
+        // Set the border color
+        this.canvas.strokeStyle = "red";
+        // Set the border thickness
+        this.canvas.lineWidth = 1;
+        this.canvas.strokeRect(0, 0, 360 * ZOOM, 360 * ZOOM)
+      }
+      printSceneBounds() {
+        // Set the border color
+        this.canvas.strokeStyle = "blue";
+        // Set the border thickness
+        this.canvas.lineWidth = 1;
+        this.canvas.strokeRect(0, 0, this.rangeX * ZOOM, this.rangeY * ZOOM)
+        console.log(this.rangeX * ZOOM, this.rangeY * ZOOM)
+      }
+    }
+
+    /* Display Helper */
+    function printScenesWithBoundaries(scenes) {
+      scenes.forEach((scene, i) => {
+        scene.printCanvasBounds();
+        scene.printSceneBounds();
+        scene.slowlyPrintScene(scene, 1000);
+      })
+    }
+
+    const iPHONE_5X_PORT = new Camera(11.3, .75); // iPhone 15 Pro Max 5 lens (120MM)
+    const iPHONE_2X_LAND = new Camera(31.3, 1.33); // iPhone 15 Pro Max 5 lens (120MM)
+    const iPHONE_1X_LAND = new Camera(120, 1); // iPhone 15 Pro Max 5 lens (120MM)
+    const SIMPLE_CAM = new Camera(80, 1); // iPhone 15 Pro Max 5 lens (120MM)
+
+    const scenes = [
+      new Scene(iPHONE_5X_PORT, 100, 40, .15, "shotCanvas1"),
+    ];
+
+    printScenesWithBoundaries(scenes)
+
+
+  </script>
+</body>
+
+</html>
