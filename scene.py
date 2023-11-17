@@ -64,10 +64,9 @@ class Scene:
     def printInfo(self):
         self.camera.printInfo()
         self.display.log('Scene Info')
-        self.display.log(f'- Pano FOV (user input): {self.rangeX}x{self.rangeY}')
+        self.display.log(f'- Pano FOV: {self.rangeX}x{self.rangeY}')
         self.display.log(f'- Pano Grid: {self.sceneDimensions}')
         self.display.log(f'- Number of shots: {len(self.shotSequence)}')
-        self.display.log(f'- Total MB: {len(self.shotSequence) * int(self.camera.meta["shotSizeMB"])}')
 
     def runScene(self, delay):
         def timeout(ms):
