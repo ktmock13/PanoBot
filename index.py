@@ -17,6 +17,12 @@ def main():
 if __name__ == "__main__":
     display = Display()
     display.toggleLog()
-    time.sleep(2)
+    time.sleep(1)
     display.toggleMenu()
+    time.sleep(1)
+    display.toggleLog()
+    time.sleep(1)
+    display.toggleMenu()
+    time.sleep(1)
+    
     # main()
