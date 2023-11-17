@@ -45,7 +45,7 @@ class Display:
     self.drawLog.text((0,-2), "Log:", font=self.font, fill=255)
     self.drawLog.text((0,6), _safe_access(self.logList, 2), font=self.font, fill=255)
     self.drawLog.text((0,14), _safe_access(self.logList, 1), font=self.font, fill=255)
-    self.drawLog.text((0,22), _safe_access(self.logList, 0), font=self.font, fill=255)
+    self.drawLog.text((0,20), _safe_access(self.logList, 0), font=self.font, fill=255)
 
     # Display image.
     self.display.image(self.logImage)
@@ -62,7 +62,7 @@ class Display:
     self.drawMenu.text((0,-2), "Menu:", font=self.font, fill=255)
     self.drawMenu.text((0,6), _safe_access(self.menu, 2), font=self.font, fill=255)
     self.drawMenu.text((0,14), _safe_access(self.menu, 1), font=self.font, fill=255)
-    self.drawMenu.text((0,22), _safe_access(self.menu, 0), font=self.font, fill=255)
+    self.drawMenu.text((0,20), _safe_access(self.menu, 0), font=self.font, fill=255)
 
     # Display image.
     self.display.image(self.menuImage)
