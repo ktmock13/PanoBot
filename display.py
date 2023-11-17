@@ -18,7 +18,7 @@ class Display:
     # Initialize an Image for logging purposes
     self.logImage = Image.new("1", (self.display.width, self.display.height))
     # Initialize log state
-    self.log = ["11111111111111111111","22222222222222222222", "33333333333333333333", "44444444444444444444", "55555555555555555555555"]
+    self.log = ["11111111111111111111","22122222222222222222", "33333333333333333333", "44444444444444444444", "55555555555555555555555"]
 
     # Initialize menu image
     self.menuImage = Image.new("1", (self.display.width, self.display.height))
