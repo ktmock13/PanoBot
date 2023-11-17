@@ -22,7 +22,7 @@ class Display:
     # Initialize an Image for logging purposes
     self.logImage = Image.new("1", (self.display.width, self.display.height))
     self.drawLog = ImageDraw.Draw(self.logImage)
-    self.logList = ["1", "2", "3", "4"]
+    self.logList = ["1", "2", "3"]
 
     # Initialize menu image
     self.menuImage = Image.new("1", (self.display.width, self.display.height))
