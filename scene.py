@@ -11,7 +11,7 @@ class Shot:
         return f"Shot at ({self.x}, {self.y}), Height: {self.height}, Width: {self.width}"
 
 class Camera:
-    def __init__(self, fovDegrees, aspectRatio, meta = {'name': 'unnamed camera', 'shotSizeMB': '0'}, display):
+    def __init__(self, fovDegrees, aspectRatio, meta = {'name': 'unnamed camera', 'shotSizeMB': '0'}):
         self.fovDegrees = fovDegrees  # assumed to be widest dimension of rectangle
         self.aspectRatio = aspectRatio
         self.isLandscape = aspectRatio >= 1
