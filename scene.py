@@ -20,7 +20,7 @@ class Camera:
         # calculate shotHeight and shotWidth based on fov and aspect
 
     def printInfo(self):
-        self.display.log('\n\nCamera Info - User Input')
+        self.display.log('\n\nCamera Info')
         self.display.log(f'- Name: {self.name}')
         self.display.log(f'- Degrees FOV: {self.fovDegrees}')
         self.display.log(f'- Aspect Ratio: {self.aspectRatio} ({ "square " if self.aspectRatio == 1 else ("landscape" if self.isLandscape else "portrait")})')
@@ -62,7 +62,6 @@ class Scene:
                 self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))
 
     def printInfo(self):
-        self.camera.printInfo()
         self.display.log('Scene Info')
         self.display.log(f'- Pano FOV: {self.rangeX}x{self.rangeY}')
         self.display.log(f'- Pano Grid: {self.sceneDimensions}')

@@ -13,6 +13,9 @@ def main():
   # Initialize and run
   scene = Scene(CAMERA_FOV, CAMERA_ASPECT, CAMERA_NAME, PANO_FOV_X, PANO_FOV_Y, OVERLAP_PERCENT, Display())
   scene.printInfo()
+  time.sleep(3)
+  scene.camera.printInfo();
+  time.sleep(3)
   scene.runScene(1000)
 
 if __name__ == "__main__":
