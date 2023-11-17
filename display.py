@@ -65,8 +65,8 @@ class Display:
     self.printLog()
 
   def toggleMenu(self):
-    self.isLogging = True
-    self.printLog()
+    self.isLogging = False
+    self.printMenu()
 
 
 
