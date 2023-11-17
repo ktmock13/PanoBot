@@ -41,7 +41,7 @@ draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
 # Draw some shapes.
 # First define some constants to allow easy resizing of shapes.
-padding = 0
+padding = -4
 top = padding
 bottom = height - padding
 # Move left to right keeping track of the current x position for drawing shapes.
@@ -76,7 +76,7 @@ while True:
     draw.text((x, top + 0), "IP: " + IP, font=font, fill=255)
     draw.text((x, top + 8), "CPU load: " + CPU, font=font, fill=255)
     draw.text((x, top + 16), MemUsage, font=font, fill=255)
-    draw.text((x, top + 25), Disk, font=font, fill=155)
+    draw.text((x, top + 25), Disk, font=font, fill=255)
 
     # Display image.
     disp.image(image)
