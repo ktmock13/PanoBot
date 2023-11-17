@@ -84,7 +84,7 @@ class Scene:
 def main():
   
   # Settings
-  CAMERA_FOV = 15.3
+  CAMERA_FOV = 15.4
   CAMERA_ASPECT = .75
   PANO_FOV_X = 120 #degrees
   PANO_FOV_Y = 60 #degrees
