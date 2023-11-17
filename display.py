@@ -4,7 +4,11 @@ import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 
-
+def _safe_access(array, index):
+  try:
+      return array[index]
+  except IndexError:
+      return ""
 class Display:
   def __init__(self, isLogging = True):
     # Create the I2C interface.
@@ -32,11 +36,7 @@ class Display:
     self.isLogging = isLogging
     self.font = ImageFont.load_default()
 
-  def _safe_access(array, index):
-    try:
-        return array[index]
-    except IndexError:
-        return ""
+
     
   def printLog(self):
     # Draw a black filled box to clear the image.
