@@ -20,10 +20,10 @@ class Camera:
         # calculate shotHeight and shotWidth based on fov and aspect
 
     def printInfo(self):
-        self.display.log('\n\nCamera Info')
-        self.display.log(f'- Name: {self.name}')
-        self.display.log(f'- Degrees FOV: {self.fovDegrees}')
-        self.display.log(f'- Aspect Ratio: {self.aspectRatio} ({ "square " if self.aspectRatio == 1 else ("landscape" if self.isLandscape else "portrait")})')
+        self.display.log('Camera Info')
+        self.display.log(f'{self.name}')
+        self.display.log(f'Deg FOV: {self.fovDegrees}')
+        self.display.log(f'Aspect: {self.aspectRatio} ({ "sq. " if self.aspectRatio == 1 else ("land." if self.isLandscape else "port.")})')
 
     def getHorizontalFov(self):
         # if this is a landscape photo, the self.fovDegrees value is the horizontal fov
