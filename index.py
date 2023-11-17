@@ -17,6 +17,7 @@ def main():
 if __name__ == "__main__":
     display = Display()
     display.toggleLog()
+    time.sleep(1)
     display.log("ok")
     print(display.log)
     time.sleep(1)
