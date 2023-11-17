@@ -41,7 +41,7 @@ class Display:
     self.draw.text((0,0), self.log[3], font=self.font, fill=255)
     self.draw.text((0,8), self.log[2], font=self.font, fill=255)
     self.draw.text((0,16), self.log[1], font=self.font, fill=255)
-    self.draw.text((0,25), self.log[0], font=self.font, fill=255)
+    self.draw.text((0,24), self.log[0], font=self.font, fill=255)
 
     # Display image.
     self.display.image(self.logImage)
@@ -63,7 +63,7 @@ class Display:
   def toggleLog(self):
     self.isLogging = True
     self.printLog()
-    
+
   def toggleMenu(self):
     self.isLogging = True
     self.printLog()
