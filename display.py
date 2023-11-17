@@ -42,10 +42,10 @@ class Display:
     # Draw a black filled box to clear the image.
     self.drawLog.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
     # Write four lines of text.
-    self.drawMenu.text((0,-2), _safe_access(self.logList, 3), font=self.font, fill=255)
-    self.drawMenu.text((0,6), _safe_access(self.logList, 2), font=self.font, fill=255)
-    self.drawMenu.text((0,14), _safe_access(self.logList, 1), font=self.font, fill=255)
-    self.drawMenu.text((0,22), _safe_access(self.logList, 0), font=self.font, fill=255)
+    self.drawLog.text((0,-2), _safe_access(self.logList, 3), font=self.font, fill=255)
+    self.drawLog.text((0,6), _safe_access(self.logList, 2), font=self.font, fill=255)
+    self.drawLog.text((0,14), _safe_access(self.logList, 1), font=self.font, fill=255)
+    self.drawLog.text((0,22), _safe_access(self.logList, 0), font=self.font, fill=255)
 
     # Display image.
     self.display.image(self.logImage)
