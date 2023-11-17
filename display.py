@@ -29,7 +29,6 @@ class Display:
     # Get drawing object to draw on image.
 
     # Draw a black filled box to clear the image.
-    self.draw.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
     self.isLogging = isLogging
     self.font = ImageFont.load_default()
 
