@@ -57,7 +57,7 @@ class Display:
     self.draw.text((0,22), self.menu[0], font=self.font, fill=255)
 
     # Display image.
-    self.display.image(self.logImage)
+    self.display.image(self.menuImage)
     self.display.show()
     
   def toggleLog(self):
