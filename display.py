@@ -22,7 +22,7 @@ class Display:
     # Initialize an Image for logging purposes
     self.logImage = Image.new("1", (self.display.width, self.display.height))
     self.drawLog = ImageDraw.Draw(self.logImage)
-    self.log = []
+    self.logList = []
 
     # Initialize menu image
     self.menuImage = Image.new("1", (self.display.width, self.display.height))
@@ -42,17 +42,17 @@ class Display:
     # Draw a black filled box to clear the image.
     self.drawLog.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
     # Write four lines of text.
-    self.drawMenu.text((0,-2), _safe_access(self.log, 3), font=self.font, fill=255)
-    self.drawMenu.text((0,6), _safe_access(self.log, 2), font=self.font, fill=255)
-    self.drawMenu.text((0,14), _safe_access(self.log, 1), font=self.font, fill=255)
-    self.drawMenu.text((0,22), _safe_access(self.log, 0), font=self.font, fill=255)
+    self.drawMenu.text((0,-2), _safe_access(self.logList, 3), font=self.font, fill=255)
+    self.drawMenu.text((0,6), _safe_access(self.logList, 2), font=self.font, fill=255)
+    self.drawMenu.text((0,14), _safe_access(self.logList, 1), font=self.font, fill=255)
+    self.drawMenu.text((0,22), _safe_access(self.logList, 0), font=self.font, fill=255)
 
     # Display image.
     self.display.image(self.logImage)
     self.display.show()
 
   def log(self, text):
-    self.log.append(text)
+    self.logList.append(text)
     self.printLog()
 
   def printMenu(self):
