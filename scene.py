@@ -11,19 +11,19 @@ class Shot:
         return f"Shot at ({self.x}, {self.y}), Height: {self.height}, Width: {self.width}"
 
 class Camera:
-    def __init__(self, fovDegrees, aspectRatio, meta = {'name': 'unnamed camera', 'shotSizeMB': '0'}):
+    def __init__(self, fovDegrees, aspectRatio, name, display):
         self.fovDegrees = fovDegrees  # assumed to be widest dimension of rectangle
         self.aspectRatio = aspectRatio
         self.isLandscape = aspectRatio >= 1
-        self.meta = meta
+        self.name = name
+        self.display = display
         # calculate shotHeight and shotWidth based on fov and aspect
 
     def printInfo(self):
-        print('\n\nCamera Info - User Input')
-        print(f'- Name: {self.meta["name"]}')
-        print(f'- Degrees FOV: {self.fovDegrees}')
-        print(f'- Aspect Ratio: {self.aspectRatio} ({ "square " if self.aspectRatio == 1 else ("landscape" if self.isLandscape else "portrait")})')
-        print(f'- Size MB: {self.meta["shotSizeMB"]}')
+        self.display.log('\n\nCamera Info - User Input')
+        self.display.log(f'- Name: {self.name}')
+        self.display.log(f'- Degrees FOV: {self.fovDegrees}')
+        self.display.log(f'- Aspect Ratio: {self.aspectRatio} ({ "square " if self.aspectRatio == 1 else ("landscape" if self.isLandscape else "portrait")})')
 
     def getHorizontalFov(self):
         # if this is a landscape photo, the self.fovDegrees value is the horizontal fov
@@ -35,7 +35,7 @@ class Camera:
 
 class Scene:
     def __init__(self, cameraFOV, cameraAspect, rangeX, rangeY, overlapPercent, display):
-        self.camera = Camera(cameraFOV, cameraAspect)
+        self.camera = Camera(cameraFOV, cameraAspect, display)
         self.rangeX = rangeX  # total FOV degrees desired, ex. 100
         self.rangeY = rangeY  # total FOV degrees desired, ex. 50
         self.shotSequence = []  # will be computed below
@@ -62,12 +62,11 @@ class Scene:
 
     def printInfo(self):
         self.camera.printInfo()
-        print('\n\nScene Info')
-        print(f'- Pano FOV (user input): {self.rangeX}x{self.rangeY}')
-        print(f'- Pano Grid: {self.sceneDimensions}')
-        print(f'- Number of shots: {len(self.shotSequence)}')
-        print(f'- Total MB: {len(self.shotSequence) * int(self.camera.meta["shotSizeMB"])}')
-        print('\n\n')
+        self.display.log('Scene Info')
+        self.display.log(f'- Pano FOV (user input): {self.rangeX}x{self.rangeY}')
+        self.display.log(f'- Pano Grid: {self.sceneDimensions}')
+        self.display.log(f'- Number of shots: {len(self.shotSequence)}')
+        self.display.log(f'- Total MB: {len(self.shotSequence) * int(self.camera.meta["shotSizeMB"])}')
 
     def runScene(self, delay):
         def timeout(ms):
@@ -75,8 +74,8 @@ class Scene:
         if self.shotSequence:
             for shot in self.shotSequence:
                 # code to move, use current shot
-                print(shot)
+                self.display.log(shot)
                 timeout(delay / 2)
                 # code to take photo
-                print('capture... ')
+                self.display.log('capture... ')
                 timeout(delay / 2)
