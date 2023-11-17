@@ -52,7 +52,7 @@ class Display:
     self.display.show()
 
   def log(self, text):
-    self.logList.append(text)
+    self.logList.insert(0,text)
     self.printLog()
 
   def printMenu(self):
