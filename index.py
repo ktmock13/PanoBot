@@ -34,8 +34,8 @@ class Camera:
         return self.fovDegrees if not self.isLandscape else self.fovDegrees * (1 / self.aspectRatio)
 
 class Scene:
-    def __init__(self, camera, rangeX, rangeY, overlapPercent = 0.333):
-        self.camera = camera
+    def __init__(self, cameraFOV, cameraAspect, rangeX, rangeY, overlapPercent = 0.333):
+        self.camera = Camera(cameraFOV, cameraAspect)
         self.rangeX = rangeX  # total FOV degrees desired, ex. 100
         self.rangeY = rangeY  # total FOV degrees desired, ex. 50
         self.shotSequence = []  # will be computed below
@@ -88,11 +88,10 @@ def main():
   CAMERA_ASPECT = .75
   PANO_FOV_X = 120 #degrees
   PANO_FOV_Y = 60 #degrees
-  OVERLAP_PERCENT = 15 # whole number ex: 15 = 15 percent
+  OVERLAP_PERCENT = .15 # whole number ex: 15 = 15 percent
 
   # Initialize and run
-  CAMERA = Camera(CAMERA_FOV, CAMERA_ASPECT)
-  scene = Scene(CAMERA, PANO_FOV_X, PANO_FOV_Y, OVERLAP_PERCENT/100)
+  scene = Scene(CAMERA_FOV, CAMERA_ASPECT, PANO_FOV_X, PANO_FOV_Y, OVERLAP_PERCENT)
   scene.printInfo()
   scene.runScene(1000)
 
