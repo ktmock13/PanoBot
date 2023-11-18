@@ -7,7 +7,7 @@ class Shot:
         self.y = y
         self.height = height
         self.width = width
-    def print(self):
+    def str(self):
         return f"Shot at ({self.x}, {self.y}), Height: {self.height}, Width: {self.width}"
 
 class Camera:
@@ -73,7 +73,7 @@ class Scene:
         if self.shotSequence:
             for shot in self.shotSequence:
                 # code to move, use current shot
-                self.display.log(shot.str())
+                self.display.log(f'move..shot.str())
                 timeout(delay / 2)
                 # code to take photo
                 self.display.log('capture... ')
