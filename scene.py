@@ -21,9 +21,9 @@ class Camera:
 
     def printInfo(self):
         self.display.log('Camera Info')
-        self.display.log(f'{self.name}')
-        self.display.log(f'Deg FOV: {self.fovDegrees}')
-        self.display.log(f'Aspect: {self.aspectRatio} ({ "sq. " if self.aspectRatio == 1 else ("land." if self.isLandscape else "port.")})')
+        self.display.log(f'- {self.name}')
+        self.display.log(f'- Lens FOV: {self.fovDegrees}')
+        self.display.log(f'- Lens Aspect: {self.aspectRatio} ({ "sq. " if self.aspectRatio == 1 else ("land." if self.isLandscape else "port.")})')
 
     def getHorizontalFov(self):
         # if this is a landscape photo, the self.fovDegrees value is the horizontal fov
@@ -65,7 +65,7 @@ class Scene:
         self.display.log('Scene Info')
         self.display.log(f'- Pano FOV: {self.rangeX}x{self.rangeY}')
         self.display.log(f'- Pano Grid: {self.sceneDimensions}')
-        self.display.log(f'- Number of shots: {len(self.shotSequence)}')
+        self.display.log(f'- # of shots: {len(self.shotSequence)}')
 
     def runScene(self, delay):
         def timeout(ms):
