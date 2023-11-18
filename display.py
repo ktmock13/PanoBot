@@ -50,10 +50,11 @@ class Display:
     # Display image.
     self.display.image(self.logImage)
     self.display.show()
-    
+
   def clearLog(self):
     self.logList = []
     self.log("log cleared")
+    time.sleep(1)
     self.logList = []
     self.printLog()
     
