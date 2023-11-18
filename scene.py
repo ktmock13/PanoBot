@@ -73,7 +73,7 @@ class Scene:
         if self.shotSequence:
             for shot in self.shotSequence:
                 # code to move, use current shot
-                self.display.log(shot.print())
+                self.display.log(shot.str())
                 timeout(delay / 2)
                 # code to take photo
                 self.display.log('capture... ')

@@ -11,13 +11,15 @@ def main():
   OVERLAP_PERCENT = .15 # whole number ex: 15 = 15 percent
 
   # Initialize and run
-  scene = Scene(CAMERA_FOV, CAMERA_ASPECT, CAMERA_NAME, PANO_FOV_X, PANO_FOV_Y, OVERLAP_PERCENT, Display())
+  display = Display();
+
+  scene = Scene(CAMERA_FOV, CAMERA_ASPECT, CAMERA_NAME, PANO_FOV_X, PANO_FOV_Y, OVERLAP_PERCENT, display))
   scene.printInfo()
   time.sleep(3)
   scene.camera.printInfo();
   time.sleep(3)
-  scene.runScene(1000)
-
+  scene.runScene(20)
+  display.clearLog()
 if __name__ == "__main__":
     main()
     

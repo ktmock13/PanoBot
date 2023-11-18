@@ -22,7 +22,7 @@ class Display:
     # Initialize an Image for logging purposes
     self.logImage = Image.new("1", (self.display.width, self.display.height))
     self.drawLog = ImageDraw.Draw(self.logImage)
-    self.logList = ["1", "2", "3"]
+    self.logList = []
 
     # Initialize menu image
     self.menuImage = Image.new("1", (self.display.width, self.display.height))
@@ -50,7 +50,13 @@ class Display:
     # Display image.
     self.display.image(self.logImage)
     self.display.show()
-
+    
+  def clearLog(self):
+    self.logList = []
+    self.log("log cleared")
+    self.logList = []
+    self.printLog()
+    
   def log(self, text):
     self.logList.insert(0,text)
     self.printLog()
