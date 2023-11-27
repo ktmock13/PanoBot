@@ -1,32 +1,24 @@
-from modules.scene import Scene
-from modules.display import Display
-import time
+from mvc.controller.SceneController import SceneController
+
+# Settings, these will be extraced from a data file later
+CAMERA_FOV = 15.4
+CAMERA_ASPECT = .75
+PANO_FOV_X = 120 #degrees
+PANO_FOV_Y = 60 #degrees
+OVERLAP_PERCENT = .15 # whole number ex: 15 = 15 percent
+
 def main():
+    # Initialize the controller
+    controller = SceneController()
+    controller.load_scenes("scenes.json")
 
-  # Settings, these will be extraced from a data file later
-  CAMERA_NAME = "iPhone 15 Pro Max";
-  CAMERA_FOV = 15.4
-  CAMERA_ASPECT = .75
-  PANO_FOV_X = 120 #degrees
-  PANO_FOV_Y = 60 #degrees
-  OVERLAP_PERCENT = .15 # whole number ex: 15 = 15 percent
+    controller.log_scenes();
 
-
-  # Initialize the display singleton class, this will be accesses throughout the code to control the screen
-  display = Display()
-
-  # Initialize a new scene with the test inputs above. Upon initiializing, this will perform the calculations to determine the shot sequence
-  scene = Scene(CAMERA_FOV, CAMERA_ASPECT, CAMERA_NAME, PANO_FOV_X, PANO_FOV_Y, OVERLAP_PERCENT)
-
-  # The following is a simple demonstration of some of the functions
-  scene.printInfo()
-  time.sleep(3)
-  scene.camera.printInfo();
-  time.sleep(3)
-  scene.runScene(20)
-  display.clearLog()
+    
+    # Use the controller to manage scenes
+    controller.create_scene(15.4, .75, 120, 60, .15)
+    controller.create_scene(9, 1, 90, 40, .2)
+    controller.save_scenes("scenes.json")
 
 if __name__ == "__main__":
     main()
-    
-    # main()

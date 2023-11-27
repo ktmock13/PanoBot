@@ -42,7 +42,6 @@ class Display(metaclass=Singleton):
     self.font = ImageFont.load_default()
 
 
-    
   def printLog(self):
     # Draw a black filled box to clear the image.
     self.drawLog.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
