@@ -18,7 +18,7 @@ def main():
   time.sleep(3)
   scene.camera.printInfo();
   time.sleep(3)
-  scene.runScene(20)
+  scene.runScene(250)
   display.clearLog()
 if __name__ == "__main__":
     main()
