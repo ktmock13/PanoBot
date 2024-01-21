@@ -28,7 +28,7 @@ for ii in range(10):
                          200, # number of steps
                          .0005, # step delay [sec]
                          False, # True = print verbose output 
-                         .05) # initial delay [sec]
+                         .25) # initial delay [sec]
     time.sleep(1)
 
 GPIO.cleanup() # clear GPIO allocations after run
