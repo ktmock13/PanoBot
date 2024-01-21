@@ -22,11 +22,11 @@ GPIO.setup(EN_pin,GPIO.OUT) # set enable pin as output
 #
 dir_array = [False,True]
 GPIO.output(EN_pin,GPIO.LOW) # pull enable to low to enable motor
-for ii in range(10):
+for ii in range(16):
     mymotortest.motor_go(dir_array[ii%1], # False=Clockwise, True=Counterclockwise
                          "Half" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          25, # number of steps
-                         .0005, # step delay [sec]
+                         .005, # step delay [sec]
                          True, # True = print verbose output 
                          .05) # initial delay [sec]
     time.sleep(1)
