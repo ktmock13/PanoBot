@@ -26,9 +26,9 @@ for ii in range(10):
     mymotortest.motor_go(dir_array[ii%2], # False=Clockwise, True=Counterclockwise
                          "Half" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          200, # number of steps
-                         .005, # step delay [sec]
+                         .05, # step delay [sec]
                          False, # True = print verbose output 
-                         .25) # initial delay [sec]
+                         1) # initial delay [sec]
     time.sleep(1)
 
 GPIO.cleanup() # clear GPIO allocations after run
