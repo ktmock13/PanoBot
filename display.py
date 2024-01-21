@@ -16,7 +16,7 @@ class Display:
     self.display = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c)
 
     # Clear display.
-    self.display.setRotation(2)
+    # self.display.setRotation(2)
     self.display.fill(0)
 
     self.display.show()
