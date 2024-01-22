@@ -34,7 +34,7 @@ for ii in range(32):
     ymotor.motor_go(dir_array[ii%1], # False=Clockwise, True=Counterclockwise
                          "1/4" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          25, # number of steps
-                         .005, # step delay [sec]
+                         .0001, # step delay [sec]
                          True, # True = print verbose output 
                          .05) # initial delay [sec]
 
