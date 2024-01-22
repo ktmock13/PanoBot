@@ -37,7 +37,6 @@ for ii in range(32):
                          .005, # step delay [sec]
                          True, # True = print verbose output 
                          .05) # initial delay [sec]
-    time.sleep(1)
 
 GPIO.cleanup() # clear GPIO allocations after run
 
