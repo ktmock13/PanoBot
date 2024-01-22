@@ -61,10 +61,19 @@ class Scene {
     // Helper function to move to make new shots relative to a shot
     const createMovedShot = (shot, xDistance, yDistance) => new Shot(shot.x + xDistance, shot.y + yDistance, shot.height, shot.width)
     for (let iy = 0; iy < sceneDimensionY; iy++) {
-      for (let ix = 0; ix < sceneDimensionX; ix++) {
-        // compute each shot
-        this.shotSequence.push(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))
-      }
+      if(iy%2===0){
+        for (let ix = 0; ix < sceneDimensionX; ix--) {
+          // compute each shot
+          this.shotSequence.push(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))
+        }
+      } // if even, move left to right
+      else {
+        for (let ix = sceneDimensionX; ix > 0; ix--) {
+          // compute each shot
+          this.shotSequence.push(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))
+        }
+      } // if odd, move right to left
+
     }
   }
   printInfo(){
@@ -99,5 +108,5 @@ const iPHONE_5X_PORT = new Camera(11.3, .75, {name: 'iPhone 15 Pro Max 5x lens (
 const scene = new Scene(iPHONE_5X_PORT, 120, 60, .15, "shotCanvas1");
 
 scene.printInfo()
-scene.runScene(100)
+scene.runScene(10)
 

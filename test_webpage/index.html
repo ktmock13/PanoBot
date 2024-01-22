@@ -69,10 +69,18 @@
         // Helper function to move to make new shots relative to a shot
         const moveShot = (shot, xDistance, yDistance) => new Shot(shot.x + xDistance, shot.y + yDistance, shot.height, shot.width)
         for (let iy = 0; iy < sceneDimensionY; iy++) {
-          for (let ix = 0; ix < sceneDimensionX; ix++) {
-            // compute each shot
-            this.shotSequence.push(moveShot(firstShot, ix * xSpacing, iy * ySpacing))
-          }
+          if(iy%2===0){
+            for (let ix = 0; ix < sceneDimensionX; ix++) {
+              // compute each shot
+              this.shotSequence.push(moveShot(firstShot, ix * xSpacing, iy * ySpacing))
+            }}
+            else {
+              for (let ix = sceneDimensionX-1; ix >= 0; ix--) {
+                // compute each shot
+                this.shotSequence.push(moveShot(firstShot, ix * xSpacing, iy * ySpacing))
+              }
+            }
+         
         }
       }
       printShotText(shot) {
@@ -140,7 +148,7 @@
       scenes.forEach((scene, i) => {
         scene.printCanvasBounds();
         scene.printSceneBounds();
-        scene.slowlyPrintScene(scene, 1000);
+        scene.slowlyPrintScene(scene, 100);
       })
     }
 

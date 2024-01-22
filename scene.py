@@ -55,11 +55,18 @@ class Scene:
         firstShot = Shot(0, 0, self.camera.getHorizontalFov(), self.camera.getVerticalFov())
         # Helper function to move to make new shots relative to a shot
         def createMovedShot(shot, xDistance, yDistance):
-            return Shot(shot.x + xDistance, shot.y + yDistance, shot.height, shot.width)
+          return Shot(shot.x + xDistance, shot.y + yDistance, shot.height, shot.width)
         for iy in range(sceneDimensionY):
+          #scan even rows LTR, odd rows RTL
+          if iy % 2:
             for ix in range(sceneDimensionX):
-                # compute each shot
-                self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))
+              # compute each shot
+              self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))
+          else:
+             for ix in reversed(range(sceneDimensionX)):
+              # compute each shot
+              self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))    
+              
 
     def printInfo(self):
         self.display.log('Scene Info')
@@ -74,7 +81,9 @@ class Scene:
             for shot in self.shotSequence:
                 # code to move, use current shot
                 self.display.log(f'move..{shot.str()}')
+                self.move(shot.x, shot.y)
                 timeout(delay / 2)
                 # code to take photo
                 self.display.log('capture... ')
+
                 timeout(delay / 2)
