@@ -1,44 +1,44 @@
-# import RPi.GPIO as GPIO
-# from RpiMotorLib import RpiMotorLib
-# import time
+import RPi.GPIO as GPIO
+from RpiMotorLib import RpiMotorLib
+import time
 
-# #test comment
-# ################################
-# # RPi and Motor Pre-allocations
-# ################################
-# #
-# #define GPIO pins
-# direction= 19 # Direction (DIR) GPIO Pin
-# step = 26 # Step GPIO Pin
-# EN_pin = 24 # enable pin (LOW to enable)
+#test comment
+################################
+# RPi and Motor Pre-allocations
+################################
+#
+#define GPIO pins
+direction= 19 # Direction (DIR) GPIO Pin
+step = 26 # Step GPIO Pin
+EN_pin = 24 # enable pin (LOW to enable)
 
-# # Declare a instance of class pass GPIO pins numbers and the motor type
-# xmotor = RpiMotorLib.A4988Nema(19, 26, (5,6,13), "DRV8825")
-# ymotor = RpiMotorLib.A4988Nema(16, 20, (5,6,13), "DRV8825")
+# Declare a instance of class pass GPIO pins numbers and the motor type
+xmotor = RpiMotorLib.A4988Nema(19, 26, (5,6,13), "DRV8825")
+ymotor = RpiMotorLib.A4988Nema(16, 20, (5,6,13), "DRV8825")
 
-# GPIO.setup(EN_pin,GPIO.OUT) # set enable pin as output
+GPIO.setup(EN_pin,GPIO.OUT) # set enable pin as output
 
-# ###########################
-# # Actual motor control
-# ###########################
-# #
-# dir_array = [False,True]
-# GPIO.output(EN_pin,GPIO.LOW) # pull enable to low to enable motor
-# for ii in range(8):
-#     xmotor.motor_go(dir_array[ii%1], # False=Clockwise, True=Counterclockwise
-#                          "1/4" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
-#                          100, # number of steps
-#                          .01, # step delay [sec]
-#                          True, # True = print verbose output 
-#                          .05) # initial delay [sec]
-#     # ymotor.motor_go(dir_array[ii%1], # False=Clockwise, True=Counterclockwise
-#     #                      "1/4" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
-#     #                      100, # number of steps
-#     #                      .01, # step delay [sec]
-#     #                      True, # True = print verbose output 
-#     #                      .05) # initial delay [sec]
-#     time.sleep(.5);
-# GPIO.cleanup() # clear GPIO allocations after run
+###########################
+# Actual motor control
+###########################
+#
+dir_array = [False,True]
+GPIO.output(EN_pin,GPIO.LOW) # pull enable to low to enable motor
+for ii in range(8):
+    xmotor.motor_go(dir_array[ii%1], # False=Clockwise, True=Counterclockwise
+                         "half" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                         100, # number of steps
+                         .01, # step delay [sec]
+                         True, # True = print verbose output 
+                         .05) # initial delay [sec]
+    # ymotor.motor_go(dir_array[ii%1], # False=Clockwise, True=Counterclockwise
+    #                      "1/4" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
+    #                      100, # number of steps
+    #                      .01, # step delay [sec]
+    #                      True, # True = print verbose output 
+    #                      .05) # initial delay [sec]
+    time.sleep(.5);
+GPIO.cleanup() # clear GPIO allocations after run
 
 
 # # user inputs
@@ -53,47 +53,47 @@
 
 
 
-#######################################
-# Copyright (c) 2021 Maker Portal LLC
-# Author: Joshua Hrisko
-#######################################
-#
-# NEMA 17 (17HS4023) Raspberry Pi Tests
-# --- rotating the NEMA 17 to test
-# --- wiring and motor functionality
-#
-#
-#######################################
-#
-import RPi.GPIO as GPIO
-from RpiMotorLib import RpiMotorLib
-import time
+# #######################################
+# # Copyright (c) 2021 Maker Portal LLC
+# # Author: Joshua Hrisko
+# #######################################
+# #
+# # NEMA 17 (17HS4023) Raspberry Pi Tests
+# # --- rotating the NEMA 17 to test
+# # --- wiring and motor functionality
+# #
+# #
+# #######################################
+# #
+# import RPi.GPIO as GPIO
+# from RpiMotorLib import RpiMotorLib
+# import time
 
-################################
-# RPi and Motor Pre-allocations
-################################
-#
-#define GPIO pins
-direction= 22 # Direction (DIR) GPIO Pin
-step = 23 # Step GPIO Pin
-EN_pin = 24 # enable pin (LOW to enable)
+# ################################
+# # RPi and Motor Pre-allocations
+# ################################
+# #
+# #define GPIO pins
+# direction= 22 # Direction (DIR) GPIO Pin
+# step = 23 # Step GPIO Pin
+# EN_pin = 24 # enable pin (LOW to enable)
 
-# Declare a instance of class pass GPIO pins numbers and the motor type
-xmotor = RpiMotorLib.A4988Nema(19, 26, (5,6,13), "DRV8825")
+# # Declare a instance of class pass GPIO pins numbers and the motor type
+# xmotor = RpiMotorLib.A4988Nema(19, 26, (5,6,13), "DRV8825")
 
-mymotortest = RpiMotorLib.A4988Nema(direction, step, (21,21,21), "DRV8825")
-GPIO.setup(EN_pin,GPIO.OUT) # set enable pin as output
+# mymotortest = RpiMotorLib.A4988Nema(direction, step, (21,21,21), "DRV8825")
+# GPIO.setup(EN_pin,GPIO.OUT) # set enable pin as output
 
-###########################
-# Actual motor control
-###########################
-#
-GPIO.output(EN_pin,GPIO.LOW) # pull enable to low to enable motor
-xmotor.motor_go(False, # True=Clockwise, False=Counter-Clockwise
-                     "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                     200, # number of steps
-                     .0005, # step delay [sec]
-                     False, # True = print verbose output 
-                     .05) # initial delay [sec]
+# ###########################
+# # Actual motor control
+# ###########################
+# #
+# GPIO.output(EN_pin,GPIO.LOW) # pull enable to low to enable motor
+# xmotor.motor_go(False, # True=Clockwise, False=Counter-Clockwise
+#                      "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
+#                      200, # number of steps
+#                      .0005, # step delay [sec]
+#                      False, # True = print verbose output 
+#                      .05) # initial delay [sec]
 
-GPIO.cleanup() # clear GPIO allocations after run
+# GPIO.cleanup() # clear GPIO allocations after run
