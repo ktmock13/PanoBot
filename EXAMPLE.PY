@@ -90,7 +90,7 @@ GPIO.setup(EN_pin,GPIO.OUT) # set enable pin as output
 #
 GPIO.output(EN_pin,GPIO.LOW) # pull enable to low to enable motor
 xmotor.motor_go(False, # True=Clockwise, False=Counter-Clockwise
-                     "Full" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                     "Half" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
                      200, # number of steps
                      .001, # step delay [sec]
                      False, # True = print verbose output 
