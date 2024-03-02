@@ -1,5 +1,6 @@
 import math
 import time
+from display import Display
 
 class Shot:
     def __init__(self, x, y, height, width):
@@ -16,7 +17,7 @@ class Camera:
         self.aspectRatio = aspectRatio
         self.isLandscape = aspectRatio >= 1
         self.name = name
-        self.display = display
+        self.display = display()
         # calculate shotHeight and shotWidth based on fov and aspect
 
     def printInfo(self):
@@ -34,8 +35,8 @@ class Camera:
         return self.fovDegrees if not self.isLandscape else self.fovDegrees * (1 / self.aspectRatio)
 
 class Scene:
-    def __init__(self, cameraFOV, cameraAspect, cameraName, rangeX, rangeY, overlapPercent, display):
-        self.display = display
+    def __init__(self, cameraFOV, cameraAspect, cameraName, rangeX, rangeY, overlapPercent):
+        self.display = Display()
         self.camera = Camera(cameraFOV, cameraAspect, cameraName, self.display)
         self.rangeX = rangeX  # total FOV degrees desired, ex. 100
         self.rangeY = rangeY  # total FOV degrees desired, ex. 50
@@ -75,13 +76,18 @@ class Scene:
         self.display.log(f'- # of shots: {len(self.shotSequence)}')
 
     def runScene(self, delay):
-        def timeout(ms):
-            time.sleep(ms / 1000)
-        if self.shotSequence:
-            for shot in self.shotSequence:
-                # code to move, use current shot
-                self.display.log(f'move..{shot.str()}')
-                timeout(delay / 2)
-                # code to take photo
-                self.display.log('capture... ')
-                timeout(delay / 2)
+      self.printInfo()
+      time.sleep(3)
+      self.camera.printInfo();
+      time.sleep(3) 
+      def timeout(ms):
+          time.sleep(ms / 1000)
+      if self.shotSequence:
+          for shot in self.shotSequence:
+              # code to move, use current shot
+              self.display.log(f'move..{shot.str()}')
+              timeout(delay / 2)
+              # code to take photo
+              self.display.log('capture... ')
+              timeout(delay / 2)
+      self.display.clearLog()

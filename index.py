@@ -1,6 +1,5 @@
 from scene import Scene
 from display import Display
-import time
 def main():
   # Settings
   CAMERA_NAME = "iPhone 15 Pro Max";
@@ -10,17 +9,14 @@ def main():
   PANO_FOV_Y = 60 #degrees
   OVERLAP_PERCENT = .15 # whole number ex: 15 = 15 percent
 
-  # Initialize and run
-  display = Display()
+  # Shot interval, time spent between snapshots
+  SHOT_INTERVAL = 250 #milliseconds
 
-  scene = Scene(CAMERA_FOV, CAMERA_ASPECT, CAMERA_NAME, PANO_FOV_X, PANO_FOV_Y, OVERLAP_PERCENT, display)
-  scene.printInfo()
-  time.sleep(3)
-  scene.camera.printInfo();
-  time.sleep(3)
-  scene.runScene(250)
-  display.clearLog()
+  # Initialize and run
+  scene = Scene(CAMERA_FOV, CAMERA_ASPECT, CAMERA_NAME, PANO_FOV_X, PANO_FOV_Y, OVERLAP_PERCENT)
+  scene.runScene(SHOT_INTERVAL);
+
+
 if __name__ == "__main__":
     main()
-    
     # main()
