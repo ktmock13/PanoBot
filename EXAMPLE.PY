@@ -28,13 +28,13 @@ for ii in range(8):
     xmotor.motor_go(dir_array[ii%1], # False=Clockwise, True=Counterclockwise
                          "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          20, # number of steps
-                         .01, # step delay [sec]
+                         .005, # step delay [sec]
                          True, # True = print verbose output 
                          .05) # initial delay [sec]
     ymotor.motor_go(dir_array[ii%1], # False=Clockwise, True=Counterclockwise
                          "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          20, # number of steps
-                         .01, # step delay [sec]
+                         .005, # step delay [sec]
                          True, # True = print verbose output 
                          .05) # initial delay [sec]
     time.sleep(.1);
