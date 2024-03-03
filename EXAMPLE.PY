@@ -16,7 +16,7 @@ EN_pin = 24 # enable pin (LOW to enable)
 xmotor = RpiMotorLib.A4988Nema(19, 26, (5,6,13), "DRV8825")
 ymotor = RpiMotorLib.A4988Nema(16, 20, (5,6,13), "DRV8825")
 
-GPIO.setup(EN_pin,GPIO.OUT) # set enable pin as output
+# GPIO.setup(EN_pin,GPIO.OUT) # set enable pin as output
 
 ###########################
 # Actual motor control
@@ -38,7 +38,7 @@ for ii in range(8):
                          True, # True = print verbose output 
                          .05) # initial delay [sec]
     time.sleep(.1);
-GPIO.cleanup() # clear GPIO allocations after run
+GPIOw.cleanup() # clear GPIO allocations after run
 
 
 # user inputs
