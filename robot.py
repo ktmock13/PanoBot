@@ -21,7 +21,11 @@ class Robot:
     # states to track motor position
     self.currentXPosition = 0; # in degrees
     self.currentYPosition = 0; # in degrees
+    # settings applied to both motors
     self.stepType = "1/16"
+    self.stepDelay = .005;
+    self.verboseOutput = True;
+    self.initialDelay = .05;
     ################################
     # RPi and Motor Pre-allocations
     ################################
@@ -30,8 +34,7 @@ class Robot:
     self.xmotor = RpiMotorLib.A4988Nema(4, 17, (14,15,18), "A4988")
     self.ymotor = RpiMotorLib.A4988Nema(27, 22, (14,15,18), "A4988")
 
-    GPIO.setup(24,GPIO.OUT) # set enable pin as output
-
+    GPIO.output(24, 0)
   def capture(self):
     print('capture')
   def getPosition(self, axis):
@@ -52,9 +55,9 @@ class Robot:
       self.xmotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
                          self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          wholeNumberOfSteps, # number of steps
-                         .01, # step delay [sec]
-                         True, # True = print verbose output 
-                         .05) # initial delay [sec]
+                         self.stepDelay, # step delay [sec]
+                         self.verboseOutput, # True = print verbose output 
+                         self.initialDelay) # initial delay [sec]
       self.currentXPosition = self.currentXPosition + actualAngleDifference;
     if desiredYPosition != self.currentYPosition:
       direction = self.currentYPosition < desiredYPosition # if current position is less than desired, move clockwise
@@ -64,9 +67,9 @@ class Robot:
       self.ymotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
                          self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          wholeNumberOfSteps, # number of steps
-                         .01, # step delay [sec]
-                         True, # True = print verbose output 
-                         .05) # initial delay [sec]
+                         self.stepDelay, # step delay [sec]
+                         self.verboseOutput, # True = print verbose output 
+                         self.initialDelay) # initial delay [sec]
       self.currentYPosition = self.currentYPosition + actualAngleDifference;
 
 
