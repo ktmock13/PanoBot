@@ -21,7 +21,7 @@ def main():
   time.sleep(3)
   scene.camera.printInfo();
   time.sleep(3)
-  # scene.runScene(SHOT_DELAY) # 500ms delay between shots
+  scene.runScene(SHOT_DELAY) # 500ms delay between shots
   display.clearLog()
 
 
