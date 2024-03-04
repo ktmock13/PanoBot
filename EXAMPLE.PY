@@ -43,10 +43,10 @@ for ii in range(8):
                          .05) # initial delay [sec]
     
     GPIO.output(23, 0)
-    sleep(.25)
+    time.sleep(.25)
     GPIO.output(23, 1)
     time.sleep(.1);
-time.sleep(30);
+
 GPIO.output(24, 1)
 
 
