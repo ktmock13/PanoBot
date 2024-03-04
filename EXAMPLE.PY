@@ -58,3 +58,17 @@ overlap_percent = 25 # higher value mean more photos, but better chance of stitc
 camera_fov_x_degree = 'tbd' # 
 camera_fov_y_degree = 'tbd'
 moves = []
+
+
+              # xmotor.motor_go(True, # False=Clockwise, True=Counterclockwise
+              #            "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
+              #            40, # number of steps
+              #            .005, # step delay [sec]
+              #            True, # True = print verbose output 
+              #            .05) # initial delay [sec]
+              # ymotor.motor_go(True, # False=Clockwise, True=Counterclockwise
+              #            "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
+              #            40, # number of steps
+              #            .005, # step delay [sec]
+              #            True, # True = print verbose output 
+              #            .05) # initial delay [sec]

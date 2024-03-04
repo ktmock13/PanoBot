@@ -17,7 +17,7 @@ stepDegrees = {
 }
 
 class Robot:
-  def __init__(self, stepsPerRotation, move):
+  def __init__(self):
     # states to track motor position
     self.currentXPosition = 0; # in degrees
     self.currentYPosition = 0; # in degrees
@@ -26,17 +26,16 @@ class Robot:
     self.stepDelay = .005;
     self.verboseOutput = True;
     self.initialDelay = .05;
-    ################################
-    # RPi and Motor Pre-allocations
-    ################################
-    
+    # settings applied to x motor
+    self.X_DIR = 4
+    self.X_STEP = 17
+    self.Y_DIR = 27
+    self.Y_STEP = 22
+    self.SETTINGS = (14,15,18)
     # Declare a instance of class pass GPIO pins numbers and the motor type
-    self.xmotor = RpiMotorLib.A4988Nema(4, 17, (14,15,18), "A4988")
-    self.ymotor = RpiMotorLib.A4988Nema(27, 22, (14,15,18), "A4988")
+    self.xMotor = RpiMotorLib.A4988Nema(self.X_DIR, self.X_STEP, self.SETTINGS, "A4988")
+    self.yMotor = RpiMotorLib.A4988Nema(self.Y_DIR, self.Y_STEP, self.SETTINGS, "A4988")
 
-    GPIO.output(24, 0)
-  def capture(self):
-    print('capture')
   def getPosition(self, axis):
     if axis == 'x':
       return self.currentXPosition
@@ -52,7 +51,7 @@ class Robot:
       desiredAngleDifference = abs(self.currentXPosition - desiredXPosition)
       wholeNumberOfSteps = round(desiredAngleDifference / stepDegrees[self.stepType]);
       actualAngleDifference = wholeNumberOfSteps * stepDegrees[self.stepType]
-      self.xmotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
+      self.xMotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
                          self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          wholeNumberOfSteps, # number of steps
                          self.stepDelay, # step delay [sec]
@@ -64,7 +63,7 @@ class Robot:
       desiredAngleDifference = abs(self.currentYPosition - desiredYPosition)
       wholeNumberOfSteps = round(desiredAngleDifference / stepDegrees[self.stepType]);
       actualAngleDifference = wholeNumberOfSteps * stepDegrees[self.stepType]
-      self.ymotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
+      self.xMotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
                          self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
                          wholeNumberOfSteps, # number of steps
                          self.stepDelay, # step delay [sec]

@@ -1,5 +1,6 @@
 import math
 import time
+from robot import Robot
 from camera import Camera
 from display import Display
 import RPi.GPIO as GPIO
@@ -23,7 +24,6 @@ class Scene:
         self.rangeY = rangeY  # total FOV degrees desired, ex. 50
         self.shotSequence = []  # will be computed below
         # pins relevant to this class
-        self.SHUTTER_RELAY = 23
         self.STEPPER_RELAY = 24
         # FOV units between shots, considering overlap
         xSpacing = (self.camera.getHorizontalFov() * (1 - overlapPercent))
@@ -52,27 +52,36 @@ class Scene:
               # compute each shot
               self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))    
               
+    def printInstructions(self):
+        self.display.log('')
+        self.display.log('  Connect BT Shutter...')
+        self.display.log('')
+        self.display.log('')
 
     def printInfo(self):
         self.display.log('Scene Info')
-        self.display.log(f'- Pano FOV: {self.rangeX}x{self.rangeY}')
-        self.display.log(f'- Pano Grid: {self.sceneDimensions}')
-        self.display.log(f'- # of shots: {len(self.shotSequence)}')
+        self.display.log(f'-FOV: {self.rangeX}x{self.rangeY}')
+        self.display.log(f'-Grid: {self.sceneDimensions}')
+        self.display.log(f'-Shot Count: {len(self.shotSequence)}')
+
+    def exitScene(self):
+      GPIO.output(self.STEPPER_RELAY, GPIO.LOW) # low is how you deactivate the relay
+      self.display.clearLog()
 
     def runScene(self, delay):
       # log info to display
+      self.printInstructions()
+      time.sleep(3)
       self.printInfo()
       time.sleep(3)
       self.camera.printInfo();
       time.sleep(3)
 
       # activate stepper relay
-      GPIO.output(24, GPIO.LOW) #low is how you activate the relay
+      GPIO.output(self.STEPPER_RELAY, GPIO.LOW) #low is how you activate the relay
 
-      #TBD initialize real robot
-      xmotor = RpiMotorLib.A4988Nema(4, 17, (14,15,18), "A4988")
-      ymotor = RpiMotorLib.A4988Nema(27, 22, (14,15,18), "A4988")
-
+      # Init Robot
+      robot = Robot()
       # helper fn
       def timeout(ms):
           time.sleep(ms / 1000)
@@ -81,31 +90,12 @@ class Scene:
       if self.shotSequence:
           # loop through shots
           for shot in self.shotSequence:
-              # code to move, use current shot
+              # code to move
               self.display.log(f'move..{shot.str()}')
-              # xmotor.motor_go(True, # False=Clockwise, True=Counterclockwise
-              #            "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
-              #            40, # number of steps
-              #            .005, # step delay [sec]
-              #            True, # True = print verbose output 
-              #            .05) # initial delay [sec]
-              # ymotor.motor_go(True, # False=Clockwise, True=Counterclockwise
-              #            "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
-              #            40, # number of steps
-              #            .005, # step delay [sec]
-              #            True, # True = print verbose output 
-              #            .05) # initial delay [sec]
+              robot.movePosition(shot.x, shot.y);
               timeout(delay)
               # code to take photo
-              self.display.log('capture... ')
-              GPIO.output(23, 0)
-              time.sleep(.1)
-              GPIO.output(23, 1)
-              timeout(delay)
+              self.camera.capture()
       # deactivate stepper relay
-      GPIO.output(24, 1)
+      self.exitScene()
       self.display.clearLog()
-
-def exitScene(self):
-  GPIO.output(24, 1)
-  self.display.clearLog()
