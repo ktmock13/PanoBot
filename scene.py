@@ -52,6 +52,7 @@ class Scene:
              for ix in reversed(range(sceneDimensionX)):
               # compute each shot
               self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))    
+        print(self.shotSequence)
         GPIO.setup(self.STEPPER_RELAY, GPIO.OUT)
 
     def printInstructions(self):
