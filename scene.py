@@ -51,7 +51,8 @@ class Scene:
              for ix in reversed(range(sceneDimensionX)):
               # compute each shot
               self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))    
-              
+        GPIO.setup(self.STEPPER_RELAY, GPIO.OUT)
+
     def printInstructions(self):
         self.display.log('')
         self.display.log('  Connect BT Shutter...')
