@@ -69,7 +69,7 @@ class Robot:
       wholeNumberOfSteps = round(desiredAngleDifference / stepDegrees[self.stepType]);
       actualAngleDifference = wholeNumberOfSteps * stepDegrees[self.stepType]
       if constants.DEBUG != True:
-        self.xMotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
+        self.yMotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
                           self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
                           wholeNumberOfSteps, # number of steps
                           self.stepDelay, # step delay [sec]
