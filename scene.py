@@ -45,15 +45,14 @@ class Scene:
         for iy in range(sceneDimensionY):
           #scan even rows LTR, odd rows RTL
           if iy % 2:
-            for ix in range(sceneDimensionX):
+            for ix in reversed(range(sceneDimensionX)):
               # compute each shot
               self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))
           else:
-             for ix in reversed(range(sceneDimensionX)):
+             for ix in range(sceneDimensionX):
               # compute each shot
               self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))    
         # print shot count and sequence
-        
         print('shot count: ', len(self.shotSequence))
         print('grid dimensions: ', self.sceneDimensions)
         print('shots generated')

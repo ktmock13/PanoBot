@@ -6,6 +6,7 @@ import adafruit_ssd1306
 import RPi.GPIO as GPIO
 from RpiMotorLib import RpiMotorLib
 import constants
+import constants
 #how many degrees the step type moves
 stepDegrees = {
   'Full': 1.8,
