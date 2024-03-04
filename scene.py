@@ -93,10 +93,10 @@ class Scene:
           for shot in self.shotSequence:
               # code to move
               self.display.log(f'move..{shot.str()}')
-              robot.movePosition(shot.x, shot.y);
+              # robot.movePosition(shot.x, shot.y);
               timeout(delay)
               # code to take photo
-              self.camera.capture()
+              # self.camera.capture()
       # deactivate stepper relay
       self.exitScene()
       self.display.clearLog()
