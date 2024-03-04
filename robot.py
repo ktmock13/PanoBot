@@ -61,6 +61,7 @@ class Robot:
                           self.verboseOutput, # True = print verbose output 
                           self.initialDelay) # initial delay [sec]
       self.currentXPosition = self.currentXPosition + actualAngleDifference;
+      print(f'new x position {self.currentXPosition}')
     if desiredYPosition != self.currentYPosition:
       print(f'moving y from {self.currentYPosition} to {desiredYPosition}')
       direction = self.currentYPosition < desiredYPosition # if current position is less than desired, move clockwise
@@ -75,6 +76,8 @@ class Robot:
                           self.verboseOutput, # True = print verbose output 
                           self.initialDelay) # initial delay [sec]
       self.currentYPosition = self.currentYPosition + actualAngleDifference;
+      print(f'new y position {self.currentYPosition}')
+
 
 
 
