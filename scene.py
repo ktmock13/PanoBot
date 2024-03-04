@@ -53,7 +53,9 @@ class Scene:
               # compute each shot
               self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))    
         # print shot count and sequence
+        
         print('shot count: ', len(self.shotSequence))
+        print('grid dimensions: ', self.sceneDimensions)
         print('shots generated')
         for shot in self.shotSequence:
           print(shot.str())
