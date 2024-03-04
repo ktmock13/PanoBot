@@ -3,7 +3,6 @@ from display import Display
 import time
 import RPi.GPIO as GPIO
 
-
 def main():
   # Settings
   CAMERA_NAME = "iPhone 15 Pro Max";

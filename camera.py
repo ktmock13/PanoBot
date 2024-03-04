@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import constants
 
 class Camera:
     def __init__(self, fovDegrees, aspectRatio, name, display):
@@ -13,9 +14,10 @@ class Camera:
       GPIO.setup(self.SHUTTER_RELAY, GPIO.OUT)
 
     def capture(self):
-      GPIO.output(self.SHUTTER_RELAY, GPIO.LOW) # low is how you deactivate the relay
-      time.sleep(.1)
-      GPIO.output(self.SHUTTER_RELAY, GPIO.HIGH) # low is how you deactivate the relay
+      if constants.DEBUG != True:
+        GPIO.output(self.SHUTTER_RELAY, GPIO.LOW) # low is how you deactivate the relay
+        time.sleep(.1)
+        GPIO.output(self.SHUTTER_RELAY, GPIO.HIGH) # low is how you deactivate the relay
 
     def printInfo(self):
       self.display.log('Camera Info')

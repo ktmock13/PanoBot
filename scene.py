@@ -6,6 +6,7 @@ from display import Display
 import RPi.GPIO as GPIO
 from time import sleep
 from RpiMotorLib import RpiMotorLib
+import constants
 
 class Shot:
     def __init__(self, x, y, height, width):
@@ -79,7 +80,8 @@ class Scene:
       time.sleep(3)
 
       # activate stepper relay
-      GPIO.output(self.STEPPER_RELAY, GPIO.LOW) #low is how you activate the relay
+      if constants.DEBUG != True:
+        GPIO.output(self.STEPPER_RELAY, GPIO.LOW) #low is how you activate the relay
 
       # Init Robot
       robot = Robot()

@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 import RPi.GPIO as GPIO
 from RpiMotorLib import RpiMotorLib
-debug = True
+import constants
 #how many degrees the step type moves
 stepDegrees = {
   'Full': 1.8,
@@ -52,7 +52,7 @@ class Robot:
       desiredAngleDifference = abs(self.currentXPosition - desiredXPosition)
       wholeNumberOfSteps = round(desiredAngleDifference / stepDegrees[self.stepType]);
       actualAngleDifference = wholeNumberOfSteps * stepDegrees[self.stepType]
-      if debug != True:
+      if constants.DEBUG != True:
         self.xMotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
                           self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
                           wholeNumberOfSteps, # number of steps
@@ -66,7 +66,7 @@ class Robot:
       desiredAngleDifference = abs(self.currentYPosition - desiredYPosition)
       wholeNumberOfSteps = round(desiredAngleDifference / stepDegrees[self.stepType]);
       actualAngleDifference = wholeNumberOfSteps * stepDegrees[self.stepType]
-      if debug != True:
+      if constants.DEBUG != True:
         self.xMotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
                           self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
                           wholeNumberOfSteps, # number of steps
