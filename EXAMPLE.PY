@@ -25,7 +25,6 @@ GPIO.setup(EN_pin,GPIO.OUT) # set enable pin as output
 
 GPIO.setup(24, GPIO.OUT)
 GPIO.setup(23, GPIO.OUT)
-GPIO.output(23, 0)
 GPIO.output(24, 0)
 dir_array = [False,True]
 GPIO.output(EN_pin,GPIO.LOW) # pull enable to low to enable motor
@@ -43,9 +42,9 @@ for ii in range(8):
                          True, # True = print verbose output 
                          .05) # initial delay [sec]
     
-    GPIO.output(23, 0)
-    time.sleep(.1)
     GPIO.output(23, 1)
+    time.sleep(.1)
+    GPIO.output(23, 0)
     time.sleep(.1);
 
 GPIO.output(24, 1)
