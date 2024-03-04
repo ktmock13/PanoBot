@@ -2,6 +2,7 @@ from scene import Scene
 from display import Display
 import time
 import RPi.GPIO as GPIO
+from time import sleep
 
 def main():
   # Settings
