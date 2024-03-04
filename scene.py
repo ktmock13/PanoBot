@@ -81,6 +81,8 @@ class Scene:
 
     def runScene(self, delay):
       GPIO.setup(24, GPIO.OUT)
+      GPIO.setup(23, GPIO.OUT)
+
       GPIO.output(24, 0)
 
       #TBD initialize real robot
