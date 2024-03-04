@@ -60,10 +60,11 @@ class Robot:
                           self.stepDelay, # step delay [sec]
                           self.verboseOutput, # True = print verbose output 
                           self.initialDelay) # initial delay [sec]
+      # since X oscillates, we need to account for that
       if direction: # increasing (left to right)
-        self.currentXPosition = self.currentXPosition + actualAngleDifference;
-      if direction: # decreasing (right to left)
         self.currentXPosition = self.currentXPosition - actualAngleDifference;
+      if direction: # decreasing (right to left)
+        self.currentXPosition = self.currentXPosition + actualAngleDifference;
       print(f'new x position {self.currentXPosition}')
     if desiredYPosition != self.currentYPosition:
       print(f'moving y from {self.currentYPosition} to {desiredYPosition}')
@@ -78,7 +79,7 @@ class Robot:
                           self.stepDelay, # step delay [sec]
                           self.verboseOutput, # True = print verbose output 
                           self.initialDelay) # initial delay [sec]
-      self.currentYPosition = self.currentYPosition + actualAngleDifference;
+      self.currentYPosition = self.currentYPosition + actualAngleDifference; # y direction only increases
       print(f'new y position {self.currentYPosition}')
 
 
