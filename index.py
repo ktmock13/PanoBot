@@ -25,10 +25,7 @@ def main():
   display.clearLog()
 if __name__ == "__main__":
   #this is the pin variable, change it if your relay is on a different pin
-  # GPIO.setmode(GPIO.BOARD)
-  # GPIO.setup(23, GPIO.OUT)
-  # GPIO.output(23, 0)
-  # sleep(10)
-  # GPIO.output(23, 1)
+  GPIO.setup(24, GPIO.OUT)
+  GPIO.output(24, 0)
   main()
-  # GPIO.cleanup()
+  GPIO.output(23, 1)

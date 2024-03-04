@@ -21,14 +21,14 @@ class Robot:
     # states to track motor position
     self.currentXPosition = 0; # in degrees
     self.currentYPosition = 0; # in degrees
-    self.stepType = "1/4"
+    self.stepType = "1/16"
     ################################
     # RPi and Motor Pre-allocations
     ################################
     
     # Declare a instance of class pass GPIO pins numbers and the motor type
-    self.xmotor = RpiMotorLib.A4988Nema(19, 26, (5,6,13), "DRV8825")
-    self.ymotor = RpiMotorLib.A4988Nema(16, 20, (5,6,13), "DRV8825")
+    self.xmotor = RpiMotorLib.A4988Nema(4, 17, (14,15,18), "A4988")
+    self.ymotor = RpiMotorLib.A4988Nema(27, 22, (14,15,18), "A4988")
 
     GPIO.setup(24,GPIO.OUT) # set enable pin as output
 

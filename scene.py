@@ -1,6 +1,8 @@
 import math
 import time
 from display import Display
+import RPi.GPIO as GPIO
+from time import sleep
 
 class Shot:
     def __init__(self, x, y, height, width):
@@ -76,6 +78,13 @@ class Scene:
         self.display.log(f'- # of shots: {len(self.shotSequence)}')
 
     def runScene(self, delay):
+      GPIO.setup(24, GPIO.OUT)
+      GPIO.output(24, 0)
+
+      #TBD initialize real robot
+      xmotor = RpiMotorLib.A4988Nema(4, 17, (14,15,18), "A4988")
+      ymotor = RpiMotorLib.A4988Nema(27, 22, (14,15,18), "A4988")
+
       self.printInfo()
       time.sleep(3)
       self.camera.printInfo();
@@ -86,8 +95,23 @@ class Scene:
           for shot in self.shotSequence:
               # code to move, use current shot
               self.display.log(f'move..{shot.str()}')
+              xmotor.motor_go(True, # False=Clockwise, True=Counterclockwise
+                         "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                         40, # number of steps
+                         .005, # step delay [sec]
+                         True, # True = print verbose output 
+                         .05) # initial delay [sec]
+              ymotor.motor_go(True, # False=Clockwise, True=Counterclockwise
+                         "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                         40, # number of steps
+                         .005, # step delay [sec]
+                         True, # True = print verbose output 
+                         .05) # initial delay [sec]
               timeout(delay / 2)
               # code to take photo
               self.display.log('capture... ')
+              GPIO.output(23, 0)
+              time.sleep(.1)
+              GPIO.output(23, 1)
               timeout(delay / 2)
       self.display.clearLog()
