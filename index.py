@@ -28,7 +28,7 @@ if __name__ == "__main__":
   # GPIO.setmode(GPIO.BOARD)
   GPIO.setup(23, GPIO.OUT)
   GPIO.output(23, 0)
-  sleep(1)
+  sleep(.25)
   GPIO.output(23, 1)
   # GPIO.cleanup()
   # main()
