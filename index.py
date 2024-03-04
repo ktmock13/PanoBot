@@ -30,6 +30,5 @@ if __name__ == "__main__":
   GPIO.output(23, 0)
   sleep(10)
   GPIO.output(23, 1)
-
+  main()
   # GPIO.cleanup()
-  # main()
