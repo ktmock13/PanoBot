@@ -17,7 +17,7 @@ class Camera:
         self.aspectRatio = aspectRatio
         self.isLandscape = aspectRatio >= 1
         self.name = name
-        self.display = display
+        self.display = display()
         # calculate shotHeight and shotWidth based on fov and aspect
 
     def printInfo(self):
