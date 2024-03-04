@@ -14,7 +14,7 @@ class Shot:
         self.height = height
         self.width = width
     def str(self):
-        return f"Shot at ({self.x}, {self.y}), Height: {self.height}, Width: {self.width}"
+        return f"x:{self.x} y:{self.y})"
 class Scene:
     def __init__(self, cameraFOV, cameraAspect, cameraName, rangeX, rangeY, overlapPercent, display):
         self.display = display
