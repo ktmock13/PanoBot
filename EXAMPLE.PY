@@ -28,23 +28,23 @@ GPIO.setup(23, GPIO.OUT)
 GPIO.output(24, 0)
 dir_array = [False,True]
 GPIO.output(EN_pin,GPIO.LOW) # pull enable to low to enable motor
-for ii in range(8):
-    xmotor.motor_go(dir_array[ii%1], # False=Clockwise, True=Counterclockwise
-                         "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                         40, # number of steps
-                         .005, # step delay [sec]
-                         True, # True = print verbose output 
-                         .05) # initial delay [sec]
-    ymotor.motor_go(dir_array[ii%1], # False=Clockwise, True=Counterclockwise
-                         "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                         40, # number of steps
-                         .005, # step delay [sec]
-                         True, # True = print verbose output 
-                         .05) # initial delay [sec]
+# for ii in range(1):
+#     xmotor.motor_go(dir_array[ii%1], # False=Clockwise, True=Counterclockwise
+#                          "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
+#                          40, # number of steps
+#                          .005, # step delay [sec]
+#                          True, # True = print verbose output 
+#                          .05) # initial delay [sec]
+#     ymotor.motor_go(dir_array[ii%1], # False=Clockwise, True=Counterclockwise
+#                          "1/16" , # Step type (Full,Half,1/4,1/8,1/16,1/32)
+#                          40, # number of steps
+#                          .005, # step delay [sec]
+#                          True, # True = print verbose output 
+#                          .05) # initial delay [sec]
     
-    GPIO.output(23, 0)
-    time.sleep(.1)
-    GPIO.output(23, 1)
+#     GPIO.output(23, 0)
+#     time.sleep(.1)
+#     GPIO.output(23, 1)
 
 GPIO.output(24, 1)
 
