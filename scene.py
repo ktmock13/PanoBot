@@ -3,6 +3,8 @@ import time
 from display import Display
 import RPi.GPIO as GPIO
 from time import sleep
+from RpiMotorLib import RpiMotorLib
+
 
 class Shot:
     def __init__(self, x, y, height, width):
