@@ -23,13 +23,11 @@ def main():
   scene.runScene(250)
   display.clearLog()
 if __name__ == "__main__":
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(23, GPIO.OUT)
-    GPIO.output(23, 1)
-    time.sleep(1)
-    GPIO.setup(23, GPIO.IN)
-
-    GPIO.cleanup()
-    # main()
-    
-    # main()
+  #this is the pin variable, change it if your relay is on a different pin
+  GPIO.setmode(GPIO.BOARD)
+  GPIO.setup(23, GPIO.OUT)
+  GPIO.output(23, GPIO.HIGH)
+  sleep(1)
+  GPIO.output(23, GPIO.LOW)
+  GPIO.cleanup()
+  # main()
