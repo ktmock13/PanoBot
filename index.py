@@ -11,7 +11,7 @@ def main():
   PANO_FOV_X = 120 #degrees
   PANO_FOV_Y = 60 #degrees
   OVERLAP_PERCENT = .15 # whole number ex: 15 = 15 percent
-  SHOT_DELAY=.1 #ms
+  SHOT_DELAY=100 #ms
   
   # Initialize and run
   display = Display()
