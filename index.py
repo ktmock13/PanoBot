@@ -1,8 +1,6 @@
 from scene import Scene
 from display import Display
 import time
-import RPi.GPIO as GPIO
-from time import sleep
 
 def main():
   # Settings
@@ -25,7 +23,4 @@ def main():
   display.clearLog()
 if __name__ == "__main__":
   #this is the pin variable, change it if your relay is on a different pin
-  GPIO.setup(24, GPIO.OUT)
-  GPIO.output(24, 0)
   main()
-  GPIO.output(23, 1)
