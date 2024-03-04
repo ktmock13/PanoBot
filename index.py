@@ -26,9 +26,9 @@ def main():
 if __name__ == "__main__":
   #this is the pin variable, change it if your relay is on a different pin
   # GPIO.setmode(GPIO.BOARD)
-  GPIO.setup(16, GPIO.OUT)
-  GPIO.output(16, 1)
+  GPIO.setup(23, GPIO.OUT)
+  GPIO.output(23, 1)
   sleep(1)
-  GPIO.output(16, 0)
+  GPIO.output(23, 0)
   GPIO.cleanup()
   # main()
