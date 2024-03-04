@@ -67,7 +67,7 @@ class Scene:
         self.display.log(f'-Shot Count: {len(self.shotSequence)}')
 
     def exitScene(self):
-      GPIO.output(self.STEPPER_RELAY, GPIO.LOW) # low is how you deactivate the relay
+      GPIO.output(self.STEPPER_RELAY, GPIO.HIGH) # low is how you deactivate the relay
       self.display.clearLog()
 
     def runScene(self, delay):
