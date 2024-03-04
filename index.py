@@ -23,10 +23,10 @@ def main():
   scene.runScene(250)
   display.clearLog()
 if __name__ == "__main__":
-    GPIO.setup(25, GPIO.OUT)
-    GPIO.output(25, GPIO.HIGH)
+    GPIO.setup(23, GPIO.OUT)
+    GPIO.output(23, GPIO.HIGH)
     time.sleep(1)
-    GPIO.output(25, GPIO.LOW)
+    GPIO.output(23, GPIO.LOW)
     GPIO.cleanup()
     # main()
     
