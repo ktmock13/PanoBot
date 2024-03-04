@@ -52,6 +52,9 @@ class Scene:
              for ix in reversed(range(sceneDimensionX)):
               # compute each shot
               self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))    
+        # print shot count and sequence
+        print('shot count: ', len(self.shotSequence))
+        print('shots generated')
         for shot in self.shotSequence:
           print(shot.str())
         GPIO.setup(self.STEPPER_RELAY, GPIO.OUT)
