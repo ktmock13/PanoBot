@@ -1,6 +1,8 @@
 from scene import Scene
 from display import Display
 import time
+import RPi.GPIO as GPIO
+
 def main():
   # Settings
   CAMERA_NAME = "iPhone 15 Pro Max";
@@ -21,6 +23,11 @@ def main():
   scene.runScene(250)
   display.clearLog()
 if __name__ == "__main__":
-    main()
+    GPIO.setup(25, GPIO.OUT)
+    GPIO.output(25, GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(25, GPIO.LOW)
+    GPIO.cleanup()
+    # main()
     
     # main()
