@@ -17,7 +17,12 @@ def main():
   # Initialize and run
   display = Display()
   scene = Scene(CAMERA_FOV, CAMERA_ASPECT, CAMERA_NAME, PANO_FOV_X, PANO_FOV_Y, OVERLAP_PERCENT, display)
+  scene.printInfo()
+  time.sleep(3)
+  scene.camera.printInfo();
+  time.sleep(3)
   # scene.runScene(SHOT_DELAY) # 500ms delay between shots
+  display.clearLog()
 
 
 if __name__ == "__main__":
@@ -27,7 +32,5 @@ if __name__ == "__main__":
      print('Exiting gracefully')  
   finally:
     # deactivate stepper/shutter relays
-    GPIO.output(23, 1)
-    GPIO.output(24, 1)
     GPIO.cleanup() # this ensures a clean exit  
     print("Goodbye!")
