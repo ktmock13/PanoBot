@@ -102,6 +102,7 @@ class Scene:
           for shot in self.shotSequence:
               # code to move
               self.display.log(f'move..{shot.str()}')
+              print(f'move..{shot.str()}')
               robot.movePosition(shot.x, shot.y);
               timeout(delay)
               # code to take photo
