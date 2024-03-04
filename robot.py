@@ -60,7 +60,10 @@ class Robot:
                           self.stepDelay, # step delay [sec]
                           self.verboseOutput, # True = print verbose output 
                           self.initialDelay) # initial delay [sec]
-      self.currentXPosition = self.currentXPosition + actualAngleDifference;
+      if direction: # increasing (left to right)
+        self.currentXPosition = self.currentXPosition + actualAngleDifference;
+      if direction: # decreasing (right to left)
+        self.currentXPosition = self.currentXPosition - actualAngleDifference;
       print(f'new x position {self.currentXPosition}')
     if desiredYPosition != self.currentYPosition:
       print(f'moving y from {self.currentYPosition} to {desiredYPosition}')
