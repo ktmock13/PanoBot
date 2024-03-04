@@ -41,6 +41,7 @@ for ii in range(8):
                          True, # True = print verbose output 
                          .05) # initial delay [sec]
     time.sleep(.1);
+time.sleep(30);
 GPIO.output(24, 1)
 
 
