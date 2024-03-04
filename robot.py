@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 import RPi.GPIO as GPIO
 from RpiMotorLib import RpiMotorLib
-
+debug = True
 #how many degrees the step type moves
 stepDegrees = {
   'Full': 1.8,
@@ -47,29 +47,34 @@ class Robot:
   # this will get the axis as close to the desiredPosition as possible with the stepType units
   def movePosition(self, desiredXPosition, desiredYPosition):
     if desiredXPosition != self.currentXPosition:
+      print(f'moving x from {self.currentXPosition} to {desiredXPosition}')
       direction = self.currentXPosition < desiredXPosition # if current position is less than desired, move clockwise
       desiredAngleDifference = abs(self.currentXPosition - desiredXPosition)
       wholeNumberOfSteps = round(desiredAngleDifference / stepDegrees[self.stepType]);
       actualAngleDifference = wholeNumberOfSteps * stepDegrees[self.stepType]
-      self.xMotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
-                         self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                         wholeNumberOfSteps, # number of steps
-                         self.stepDelay, # step delay [sec]
-                         self.verboseOutput, # True = print verbose output 
-                         self.initialDelay) # initial delay [sec]
+      if debug != True:
+        self.xMotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
+                          self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                          wholeNumberOfSteps, # number of steps
+                          self.stepDelay, # step delay [sec]
+                          self.verboseOutput, # True = print verbose output 
+                          self.initialDelay) # initial delay [sec]
       self.currentXPosition = self.currentXPosition + actualAngleDifference;
     if desiredYPosition != self.currentYPosition:
+      print(f'moving y from {self.currentYPosition} to {desiredYPosition}')
       direction = self.currentYPosition < desiredYPosition # if current position is less than desired, move clockwise
       desiredAngleDifference = abs(self.currentYPosition - desiredYPosition)
       wholeNumberOfSteps = round(desiredAngleDifference / stepDegrees[self.stepType]);
       actualAngleDifference = wholeNumberOfSteps * stepDegrees[self.stepType]
-      self.xMotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
-                         self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                         wholeNumberOfSteps, # number of steps
-                         self.stepDelay, # step delay [sec]
-                         self.verboseOutput, # True = print verbose output 
-                         self.initialDelay) # initial delay [sec]
+      if debug != True:
+        self.xMotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
+                          self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                          wholeNumberOfSteps, # number of steps
+                          self.stepDelay, # step delay [sec]
+                          self.verboseOutput, # True = print verbose output 
+                          self.initialDelay) # initial delay [sec]
       self.currentYPosition = self.currentYPosition + actualAngleDifference;
+
 
 
 
