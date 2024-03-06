@@ -51,13 +51,13 @@ class Robot:
     yPosition = yFOV / 2
     wholeNumberOfXSteps = round(abs(xPosition - 0) / stepDegrees[self.stepType]);
     wholeNumberOfYSteps = round(abs(yPosition - 0) / stepDegrees[self.stepType]);
-    self.xMotor.motor_go(True, # False=Clockwise, True=Counterclockwise
+    self.xMotor.motor_go(False, # False=Clockwise, True=Counterclockwise
                       self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
                       wholeNumberOfXSteps, # number of steps
                       self.stepDelay, # step delay [sec]
                       self.verboseOutput, # True = print verbose output 
                       self.initialDelay) # initial delay [sec]
-    self.yMotor.motor_go(True, # False=Clockwise, True=Counterclockwise
+    self.yMotor.motor_go(False, # False=Clockwise, True=Counterclockwise
                       self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
                       wholeNumberOfYSteps, # number of steps
                       self.stepDelay, # step delay [sec]
