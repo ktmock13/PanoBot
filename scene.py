@@ -17,8 +17,8 @@ class Shot:
     def str(self):
         return f"x:{self.x} y:{self.y})"
 class Scene:
-    def __init__(self, cameraFOV, cameraAspect, cameraName, rangeX, rangeY, overlapPercent, display):
-        self.display = display
+    def __init__(self, cameraFOV, cameraAspect, cameraName, rangeX, rangeY, overlapPercent):
+        self.display = Display()
         # self.robot = Camera(cameraFOV, cameraAspect, cameraName, self.display)
         self.camera = Camera(cameraFOV, cameraAspect, cameraName, self.display)
         self.rangeX = rangeX  # total FOV degrees desired, ex. 100
@@ -77,7 +77,7 @@ class Scene:
         GPIO.output(self.STEPPER_RELAY, GPIO.LOW) # low is how you deactivate the relay
       self.display.clearLog()
 
-    def runScene(self, delay):
+    def runScene(self, delayBefore, delayAfter):
       # log info to display
       self.printInstructions()
       time.sleep(3)
@@ -104,9 +104,13 @@ class Scene:
               self.display.log(f'move..{shot.str()}')
               print(f'move..{shot.str()}')
               robot.movePosition(shot.x, shot.y);
-              timeout(delay)
+              # delay to account for movement settle
+              timeout(delayBefore)
               # code to take photo
               self.camera.capture()
+              # delay to account for exposure
+              timeout(delayAfter)
+
       # deactivate stepper relay
       self.exitScene()
       self.display.clearLog()

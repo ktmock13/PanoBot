@@ -30,8 +30,6 @@ class Display:
     self.menuImage = Image.new("1", (self.display.width, self.display.height))
     self.drawMenu = ImageDraw.Draw(self.menuImage)
     self.menu = ["a","b", "c", "d", "e"]
-
-
     # Get drawing object to draw on image.
 
     # Draw a black filled box to clear the image.
