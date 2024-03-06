@@ -45,33 +45,24 @@ class Robot:
     else: 
       print('invalid axis')
 
-  def moveFromPositionToPosition(self, fromXPosition, fromYPosition, toXPosition, toYPosition):
-    if toXPosition != fromXPosition:
-      print(f'moving x from {fromXPosition} to {toXPosition}')
-      direction = fromXPosition < toXPosition # if current position is less than desired, move clockwise
-      desiredAngleDifference = abs(fromXPosition - toXPosition)
-      wholeNumberOfSteps = round(desiredAngleDifference / stepDegrees[self.stepType]);
-      actualAngleDifference = wholeNumberOfSteps * stepDegrees[self.stepType]
-      if constants.DEBUG != True:
-        self.xMotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
-                          self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                          wholeNumberOfSteps, # number of steps
-                          self.stepDelay, # step delay [sec]
-                          self.verboseOutput, # True = print verbose output 
-                          self.initialDelay) # initial delay [sec]
-    if toYPosition != fromYPosition:
-      print(f'moving x from {fromYPosition} to {toYPosition}')
-      direction = fromYPosition < toYPosition # if current position is less than desired, move clockwise
-      desiredAngleDifference = abs(fromXPosition - toYPosition)
-      wholeNumberOfSteps = round(desiredAngleDifference / stepDegrees[self.stepType]);
-      actualAngleDifference = wholeNumberOfSteps * stepDegrees[self.stepType]
-      if constants.DEBUG != True:
-        self.yMotor.motor_go(direction, # False=Clockwise, True=Counterclockwise
-                          self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
-                          wholeNumberOfSteps, # number of steps
-                          self.stepDelay, # step delay [sec]
-                          self.verboseOutput, # True = print verbose output 
-                          self.initialDelay) # initial delay [sec]
+  def centerToHome(self, xFOV,yFOV):
+    # theoretical center
+    xPosition = xFOV / 2
+    yPosition = yFOV / 2
+    wholeNumberOfXSteps = round(abs(xPosition - 0) / stepDegrees[self.stepType]);
+    wholeNumberOfYSteps = round(abs(yPosition - 0) / stepDegrees[self.stepType]);
+    self.xMotor.motor_go(True, # False=Clockwise, True=Counterclockwise
+                      self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                      wholeNumberOfXSteps, # number of steps
+                      self.stepDelay, # step delay [sec]
+                      self.verboseOutput, # True = print verbose output 
+                      self.initialDelay) # initial delay [sec]
+    self.yMotor.motor_go(True, # False=Clockwise, True=Counterclockwise
+                      self.stepType, # Step type (Full,Half,1/4,1/8,1/16,1/32)
+                      wholeNumberOfYSteps, # number of steps
+                      self.stepDelay, # step delay [sec]
+                      self.verboseOutput, # True = print verbose output 
+                      self.initialDelay) # initial delay [sec]
 
   # this will get the axis as close to the desiredPosition as possible with the stepType units
   def updatePosition(self, desiredXPosition, desiredYPosition):

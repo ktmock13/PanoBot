@@ -36,23 +36,22 @@ class Scene:
         sceneDimensionX = math.ceil((rangeX - xOverlapAmount) / xSpacing)
         sceneDimensionY = math.ceil((rangeY - yOverlapAmount) / ySpacing)
         self.sceneDimensions = f'{sceneDimensionX}x{sceneDimensionY}'
+        # All shots will be calculated from this frame of reference
+        firstShot = Shot(0, 0, self.camera.getHorizontalFov(), self.camera.getVerticalFov())
         # Helper function to move to make new shots relative to a shot
         def createMovedShot(shot, xDistance, yDistance):
           return Shot(shot.x + xDistance, shot.y + yDistance, shot.height, shot.width)
-        # All shots will be calculated from this frame of reference
-        self.firstShot = Shot(0, 0, self.camera.getHorizontalFov(), self.camera.getVerticalFov())
-        self.centerShot = createMovedShot(self.firstShot, self.camera.getHorizontalFov()/2, self.camera.getVerticalFov()/2)
         # generate all shots based on settings
         for iy in range(sceneDimensionY):
           #scan even rows LTR, odd rows RTL
           if iy % 2:
             for ix in reversed(range(sceneDimensionX)):
               # compute each shot
-              self.shotSequence.append(createMovedShot(self.firstShot, ix * xSpacing, iy * ySpacing))
+              self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))
           else:
              for ix in range(sceneDimensionX):
               # compute each shot
-              self.shotSequence.append(createMovedShot(self.firstShot, ix * xSpacing, iy * ySpacing))    
+              self.shotSequence.append(createMovedShot(firstShot, ix * xSpacing, iy * ySpacing))    
         # print shot count and sequence
         print('shot count: ', len(self.shotSequence))
         print('grid dimensions: ', self.sceneDimensions)
@@ -98,7 +97,7 @@ class Scene:
           time.sleep(ms / 1000)
 
       #homing
-      robot.moveFromPositionToPosition(self.centerShot.x, self.centerShot.y, self.firstShot.x, self.firstShot.y)
+      robot.centerToHome(self.rangeX, self.rangeY)
 
       # check for shot sequence
       if self.shotSequence:
@@ -107,7 +106,7 @@ class Scene:
               # code to move
               self.display.log(f'move..{shot.str()}')
               print(f'move..{shot.str()}')
-              robot.updatePosition(shot.x, shot.y);
+              robot.movePosition(shot.x, shot.y);
               # delay to account for movement settle
               timeout(delayBefore)
               # code to take photo
