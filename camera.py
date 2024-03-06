@@ -12,6 +12,7 @@ class Camera:
       # pins relevant to this class
       self.SHUTTER_RELAY = 23
       GPIO.setup(self.SHUTTER_RELAY, GPIO.OUT)
+      GPIO.output(self.SHUTTER_RELAY, GPIO.HIGH) # low is how you deactivate the relay
 
     def capture(self):
       if constants.DEBUG != True:
