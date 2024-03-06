@@ -41,7 +41,7 @@ class Scene:
           return Shot(shot.x + xDistance, shot.y + yDistance, shot.height, shot.width)
         # All shots will be calculated from this frame of reference
         self.firstShot = Shot(0, 0, self.camera.getHorizontalFov(), self.camera.getVerticalFov())
-        self.centerShot = createMovedShot(self.firstShot, sceneDimensionX/2, sceneDimensionY/2)
+        self.centerShot = createMovedShot(self.firstShot, self.camera.getHorizontalFov()/2, self.camera.getVerticalFov()/2)
         # generate all shots based on settings
         for iy in range(sceneDimensionY):
           #scan even rows LTR, odd rows RTL
