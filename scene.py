@@ -36,12 +36,12 @@ class Scene:
         sceneDimensionX = math.ceil((rangeX - xOverlapAmount) / xSpacing)
         sceneDimensionY = math.ceil((rangeY - yOverlapAmount) / ySpacing)
         self.sceneDimensions = f'{sceneDimensionX}x{sceneDimensionY}'
-        # All shots will be calculated from this frame of reference
-        self.firstShot = Shot(0, 0, self.camera.getHorizontalFov(), self.camera.getVerticalFov())
-        self.centerShot = createMovedShot(self.firstShot, sceneDimensionX/2, sceneDimensionY/2)
         # Helper function to move to make new shots relative to a shot
         def createMovedShot(shot, xDistance, yDistance):
           return Shot(shot.x + xDistance, shot.y + yDistance, shot.height, shot.width)
+        # All shots will be calculated from this frame of reference
+        self.firstShot = Shot(0, 0, self.camera.getHorizontalFov(), self.camera.getVerticalFov())
+        self.centerShot = createMovedShot(self.firstShot, sceneDimensionX/2, sceneDimensionY/2)
         # generate all shots based on settings
         for iy in range(sceneDimensionY):
           #scan even rows LTR, odd rows RTL
