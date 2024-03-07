@@ -37,13 +37,20 @@ class Display:
     self.font = ImageFont.load_default()
   def loader(self, percent):
       print(percent)
-      # calculate the new width and height which is 75% of the original width and height
-      new_size = min(self.display.width, self.display.height) * 0.75
-      # calculate the offset to center the circle
-      offset_x = (self.display.width - new_size) / 2
-      offset_y = (self.display.height - new_size) / 2
-      # draw a white circle with a 1 pixel border
-      self.drawLog.ellipse((offset_x, offset_y, new_size + offset_x, new_size + offset_y), outline=255, fill=0)
+      # calculate the size and position of the tree
+      tree_height = self.display.height * 0.75
+      tree_width = self.display.width * 0.5
+      trunk_height = tree_height * 0.1
+      trunk_width = tree_width * 0.1
+      offset_x = (self.display.width - tree_width) / 2
+      offset_y = (self.display.height - tree_height - trunk_height) / 2
+      # draw three triangles for the tree
+      for i in range(3):
+          top = offset_y + tree_height * i / 3
+          bottom = offset_y + tree_height * (i + 1) / 3
+          self.drawLog.polygon([(offset_x, bottom), (offset_x + tree_width / 2, top), (offset_x + tree_width, bottom)], outline=255, fill=0)
+      # draw a rectangle for the trunk
+      self.drawLog.rectangle((offset_x + tree_width * 0.45, offset_y + tree_height, offset_x + tree_width * 0.55, offset_y + tree_height + trunk_height), outline=255, fill=0)
       # Display image.
       self.display.image(self.logImage)
       self.display.show()
