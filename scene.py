@@ -9,20 +9,23 @@ from RpiMotorLib import RpiMotorLib
 import constants
 
 class Shot:
-    def __init__(self, x, y, height, width):
-        self.x = x
-        self.y = y
-        self.height = height
-        self.width = width
-    def str(self):
-        return f"x:{self.x} y:{self.y})"
+  def __init__(self, x, y, height, width):
+      self.x = x
+      self.y = y
+      self.height = height
+      self.width = width
+  def str(self):
+      return f"x:{self.x} y:{self.y})"
 class Scene:
-    def __init__(self, cameraFOV, cameraAspect, cameraName, rangeX, rangeY, overlapPercent):
+    def __init__(self, cameraFOV, cameraAspectRatio, focusDelay, exposureDelay, rangeX, rangeY, overlapPercent, robotSpeed):
         self.display = Display()
         # self.robot = Camera(cameraFOV, cameraAspect, cameraName, self.display)
-        self.camera = Camera(cameraFOV, cameraAspect, cameraName, self.display)
+        self.camera = Camera(cameraFOV, cameraAspectRatio, self.display)
         self.rangeX = rangeX  # total FOV degrees desired, ex. 100
         self.rangeY = rangeY  # total FOV degrees desired, ex. 50
+        self.focusDelay = focusDelay
+        self.exposureDelay = exposureDelay
+        self.robotSpeed = robotSpeed
         self.shotSequence = []  # will be computed below
         # pins relevant to this class
         self.STEPPER_RELAY = 24
@@ -77,7 +80,7 @@ class Scene:
         GPIO.output(self.STEPPER_RELAY, GPIO.LOW) # low is how you deactivate the relay
       self.display.clearLog()
 
-    def runScene(self, delayBefore, delayAfter):
+    def runScene(self):
       # log info to display
       self.printInstructions()
       time.sleep(3)
@@ -91,10 +94,10 @@ class Scene:
         GPIO.output(self.STEPPER_RELAY, GPIO.LOW) #low is how you activate the relay
 
       # Init Robot
-      robot = Robot()
+      robot = Robot(self.robotSpeed)
       # helper fn
       def timeout(ms):
-          time.sleep(ms / 1000)
+        time.sleep(ms / 1000)
 
       #homing
       robot.centerToHome(self.rangeX, self.rangeY)
@@ -109,11 +112,11 @@ class Scene:
               print(f'move..{shot.str()}')
               robot.updatePosition(shot.x, shot.y);
               # delay to account for movement settle
-              timeout(delayBefore)
+              timeout(self.focusDelay)
               # code to take photo
               self.camera.capture()
               # delay to account for exposure
-              timeout(delayAfter)
+              timeout(self.exposureDelay)
 
       # deactivate stepper relay
       self.exitScene()

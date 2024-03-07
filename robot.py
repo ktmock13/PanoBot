@@ -6,7 +6,6 @@ import adafruit_ssd1306
 import RPi.GPIO as GPIO
 from RpiMotorLib import RpiMotorLib
 import constants
-import constants
 #how many degrees the step type moves
 stepDegrees = {
   'Full': 1.8,
@@ -18,13 +17,13 @@ stepDegrees = {
 }
 
 class Robot:
-  def __init__(self):
+  def __init__(self, speed):
     # states to track motor position
     self.currentXPosition = 0; # in degrees
     self.currentYPosition = 0; # in degrees
     # settings applied to both motors
     self.stepType = "1/16"
-    self.stepDelay = .005;
+    self.stepDelay = max(0.001, min(0.01, (speed * 0.001))); #0.005 is the perfect speed for the stepper motor, this param allows for adjustment while limiting the range
     self.verboseOutput = True;
     self.initialDelay = .05;
     # settings applied to x motor

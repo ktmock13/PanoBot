@@ -3,11 +3,10 @@ import time
 import constants
 
 class Camera:
-    def __init__(self, fovDegrees, aspectRatio, name, display):
+    def __init__(self, fovDegrees, aspectRatio, display):
       self.fovDegrees = fovDegrees  # assumed to be widest dimension of rectangle
       self.aspectRatio = aspectRatio
       self.isLandscape = aspectRatio >= 1
-      self.name = name
       self.display = display
       # pins relevant to this class
       self.SHUTTER_RELAY = 23
@@ -22,7 +21,6 @@ class Camera:
 
     def printInfo(self):
       self.display.log('Camera Info')
-      self.display.log(f'-{self.name}')
       self.display.log(f'-FOV: {self.fovDegrees}')
       self.display.log(f'-Aspect: {self.aspectRatio} ({ "sq. " if self.aspectRatio == 1 else ("land." if self.isLandscape else "port.")})')
 
