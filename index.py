@@ -4,8 +4,8 @@ import RPi.GPIO as GPIO
 
 # allow user to choose thsese
 sceneSettings = {
-  "cameraFOV": 100,
-  "cameraAspectRatio": 0.75,
+  "cameraFOV": 60,
+  "cameraAspectRatio": 1,
   "focusDelay": 500,
   "exposureDelay": 500,  # ms - to account for image exposure time required
   "rangeX": 120,  # degrees
