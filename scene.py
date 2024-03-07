@@ -20,7 +20,7 @@ class Scene:
     def __init__(self, cameraFOV, cameraAspectRatio, focusDelay, exposureDelay, rangeX, rangeY, overlapPercent, robotSpeed):
         self.display = Display()
         # self.robot = Camera(cameraFOV, cameraAspect, cameraName, self.display)
-        self.camera = Camera(cameraFOV, cameraAspectRatio, self.display)
+        self.camera = Camera(cameraFOV, cameraAspectRatio)
         self.rangeX = rangeX  # total FOV degrees desired, ex. 100
         self.rangeY = rangeY  # total FOV degrees desired, ex. 50
         self.focusDelay = focusDelay
