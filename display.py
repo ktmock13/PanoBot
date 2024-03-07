@@ -37,21 +37,21 @@ class Display:
     self.font = ImageFont.load_default()
 
   def loader(self, percent):
-      print(percent)
-      # calculate the size and position of the loading bar
-      bar_width = self.display.width * 0.8
-      bar_height = self.display.height * 0.2  # increased height to 20% of the display's height
-      bar_x = (self.display.width - bar_width) / 2
-      bar_y = self.display.height - (self.display.height - bar_height) / 2  # adjusted y-coordinate to flip the bar
-      # draw the outline of the loading bar
-      self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_width, bar_y - bar_height)], outline=255, fill=0)  # adjusted y-coordinates to flip the bar
-      # calculate the filled part of the loading bar
-      fill_width = bar_width * percent / 100
-      # draw the filled part of the loading bar
-      self.drawLog.rectangle([(bar_x, bar_y), (bar_x + fill_width, bar_y - bar_height)], outline=255, fill=255)  # adjusted y-coordinates to flip the bar
-      # Display image.
-      self.display.image(self.logImage)
-      self.display.show()
+    print(percent)
+    # calculate the size and position of the loading bar
+    bar_width = self.display.width * 0.8
+    bar_height = self.display.height * 0.6  # increased height to 60% of the display's height
+    bar_x = (self.display.width - bar_width) / 2
+    bar_y = self.display.height - (self.display.height - bar_height) / 2  # adjusted y-coordinate to flip the bar
+    # draw the outline of the loading bar
+    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_width, bar_y - bar_height)], outline=255, fill=0)  # adjusted y-coordinates to flip the bar
+    # calculate the filled part of the loading bar
+    fill_width = bar_width * percent / 100
+    # draw the filled part of the loading bar
+    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + fill_width, bar_y - bar_height)], outline=255, fill=255)  # adjusted y-coordinates to flip the bar
+    # Display image.
+    self.display.image(self.logImage)
+    self.display.show()
 
   def printLog(self):
     # Draw a black filled box to clear the image.
