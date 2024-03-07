@@ -35,19 +35,15 @@ class Display:
     # Draw a black filled box to clear the image.
     self.isLogging = isLogging
     self.font = ImageFont.load_default()
-
   def loader(self, percent):
       print(percent)
-      # calculate the new width which is 75% of the original width
-      new_width = self.display.width * 0.75
-      # calculate the offset to center the rectangle
-      offset = (self.display.width - new_width) / 2
-      # calculate the new height which is 75% of the original height
-      new_height = self.display.height * 0.75
-      # calculate the offset to center the rectangle vertically
-      vertical_offset = (self.display.height - new_height) / 2
-      # draw a white rectangle with a 1 pixel border
-      self.drawLog.rectangle((offset, vertical_offset, new_width + offset, new_height + vertical_offset), outline=255, fill=0)
+      # calculate the new width and height which is 75% of the original width and height
+      new_size = min(self.display.width, self.display.height) * 0.75
+      # calculate the offset to center the circle
+      offset_x = (self.display.width - new_size) / 2
+      offset_y = (self.display.height - new_size) / 2
+      # draw a white circle with a 1 pixel border
+      self.drawLog.ellipse((offset_x, offset_y, new_size + offset_x, new_size + offset_y), outline=255, fill=0)
       # Display image.
       self.display.image(self.logImage)
       self.display.show()
