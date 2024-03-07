@@ -48,7 +48,7 @@ class Display:
     # calculate the filled part of the loading bar
     fill_width = bar_width * percent / 100
     # draw the filled part of the loading bar
-    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + fill_width, bar_y - bar_height)], outline=255, fill=255)  # adjusted y-coordinates to flip the bar
+    self.drawLog.rectangle([(bar_x + bar_width, bar_y), (bar_x + bar_width - fill_width, bar_y - bar_height)], outline=255, fill=255)  # adjusted x-coordinates to flip the loading direction
     # Display image.
     self.display.image(self.logImage)
     self.display.show()
