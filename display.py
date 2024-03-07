@@ -37,25 +37,25 @@ class Display:
     self.font = ImageFont.load_default()
   def loader(self, percent):
       print(percent)
-      # calculate the size and position of the tree
-      tree_height = self.display.width * 0.75  # swapped width and height
-      tree_width = self.display.height * 0.5  # swapped width and height
-      trunk_height = tree_height * 0.1
-      trunk_width = tree_width * 0.1
-      offset_x = (self.display.height - tree_width) / 2  # swapped width and height
-      offset_y = (self.display.width - tree_height - trunk_height) / 2  # swapped width and height
-      # draw three triangles for the tree
-      for i in range(3):
-          # adjust the width for each triangle
-          width = tree_width * (i + 1) / 3
-          offset_x_i = offset_x + (tree_width - width) / 2
-          top = offset_y + tree_height * i / 3
-          bottom = offset_y + tree_height * (i + 1) / 3
-          # swapped x and y coordinates
-          self.drawLog.polygon([(bottom, offset_x_i), (top, offset_x_i + width / 2), (bottom, offset_x_i + width)], outline=255, fill=0)
-      # draw a rectangle for the trunk
-      # swapped x and y coordinates
-      self.drawLog.rectangle((offset_y + tree_height, offset_x + tree_width * 0.45, offset_y + tree_height + trunk_height, offset_x + tree_width * 0.55), outline=255, fill=0)
+      # calculate the size and position of the face
+      face_radius = min(self.display.width, self.display.height) * 0.3
+      face_x = self.display.width / 2
+      face_y = self.display.height / 2
+      # draw the face
+      self.drawLog.ellipse([(face_x - face_radius, face_y - face_radius), (face_x + face_radius, face_y + face_radius)], outline=255, fill=0)
+      # calculate the size and position of the eyes
+      eye_radius = face_radius * 0.2
+      eye_offset_x = face_radius * 0.5
+      eye_offset_y = face_radius * 0.5
+      # draw the eyes
+      for eye_x in [face_x - eye_offset_x, face_x + eye_offset_x]:
+          self.drawLog.ellipse([(eye_x - eye_radius, face_y - eye_offset_y - eye_radius), (eye_x + eye_radius, face_y - eye_offset_y + eye_radius)], outline=255, fill=255)
+      # calculate the position of the mouth
+      mouth_width = face_radius * 0.6
+      mouth_height = face_radius * 0.3
+      mouth_top = face_y + face_radius * 0.1
+      # draw the mouth
+      self.drawLog.arc([(face_x - mouth_width / 2, mouth_top), (face_x + mouth_width / 2, mouth_top + mouth_height)], start=180, end=0, fill=255)
       # Display image.
       self.display.image(self.logImage)
       self.display.show()
