@@ -36,13 +36,13 @@ class Display:
     self.isLogging = isLogging
     self.font = ImageFont.load_default()
 
-  def loader(self, percent):
+  def loader(self, percent):  
     print(percent)
     # calculate the size and position of the loading bar
-    bar_width = self.display.width * 0.8
-    bar_height = self.display.height * 0.6  # increased height to 60% of the display's height
-    bar_x = (self.display.width - bar_width) / 2
-    bar_y = self.display.height - (self.display.height - bar_height) / 2  # adjusted y-coordinate to flip the bar
+    bar_width = self.display.width  # set width to the display's width
+    bar_height = self.display.height  # set height to the display's height
+    bar_x = 0  # set x-coordinate to 0
+    bar_y = self.display.height  # set y-coordinate to the display's height
     # draw the outline of the loading bar
     self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_width, bar_y - bar_height)], outline=255, fill=0)  # adjusted y-coordinates to flip the bar
     # calculate the filled part of the loading bar
