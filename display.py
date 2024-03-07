@@ -39,7 +39,7 @@ class Display:
   def loader(self, percent):
     print(percent)
     # calculate the size and position of the loading bar
-    bar_width = self.display.width - 5  # subtract 5 pixels from the display's width
+    bar_width = self.display.width - 10  # subtract 10 pixels from the display's width
     bar_height = self.display.height  # set height to the display's height
     bar_x = 5  # set x-coordinate to 5 pixels
     bar_y = self.display.height  # set y-coordinate to the display's height
