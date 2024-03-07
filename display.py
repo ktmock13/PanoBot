@@ -55,7 +55,7 @@ class Display:
       mouth_height = face_radius * 0.3
       mouth_top = face_y + face_radius * 0.1
       # draw the mouth
-      self.drawLog.arc([(face_x - mouth_width / 2, mouth_top), (face_x + mouth_width / 2, mouth_top + mouth_height)], start=180, end=0, fill=255)
+      self.drawLog.arc([(face_x - mouth_width / 2, mouth_top), (face_x + mouth_width / 2, mouth_top + mouth_height)], start=0, end=180, fill=255)  # swapped start and end
       # Display image.
       self.display.image(self.logImage)
       self.display.show()
