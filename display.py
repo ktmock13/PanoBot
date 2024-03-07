@@ -37,16 +37,20 @@ class Display:
     self.font = ImageFont.load_default()
 
   def loader(self, percent):
-    print(percent)
-    # calculate the new width which is 75% of the original width
-    new_width = self.display.width * 0.75
-    # calculate the offset to center the rectangle
-    offset = (self.display.width - new_width) / 2
-    # draw a white rectangle with a 1 pixel border
-    self.drawLog.rectangle((offset, 0, new_width + offset, self.display.height), outline=255, fill=0)
-    # Display image.
-    self.display.image(self.logImage)
-    self.display.show()
+      print(percent)
+      # calculate the new width which is 75% of the original width
+      new_width = self.display.width * 0.75
+      # calculate the offset to center the rectangle
+      offset = (self.display.width - new_width) / 2
+      # calculate the new height which is 75% of the original height
+      new_height = self.display.height * 0.75
+      # calculate the offset to center the rectangle vertically
+      vertical_offset = (self.display.height - new_height) / 2
+      # draw a white rectangle with a 1 pixel border
+      self.drawLog.rectangle((offset, vertical_offset, new_width + offset, new_height + vertical_offset), outline=255, fill=0)
+      # Display image.
+      self.display.image(self.logImage)
+      self.display.show()
 
   def printLog(self):
     # Draw a black filled box to clear the image.
