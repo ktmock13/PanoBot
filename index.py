@@ -11,7 +11,7 @@ sceneSettings = {
   "rangeX": 120,  # degrees
   "rangeY": 60,   # degrees
   "overlapPercent": .30,
-  "robotSpeed": 10 # 1-10
+  "robotSpeed": 1 # 1-10
 }
 
 if __name__ == "__main__":
