@@ -38,12 +38,12 @@ class Display:
   def loader(self, percent):
       print(percent)
       # calculate the size and position of the tree
-      tree_height = self.display.height * 0.75
-      tree_width = self.display.width * 0.5
+      tree_height = self.display.width * 0.75  # swapped width and height
+      tree_width = self.display.height * 0.5  # swapped width and height
       trunk_height = tree_height * 0.1
       trunk_width = tree_width * 0.1
-      offset_x = (self.display.width - tree_width) / 2
-      offset_y = (self.display.height - tree_height - trunk_height) / 2
+      offset_x = (self.display.height - tree_width) / 2  # swapped width and height
+      offset_y = (self.display.width - tree_height - trunk_height) / 2  # swapped width and height
       # draw three triangles for the tree
       for i in range(3):
           # adjust the width for each triangle
@@ -51,9 +51,11 @@ class Display:
           offset_x_i = offset_x + (tree_width - width) / 2
           top = offset_y + tree_height * i / 3
           bottom = offset_y + tree_height * (i + 1) / 3
-          self.drawLog.polygon([(offset_x_i, bottom), (offset_x_i + width / 2, top), (offset_x_i + width, bottom)], outline=255, fill=0)
+          # swapped x and y coordinates
+          self.drawLog.polygon([(bottom, offset_x_i), (top, offset_x_i + width / 2), (bottom, offset_x_i + width)], outline=255, fill=0)
       # draw a rectangle for the trunk
-      self.drawLog.rectangle((offset_x + tree_width * 0.45, offset_y + tree_height, offset_x + tree_width * 0.55, offset_y + tree_height + trunk_height), outline=255, fill=0)
+      # swapped x and y coordinates
+      self.drawLog.rectangle((offset_y + tree_height, offset_x + tree_width * 0.45, offset_y + tree_height + trunk_height, offset_x + tree_width * 0.55), outline=255, fill=0)
       # Display image.
       self.display.image(self.logImage)
       self.display.show()
