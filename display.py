@@ -38,12 +38,16 @@ class Display:
 
   def loader(self, percent):
     print(percent)
+    # calculate the new width which is 75% of the original width
+    new_width = self.display.width * 0.75
+    # calculate the offset to center the rectangle
+    offset = (self.display.width - new_width) / 2
     # draw a white rectangle with a 1 pixel border
-    self.drawLog.rectangle((0, 0, self.display.width, self.display.height), outline=255, fill=0)
+    self.drawLog.rectangle((offset, 0, new_width + offset, self.display.height), outline=255, fill=0)
     # Display image.
     self.display.image(self.logImage)
     self.display.show()
-    
+
   def printLog(self):
     # Draw a black filled box to clear the image.
     self.drawLog.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
