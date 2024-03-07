@@ -36,7 +36,8 @@ class Display:
     self.isLogging = isLogging
     self.font = ImageFont.load_default()
 
-
+  def loader(self, percent):
+    print(percent)
     
   def printLog(self):
     # Draw a black filled box to clear the image.

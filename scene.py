@@ -63,18 +63,14 @@ class Scene:
           print(shot.str())
         GPIO.setup(self.STEPPER_RELAY, GPIO.OUT)
 
-    def printInfo(self):
-        self.display.log('Scene Info')
-        self.display.log(f'-FOV: {self.rangeX}x{self.rangeY}')
-        self.display.log(f'-Grid: {self.sceneDimensions}')
-        self.display.log(f'-Shot Count: {len(self.shotSequence)}')
-
     def exitScene(self):
       if constants.DEBUG != True:
         GPIO.output(self.STEPPER_RELAY, GPIO.LOW) # low is how you deactivate the relay
       self.display.clearLog()
 
     def runScene(self):
+
+      self.display.loader(0)
 
       # activate stepper relay
       if constants.DEBUG != True:
@@ -92,15 +88,15 @@ class Scene:
       # check for shot sequence
       if self.shotSequence:
           # loop through shots
-          for shot in self.shotSequence:
+          for index, shot in enumerate(self.shotSequence):
               # code to move
-              self.display.log(f'move..{shot.str()}')
-              print(f'move..{shot.str()}')
               robot.updatePosition(shot.x, shot.y);
               # delay to account for movement settle
               timeout(self.focusDelay)
               # code to take photo
               self.camera.capture()
+              #increment loader screen
+              self.display.loader((index + 1) / len(self.shotSequence) * 100)
               # delay to account for exposure
               timeout(self.exposureDelay)
 
