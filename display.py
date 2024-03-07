@@ -46,9 +46,12 @@ class Display:
       offset_y = (self.display.height - tree_height - trunk_height) / 2
       # draw three triangles for the tree
       for i in range(3):
+          # adjust the width for each triangle
+          width = tree_width * (3 - i) / 3
+          offset_x_i = offset_x + (tree_width - width) / 2
           top = offset_y + tree_height * i / 3
           bottom = offset_y + tree_height * (i + 1) / 3
-          self.drawLog.polygon([(offset_x, bottom), (offset_x + tree_width / 2, top), (offset_x + tree_width, bottom)], outline=255, fill=0)
+          self.drawLog.polygon([(offset_x_i, bottom), (offset_x_i + width / 2, top), (offset_x_i + width, bottom)], outline=255, fill=0)
       # draw a rectangle for the trunk
       self.drawLog.rectangle((offset_x + tree_width * 0.45, offset_y + tree_height, offset_x + tree_width * 0.55, offset_y + tree_height + trunk_height), outline=255, fill=0)
       # Display image.
