@@ -68,8 +68,7 @@ class Display:
 
   def clearLog(self):
     self.logList = []
-    self.log("log cleared")
-    time.sleep(1)
+    self.log("")
     self.logList = []
     self.printLog()
     
