@@ -35,27 +35,20 @@ class Display:
     # Draw a black filled box to clear the image.
     self.isLogging = isLogging
     self.font = ImageFont.load_default()
+    
   def loader(self, percent):
       print(percent)
-      # calculate the size and position of the face
-      face_radius = min(self.display.width, self.display.height) * 0.3
-      face_x = self.display.width / 2
-      face_y = self.display.height / 2
-      # draw the face
-      self.drawLog.ellipse([(face_x - face_radius, face_y - face_radius), (face_x + face_radius, face_y + face_radius)], outline=255, fill=0)
-      # calculate the size and position of the eyes
-      eye_radius = face_radius * 0.2
-      eye_offset_x = face_radius * 0.5
-      eye_offset_y = face_radius * 0.5
-      # draw the eyes
-      for eye_x in [face_x - eye_offset_x, face_x + eye_offset_x]:
-          self.drawLog.ellipse([(eye_x - eye_radius, face_y - eye_offset_y - eye_radius), (eye_x + eye_radius, face_y - eye_offset_y + eye_radius)], outline=255, fill=255)
-      # calculate the position of the mouth
-      mouth_width = face_radius * 0.6
-      mouth_height = face_radius * 0.3
-      mouth_top = face_y + face_radius * 0.1
-      # draw the mouth
-      self.drawLog.arc([(face_x - mouth_width / 2, mouth_top), (face_x + mouth_width / 2, mouth_top + mouth_height)], start=0, end=180, fill=255)  # swapped start and end
+      # calculate the size and position of the loading bar
+      bar_width = self.display.width * 0.8
+      bar_height = self.display.height * 0.1
+      bar_x = (self.display.width - bar_width) / 2
+      bar_y = (self.display.height - bar_height) / 2
+      # draw the outline of the loading bar
+      self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_width, bar_y + bar_height)], outline=255, fill=0)
+      # calculate the filled part of the loading bar
+      fill_width = bar_width * percent / 100
+      # draw the filled part of the loading bar
+      self.drawLog.rectangle([(bar_x, bar_y), (bar_x + fill_width, bar_y + bar_height)], outline=255, fill=255)
       # Display image.
       self.display.image(self.logImage)
       self.display.show()
