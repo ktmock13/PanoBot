@@ -38,6 +38,11 @@ class Display:
 
   def loader(self, percent):
     print(percent)
+    # draw a white rectangle with a 1 pixel border
+    self.drawLog.rectangle((0, 0, self.display.width, self.display.height), outline=255, fill=0)
+    # Display image.
+    self.display.image(self.logImage)
+    self.display.show()
     
   def printLog(self):
     # Draw a black filled box to clear the image.
