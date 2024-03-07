@@ -23,7 +23,7 @@ class Robot:
     self.currentYPosition = 0; # in degrees
     # settings applied to both motors
     self.stepType = "1/16"
-    self.stepDelay = max(0.001, min(0.01, (speed / 0.01))); #0.005 is the perfect speed for the stepper motor, this param allows for adjustment while limiting the range
+    self.stepDelay = max(0.001, min(0.01, (abs(speed-11) * 0.001))); #0.005 is the perfect speed for the stepper motor, this param allows for adjustment while limiting the range
     self.verboseOutput = True;
     self.initialDelay = .05;
     # settings applied to x motor

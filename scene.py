@@ -63,12 +63,6 @@ class Scene:
           print(shot.str())
         GPIO.setup(self.STEPPER_RELAY, GPIO.OUT)
 
-    def printInstructions(self):
-        self.display.log('')
-        self.display.log('  Connect BT Shutter...')
-        self.display.log('')
-        self.display.log('')
-
     def printInfo(self):
         self.display.log('Scene Info')
         self.display.log(f'-FOV: {self.rangeX}x{self.rangeY}')
