@@ -101,7 +101,6 @@ class Scene:
 
       #homing
       robot.centerToHome(self.rangeX, self.rangeY)
-      self.camera.capture()
 
       # check for shot sequence
       if self.shotSequence:
