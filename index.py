@@ -6,12 +6,12 @@ import RPi.GPIO as GPIO
 sceneSettings = {
   "cameraFOV": 15.4,
   "cameraAspectRatio": 0.75,
-  "focusDelay": 500,
-  "exposureDelay": 500,  # ms - to account for image exposure time required
+  "focusDelay": 0,
+  "exposureDelay": 0,  # ms - to account for image exposure time required
   "rangeX": 120,  # degrees
   "rangeY": 60,   # degrees
   "overlapPercent": .30,
-  "robotSpeed": 5 # 1-10
+  "robotSpeed": 10 # 1-10
 }
 
 if __name__ == "__main__":
