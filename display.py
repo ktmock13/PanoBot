@@ -40,7 +40,7 @@ class Display:
     print(percent)
     # calculate the size and position of the loading bar
     bar_width = self.display.width * 0.8  # set width to 80% of the display's width
-    bar_height = self.display.height * 0.8  # set height to 80% of the display's height
+    bar_height = self.display.height * 0.5  # set height to 50% of the display's height
     bar_x = self.display.width * 0.1  # set x-coordinate to 10% of the display's width
     bar_y = self.display.height  # set y-coordinate to the display's height
     # draw the outline of the loading bar
