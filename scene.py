@@ -69,6 +69,8 @@ class Scene:
       self.display.clearLog()
 
     def runScene(self):
+      #print scene dimensions 
+      print(f"grid: {self.sceneDimensions}")
 
       self.display.loader(0)
 
