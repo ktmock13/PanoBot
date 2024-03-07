@@ -81,13 +81,6 @@ class Scene:
       self.display.clearLog()
 
     def runScene(self):
-      # log info to display
-      self.printInstructions()
-      time.sleep(3)
-      self.printInfo()
-      time.sleep(3)
-      self.camera.printInfo();
-      time.sleep(3)
 
       # activate stepper relay
       if constants.DEBUG != True:
