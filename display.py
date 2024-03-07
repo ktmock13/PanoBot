@@ -47,7 +47,7 @@ class Display:
       # draw three triangles for the tree
       for i in range(3):
           # adjust the width for each triangle
-          width = tree_width * (3 - i) / 3
+          width = tree_width * (i + 1) / 3
           offset_x_i = offset_x + (tree_width - width) / 2
           top = offset_y + tree_height * i / 3
           bottom = offset_y + tree_height * (i + 1) / 3
