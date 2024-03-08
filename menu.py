@@ -9,7 +9,7 @@ screen_width, screen_height = 32, 128  # Screen dimensions
 # Create the I2C interface.
 i2c = busio.I2C(SCL, SDA)
 display = adafruit_ssd1306.SSD1306_I2C(screen_width, screen_height, i2c)
-display.rotation = 2  # Adjust rotation as needed
+# display.rotation = 2  # Adjust rotation as needed
 display.fill(0)
 display.show()
 
@@ -33,7 +33,7 @@ editing_mode = False
 
 # Create an image with PIL
 image = Image.new("1", (screen_width, screen_height), "black")
-image = image.rotate(90, expand=True)
+# image = image.rotate(90, expand=True)
 draw = ImageDraw.Draw(image)
 font = ImageFont.load_default()  # Default font, adjust as needed
 
