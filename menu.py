@@ -20,7 +20,7 @@ display.show()
 menu_items = [
     {"id": "cameraFOV", "value": 15.5, "increment": 0.5},
     {"id": "cameraAspectRatio", "value": 0.75, "increment": 0.5},
-    {"id": "focusDelay", "value": 500, "increment": 100},
+    {"id": "focusDelay", "value": 1000, "increment": 100},
     {"id": "exposureDelay", "value": 500, "increment": 100},
     {"id": "rangeX", "value": 120, "increment": 5},
     {"id": "rangeY", "value": 60, "increment": 5},
