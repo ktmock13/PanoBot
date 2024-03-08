@@ -3,7 +3,6 @@ from board import SCL, SDA
 import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
-import time
 
 
 screen_width, screen_height = 32, 128  # Screen dimensions
@@ -25,7 +24,7 @@ menu_items = [
     {"id": "rangeX", "value": 120, "increment": 5},
     {"id": "rangeY", "value": 60, "increment": 5},
     {"id": "overlapPercent", "value": 0.3, "increment": 0.05},
-    {"id": "robotSpeed", "value": 10, "increment": 1},
+    {"id": "robotSpeed", "value": 5, "increment": 1},
     # Add more menu items as needed
     {"id": "action-start", "value": "START"}  # 'START' as the last menu item
 ]
