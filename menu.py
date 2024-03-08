@@ -36,6 +36,7 @@ image = Image.new("1", (screen_width, screen_height), "black")
 # image = image.rotate(90, expand=True)
 draw = ImageDraw.Draw(image)
 font = ImageFont.load_default()  # Default font, adjust as needed
+print(font.getsize())
 
 def draw_menu():
     draw.rectangle((0, 0, screen_width, screen_height), fill="black")  # Clear screen
