@@ -3,9 +3,12 @@ import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 
+
+screen_width, screen_height = 128, 32  # Screen dimensions
+
 # Create the I2C interface.
 i2c = busio.I2C(SCL, SDA)
-display = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c)
+display = adafruit_ssd1306.SSD1306_I2C(screen_width, screen_height, i2c)
 display.fill(0)
 display.show()
 
@@ -23,7 +26,6 @@ selected_index = 0
 editing_mode = False
 
 # Create an image with PIL
-screen_width, screen_height = 128, 160  # Screen dimensions
 image = Image.new("1", (screen_width, screen_height), "black")
 draw = ImageDraw.Draw(image)
 font = ImageFont.load_default()  # Default font, adjust as needed
