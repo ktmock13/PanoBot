@@ -35,7 +35,10 @@ editing_mode = False
 image = Image.new("1", (screen_width, screen_height), "black")
 # image = image.rotate(90, expand=True)
 draw = ImageDraw.Draw(image)
-font = ImageFont.load_default()  # Default font, adjust as needed
+font_path = "MP.ttf"  # Update this to your font's path
+font_size = 20
+font = ImageFont.truetype(font_path, font_size)
+# font = ImageFont.load_default()  # Default font, adjust as needed
 print(font.getsize("hello"))
 
 def draw_menu():
