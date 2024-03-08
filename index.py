@@ -19,11 +19,12 @@ if __name__ == "__main__":
         draw_menu()
         time.sleep(1)
         change_selection("up")
+        GPIO.cleanup() # this ensures a clean exit  
+    print("Goodbye!")
     time.sleep(2)
     scene.exitScene()
         # deactivate stepper/shutter relays
-    GPIO.cleanup() # this ensures a clean exit  
-    print("Goodbye!")
+
   except KeyboardInterrupt:  
      print('Exiting gracefully')  
   finally:
