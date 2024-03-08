@@ -8,8 +8,7 @@ i2c = busio.I2C(SCL, SDA)
 display = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c)
 display.fill(0)
 display.show()
-menuImage = Image.new("1", (display.width, display.height))
-drawMenu = ImageDraw.Draw(menuImage)
+
 
 # Menu items definition
 menu_items = [
@@ -46,7 +45,8 @@ def draw_menu():
         else:
             draw.text((5, y), text, font=font, fill="white")
 
-    image.show()  # Display the image, replace with your display method
+    display.image(image)
+    display.show()
 
 def change_selection(direction):
     global selected_index
