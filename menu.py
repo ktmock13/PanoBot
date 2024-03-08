@@ -24,7 +24,7 @@ menu_items = [
     {"id": 6, "value": 60, "increment": 5},
     {"id": 7, "value": 0.3, "increment": 0.05},
     # Add more menu items as needed
-    {"id": 7, "value": "GO"}  # 'START' as the last menu item
+    {"id": 7, "value": "START"}  # 'START' as the last menu item
 ]
 
 # Initial state
