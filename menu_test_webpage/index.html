@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Menu Screen Demo with Edit Mode and Indicators</title>
+  <style>
+    canvas {
+      background-color: black;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="screen" width="128" height="320"></canvas>
+  <script>
+    const canvas = document.getElementById('screen');
+    const ctx = canvas.getContext('2d');
+    let editingMode = false;
+    let selectedIndex = 0;
+
+    const menuItems = [
+      { id: 1, value: 8.75, increment: 0.5 },
+      { id: 2, value: 15.4, increment: 1.0 },
+      { id: 3, value: 500, increment: 5.0 },
+      { id: 4, value: 250, increment: 10.0 },
+      // { id: 5, value: 128, increment: 2.0 },
+      { id: 6, value: 68, increment: 0.1 },
+      { id: 7, value: 38, increment: 0.5 },
+      { value: 'START', callback: function () { alert('Starting...'); } }
+    ];
+
+    // Adjust the adjustValue function to use the increment from the selected menu item
+    function adjustValue(direction) {
+      if (typeof menuItems[selectedIndex].value === 'number') {
+        const increment = menuItems[selectedIndex].increment;
+        menuItems[selectedIndex].value += (direction === 'up' ? increment : -increment);
+        menuItems[selectedIndex].value = Math.round(menuItems[selectedIndex].value * 100) / 100; // Adjust rounding precision if needed
+      }
+    }
+
+    function drawMenu() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = '20px monospace';
+      menuItems.forEach((item, i) => {
+        if (!editingMode || i === selectedIndex) {
+          drawItem(item.value, 10, getYPosition(i), i === selectedIndex);
+        }
+      });
+      if (editingMode) {
+        drawEditingIndicators(selectedIndex);
+      }
+    }
+
+    function getYPosition(index) {
+    // Define the start position for the first menu item and the height reserved for the 'START' button
+    const startPosition = 50; // You can adjust this based on your design preferences
+    const startButtonHeight = 30; // Adjust this to match the 'START' button height
+
+    // If the current item is the 'START' button, position it at the bottom of the canvas
+    if (menuItems[index].value === 'START') {
+        return canvas.height - startButtonHeight;
+    }
+
+    // Define the available menu area height, excluding the 'START' button
+    const menuAreaHeight = canvas.height - startPosition - startButtonHeight;
+
+    // Calculate the spacing between menu items within the menu area
+    const numberOfMenuItems = menuItems.length - 1; // Exclude the 'START' button from the count
+    const spacing = menuAreaHeight / numberOfMenuItems;
+
+    // Calculate the y position for each menu item within the menu area bounds
+    return startPosition + index * spacing;
+}
+
+function drawItem(text, x, y, isSelected, index) {
+  const textWidth = ctx.measureText(text.toString()).width;
+  const menuBoundsHeight = canvas.height - 50 - 30; // Subtract startPosition and startButtonHeight from canvas height
+  const cursorHeight = menuBoundsHeight / (menuItems.length - 1); // -1 to exclude the 'START' button
+
+  // Check if the current item is the 'START' button and center it horizontally
+  if (text === 'START') {
+    x = (canvas.width - textWidth) / 2; // Center 'START' horizontally
+  }
+
+  if (isSelected) {
+    // Draw the cursor block with the calculated height
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, y - cursorHeight / 2, canvas.width, cursorHeight); // Center the cursor block vertically around the text
+
+    // Draw the text in black on top of the cursor
+    ctx.fillStyle = 'black';
+  } else {
+    // For non-selected items, just set the text color to white
+    ctx.fillStyle = 'white';
+  }
+
+  // Adjust the text position to be vertically centered within the cursor block
+  const textY = y + cursorHeight / 2 - 10; // Adjust the offset as needed to center the text
+  ctx.fillText(text.toString(), x, textY);
+}
+
+
+
+    function drawEditingIndicators(index) {
+      // Center the triangles in the middle of the screen
+      const centerX = canvas.width / 2;
+      const yBase = getYPosition(index);
+
+      // Increase the vertical spacing from the menu item
+      const yUp = yBase - 35; // More space above the item
+      const yDown = yBase + 35; // More space below the item
+
+      drawTriangle(centerX, yUp, 'up');
+      drawTriangle(centerX, yDown, 'down');
+    }
+
+    function drawTriangle(centerX, centerY, direction) {
+      const size = 5; // Size of the triangle
+      ctx.beginPath();
+
+      if (direction === 'up') {
+        // Pointing upwards
+        ctx.moveTo(centerX - size, centerY + size);
+        ctx.lineTo(centerX + size, centerY + size);
+        ctx.lineTo(centerX, centerY - size);
+      } else {
+        // Pointing downwards
+        ctx.moveTo(centerX - size, centerY - size);
+        ctx.lineTo(centerX + size, centerY - size);
+        ctx.lineTo(centerX, centerY + size);
+      }
+
+      ctx.closePath();
+      ctx.fillStyle = 'white';
+      ctx.fill();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        editingMode ? adjustValue(e.key.slice(5).toLowerCase()) : selectedIndex += (e.key === 'ArrowUp' ? -1 : 1);
+        selectedIndex = Math.max(0, Math.min(menuItems.length - 1, selectedIndex)); // Keep selectedIndex in bounds
+        drawMenu();
+      }
+      if (e.key === 'Enter') {
+        if (typeof menuItems[selectedIndex].value === 'number') {
+          editingMode = !editingMode;
+          drawMenu();
+        } else if (menuItems[selectedIndex].callback) {
+          menuItems[selectedIndex].callback();
+        }
+      }
+    });
+
+    drawMenu(); // Initial draw
+  </script>
+</body>
+
+</html>
