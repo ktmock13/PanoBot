@@ -75,7 +75,7 @@ def adjust_value(direction):
     draw_menu()
 
 # Initial draw
-draw_menu()
+# draw_menu()
 
 # # Example interaction (replace with actual GPIO button handling)
 # try:
