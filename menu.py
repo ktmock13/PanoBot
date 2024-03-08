@@ -35,7 +35,7 @@ editing_mode = False
 image = Image.new("1", (screen_width, screen_height), "black")
 # image = image.rotate(90, expand=True)
 draw = ImageDraw.Draw(image)
-font_path = "AZ1.ttf"  # Update this to your font's path
+font_path = "retro.ttf"  # Update this to your font's path
 font_size = 8
 font = ImageFont.truetype(font_path, font_size)
 # font = ImageFont.load_default()  # Default font, adjust as needed
