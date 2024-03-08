@@ -38,7 +38,7 @@ draw = ImageDraw.Draw(image)
 # font_path = "ret.ttf"  # Update this to your font's path
 # font_size = 6
 # font = ImageFont.truetype(font_path, font_size)
-font = ImageFont.load_default(size=8)  # Default font, adjust as needed
+font = ImageFont.load_default()  # Default font, adjust as needed
 print(font.getsize("hello"))
 
 def draw_menu():
