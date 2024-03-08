@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 
 
-screen_width, screen_height = 128, 32  # Screen dimensions
+screen_width, screen_height = 32, 128  # Screen dimensions
 
 # Create the I2C interface.
 i2c = busio.I2C(SCL, SDA)
@@ -47,9 +47,9 @@ def draw_menu():
         else:
             draw.text((5, y), text, font=font, fill="white")
 
-    rotated_image = image.rotate(90, expand=True)
+    # rotated_image = image.rotate(90, expand=True)
 
-    display.image(rotated_image)
+    display.image(image)
     display.show()
 
 def change_selection(direction):
