@@ -46,7 +46,7 @@ def draw_menu():
         text_width, text_height = draw.textsize(text, font=font)
         
         # Calculate y position based on index, adjust as needed
-        y = 4 + index * (screen_height // len(menu_items))
+        y = 3 + index * (screen_height // len(menu_items))
         
         if index == selected_index:
             # Highlight selected item: draw a white rectangle behind the text
