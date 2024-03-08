@@ -89,38 +89,18 @@ def adjust_value(direction):
         menu_items[selected_index]["value"] = round(menu_items[selected_index]["value"], 2)  # Adjust rounding precision
     draw_menu()
 
-# Initial draw
-draw_menu()
-time.sleep(1)
-change_selection("down")
-draw_menu()
-time.sleep(1)
-change_selection("down")
-draw_menu()
-time.sleep(1)
-change_selection("down")
-draw_menu()
-time.sleep(1)
-change_selection("down")
-draw_menu()
-time.sleep(1)
-change_selection("down")
-draw_menu()
-time.sleep(1)
-change_selection("down")
-draw_menu()
-time.sleep(1)
-change_selection("down")
-draw_menu()
-draw_menu()
-time.sleep(1)
-change_selection("down")
-time.sleep(2)
+# Example sequence
+for _ in range(8):  # Repeat the block 9 times
+    draw_menu()
+    time.sleep(1)
+    change_selection("down")
 sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
 scene = Scene(**sceneSettings)
 scene.runScene() 
-draw_menu()
-
+for _ in range(8):  # Repeat the block 9 times
+    draw_menu()
+    time.sleep(1)
+    change_selection("up")
 
 
 # # Example interaction (replace with actual GPIO button handling)
