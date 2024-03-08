@@ -112,6 +112,7 @@ draw_menu()
 time.sleep(1)
 change_selection("down")
 draw_menu()
+time.sleep(5)
 sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
 scene = Scene(**sceneSettings)
 scene.runScene() 
