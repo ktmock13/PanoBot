@@ -65,6 +65,11 @@ def draw_menu():
     display.image(rotated_image)
     display.show()
 
+def clear_screen():
+    draw.rectangle((0, 0, screen_width, screen_height), fill="black")
+    display.image(image)
+    display.show()
+    
 def change_selection(direction):
     global selected_index
     if direction == "up" and selected_index > 0:

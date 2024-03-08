@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from scene import Scene
-from menu import draw_menu, change_selection, menu_items
+from menu import draw_menu, clear_screen, change_selection, menu_items
 import RPi.GPIO as GPIO
 import time
 
