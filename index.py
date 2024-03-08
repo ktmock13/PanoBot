@@ -15,14 +15,9 @@ sceneSettings = {
 }
 
 if __name__ == "__main__":
-  try: 
-    # Draw the menu with the selected item
-    draw_menu(selected_index)
-
-    # Display the image
-    image.show()
-    # scene = Scene(**sceneSettings)
-    # scene.runScene() 
+  try:  
+    scene = Scene(**sceneSettings)
+    scene.runScene() 
   except KeyboardInterrupt:  
      print('Exiting gracefully')  
   finally:

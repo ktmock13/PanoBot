@@ -25,6 +25,7 @@ menu_items = [
     {"id": "rangeX", "value": 120, "increment": 5},
     {"id": "rangeY", "value": 60, "increment": 5},
     {"id": "overlapPercent", "value": 0.3, "increment": 0.05},
+    {"id": "robotSpeed", "value": 0.005, "increment": 0.001},
     # Add more menu items as needed
     {"id": "action-start", "value": "START"}  # 'START' as the last menu item
 ]
