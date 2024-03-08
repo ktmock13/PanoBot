@@ -66,8 +66,7 @@ def draw_menu():
     display.show()
 
 def clear_screen():
-    draw.rectangle((0, 0, screen_height, screen_width), fill="black")
-    display.image(image)
+    display.image(Image.new("1", (screen_width, screen_height), "black"))
     display.show()
 
 def change_selection(direction):
