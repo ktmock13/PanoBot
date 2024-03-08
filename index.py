@@ -21,6 +21,9 @@ if __name__ == "__main__":
         change_selection("up")
     time.sleep(2)
     scene.exitScene()
+        # deactivate stepper/shutter relays
+    GPIO.cleanup() # this ensures a clean exit  
+    print("Goodbye!")
   except KeyboardInterrupt:  
      print('Exiting gracefully')  
   finally:
