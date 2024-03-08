@@ -36,7 +36,7 @@ image = Image.new("1", (screen_width, screen_height), "black")
 # image = image.rotate(90, expand=True)
 draw = ImageDraw.Draw(image)
 font_path = "ubuntu.ttf"  # Update this to your font's path
-font_size = 12
+font_size = 11
 font = ImageFont.truetype(font_path, font_size)
 # font = ImageFont.load_default()  # Default font, adjust as needed
 print(font.getsize("hello"))
