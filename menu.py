@@ -4,12 +4,12 @@ from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 
 
-screen_width, screen_height = 128, 32  # Screen dimensions
+screen_width, screen_height = 32, 128  # Screen dimensions
 
 # Create the I2C interface.
 i2c = busio.I2C(SCL, SDA)
 display = adafruit_ssd1306.SSD1306_I2C(screen_width, screen_height, i2c)
-display.rotation = 3  # Adjust rotation as needed
+display.rotation = 1  # Adjust rotation as needed
 display.fill(0)
 display.show()
 
