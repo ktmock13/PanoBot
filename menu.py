@@ -54,9 +54,9 @@ def draw_menu():
         if index == selected_index:
             # Highlight selected item: draw a white rectangle behind the text
             draw.rectangle((0, y, screen_width, y + text_height), fill="white")
-            draw.text((1, y), text, font=font, fill="black")
+            draw.text((2, y), text, font=font, fill="black")
         else:
-            draw.text((1, y), text, font=font, fill="white")
+            draw.text((2, y), text, font=font, fill="white")
 
     rotated_image = image.rotate(90, expand=True)
 
