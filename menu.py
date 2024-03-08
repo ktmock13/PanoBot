@@ -47,9 +47,9 @@ def draw_menu():
         else:
             draw.text((5, y), text, font=font, fill="white")
 
-    # rotated_image = image.rotate(90, expand=True)
+    rotated_image = image.rotate(90, expand=True)
 
-    display.image(image)
+    display.image(rotated_image)
     display.show()
 
 def change_selection(direction):
