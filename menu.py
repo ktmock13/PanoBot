@@ -66,10 +66,10 @@ def draw_menu():
     display.show()
 
 def clear_screen():
-    draw.rectangle((0, 0, screen_width, screen_height), fill="black")
+    draw.rectangle((0, 0, screen_height, screen_width), fill="black")
     display.image(image)
     display.show()
-    
+
 def change_selection(direction):
     global selected_index
     if direction == "up" and selected_index > 0:
