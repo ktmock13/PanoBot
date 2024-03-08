@@ -1,8 +1,10 @@
+from scene import Scene
 from board import SCL, SDA
 import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 import time
+
 
 screen_width, screen_height = 32, 128  # Screen dimensions
 
@@ -16,15 +18,15 @@ display.show()
 
 # Menu items definition
 menu_items = [
-    {"id": 1, "value": 0.75, "increment": 0.5},
-    {"id": 2, "value": 15.5, "increment": 0.5},
-    {"id": 3, "value": 500, "increment": 100},
-    {"id": 4, "value": 500, "increment": 100},
-    {"id": 5, "value": 120, "increment": 5},
-    {"id": 6, "value": 60, "increment": 5},
-    {"id": 7, "value": 0.3, "increment": 0.05},
+    {"id": "cameraFOV", "value": 15.5, "increment": 0.5},
+    {"id": "cameraAspectRatio", "value": 0.75, "increment": 0.5},
+    {"id": "focusDelay", "value": 500, "increment": 100},
+    {"id": "exposureDelay", "value": 500, "increment": 100},
+    {"id": "rangeX", "value": 120, "increment": 5},
+    {"id": "rangeY", "value": 60, "increment": 5},
+    {"id": "overlapPercent", "value": 0.3, "increment": 0.05},
     # Add more menu items as needed
-    {"id": 7, "value": "START"}  # 'START' as the last menu item
+    {"id": "action-start", "value": "START"}  # 'START' as the last menu item
 ]
 
 # Initial state
@@ -109,8 +111,11 @@ draw_menu()
 time.sleep(1)
 change_selection("down")
 draw_menu()
-time.sleep(1)
-change_selection("down")
+sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
+scene = Scene(**sceneSettings)
+scene.runScene() 
+draw_menu()
+
 
 
 # # Example interaction (replace with actual GPIO button handling)
