@@ -19,8 +19,9 @@ if __name__ == "__main__":
         draw_menu()
         time.sleep(.5)
         change_selection("up")
-        GPIO.cleanup() # this ensures a clean exit  
+    GPIO.cleanup() # this ensures a clean exit  
     print("Goodbye!")
+    clear_screen()
     time.sleep(2)
     scene.exitScene()
         # deactivate stepper/shutter relays
@@ -31,3 +32,4 @@ if __name__ == "__main__":
     # deactivate stepper/shutter relays
     GPIO.cleanup() # this ensures a clean exit  
     print("Goodbye!")
+    clear_screen()
