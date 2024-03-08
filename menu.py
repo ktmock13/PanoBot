@@ -15,8 +15,13 @@ display.show()
 
 # Menu items definition
 menu_items = [
-    {"id": 1, "value": 8.75, "increment": 0.5},
-    {"id": 2, "value": 15.4, "increment": 1.0},
+    {"id": 1, "value": 0.75, "increment": 0.5},
+    {"id": 2, "value": 15.5, "increment": 0.5},
+    {"id": 3, "value": 500, "increment": 100},
+    {"id": 4, "value": 500, "increment": 100},
+    {"id": 5, "value": 120, "increment": 5},
+    {"id": 6, "value": 60, "increment": 5},
+    {"id": 7, "value": 0.3, "increment": 0.05},
     # Add more menu items as needed
     {"id": 7, "value": "START"}  # 'START' as the last menu item
 ]
