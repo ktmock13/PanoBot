@@ -24,7 +24,7 @@ editing_mode = False
 
 # Create an image with PIL
 screen_width, screen_height = 128, 160  # Screen dimensions
-image = Image.new("RGB", (screen_width, screen_height), "black")
+image = Image.new("1", (screen_width, screen_height), "black")
 draw = ImageDraw.Draw(image)
 font = ImageFont.load_default()  # Default font, adjust as needed
 
