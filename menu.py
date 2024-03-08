@@ -2,7 +2,7 @@ from board import SCL, SDA
 import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
-
+import time
 
 screen_width, screen_height = 32, 128  # Screen dimensions
 
@@ -88,6 +88,19 @@ def adjust_value(direction):
 
 # Initial draw
 draw_menu()
+time.sleep(1)
+change_selection("down")
+draw_menu()
+time.sleep(1)
+change_selection("down")
+draw_menu()
+time.sleep(1)
+change_selection("down")
+draw_menu()
+time.sleep(1)
+change_selection("down")
+
+
 
 # # Example interaction (replace with actual GPIO button handling)
 # try:
