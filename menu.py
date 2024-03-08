@@ -33,7 +33,7 @@ editing_mode = False
 
 # Create an image with PIL
 image = Image.new("1", (screen_width, screen_height), "black")
-# image = image.rotate(90, expand=True)
+image = image.rotate(90, expand=True)
 draw = ImageDraw.Draw(image)
 font = ImageFont.load_default()  # Default font, adjust as needed
 
