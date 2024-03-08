@@ -11,6 +11,7 @@ if __name__ == "__main__":
         draw_menu()
         time.sleep(1)
         change_selection("down")
+    time.sleep(2)
     sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
     scene = Scene(**sceneSettings)
     scene.runScene() 
@@ -18,6 +19,7 @@ if __name__ == "__main__":
         draw_menu()
         time.sleep(1)
         change_selection("up")
+    time.sleep(2)
     scene.exitScene()
   except KeyboardInterrupt:  
      print('Exiting gracefully')  
