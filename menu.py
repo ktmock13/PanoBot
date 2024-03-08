@@ -9,7 +9,7 @@ screen_width, screen_height = 32, 128  # Screen dimensions
 # Create the I2C interface.
 i2c = busio.I2C(SCL, SDA)
 display = adafruit_ssd1306.SSD1306_I2C(screen_width, screen_height, i2c)
-display.setRotation(2)
+display.setRotation(1)
 display.fill(0)
 display.show()
 
