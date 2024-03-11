@@ -2,7 +2,6 @@
 from scene import Scene
 from menu import clear_screen, menu_items, run_menu
 import RPi.GPIO as GPIO
-import time
 
 if __name__ == "__main__":
   try:  

@@ -4,6 +4,7 @@ import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 import RPi.GPIO as GPIO
+import time
 
 screen_width, screen_height = 32, 128  # Screen dimensions
 
