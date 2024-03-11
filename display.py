@@ -40,7 +40,7 @@ class Display:
     print(percent)
     # calculate the size and position of the loading bar
     bar_width = self.display.width - 20  # subtract 10 pixels from the display's width for padding
-    bar_height = self.display.height - 10  # subtract 20 pixels from the display's height for padding and label space
+    bar_height = self.display.height  # subtract 20 pixels from the display's height for padding and label space
     bar_x = 5  # set x-coordinate to 5 pixels for padding
     bar_y = 5  # set y-coordinate to 15 pixels for padding
 
