@@ -47,11 +47,11 @@ class Display:
     # draw the outline of the loading bar
     self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_width, bar_y + bar_height)], outline=255, fill=0)
     
-    # calculate the filled part of the loading bar
+    # Calculate the filled part of the loading bar, but this time it decreases from the right
     fill_width = bar_width * percent / 100
+    # Draw the filled part of the loading bar starting from the right
+    self.drawLog.rectangle([(bar_x + bar_width - fill_width, bar_y), (bar_x + bar_width, bar_y - bar_height)], outline=255, fill=255)
 
-    # draw the filled part of the loading bar
-    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + fill_width, bar_y + bar_height)], outline=255, fill=255)
 
     # Create an image for the label
     label_image = Image.new("1", (bar_height, self.font.getsize(label)[1]))  # Create a new image with height of the bar and width of the text
