@@ -94,30 +94,34 @@ def adjust_value(direction):
 
 
 def run_menu():
+    GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Up button
+    GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Select button
+    GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Down button
     draw_menu()
+    def up_callback(channel):
+      change_selection("up")
+
+    def down_callback(channel):
+      change_selection("down")
+
+    def select_callback(channel):
+        global editing_mode
+        if menu_items[selected_index]["value"] == "START":
+            print("Starting...")  # Or perform the start action
+        elif not editing_mode:
+            toggle_editing_mode()
+        else:
+            toggle_editing_mode()
+
+    # Define the button press event callbacks
+    GPIO.add_event_detect(16, GPIO.FALLING, callback=up_callback, bouncetime=300)
+    GPIO.add_event_detect(20, GPIO.FALLING, callback=select_callback, bouncetime=300)
+    GPIO.add_event_detect(21, GPIO.FALLING, callback=down_callback, bouncetime=300)
+    
     try:
         while True:
-            command = input("Enter command (up, down, select, edit): ").lower()
-            if command == "up":
-                change_selection("up")
-            elif command == "down":
-                change_selection("down")
-            elif command == "select":
-                if menu_items[selected_index]["value"] == "START":
-                    print("Starting...")
-                    sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
-                    scene = Scene(**sceneSettings)
-                    scene.runScene()
-                    scene.exitScene()
-                    draw_menu()
-                elif not editing_mode:
-                    toggle_editing_mode()
-                else:
-                    toggle_editing_mode()
-            elif command == "edit" and editing_mode:
-                adjust_value("up")  # Example adjustment, replace with actual button input
+            time.sleep(0.1)  # Small delay to reduce CPU usage
     except KeyboardInterrupt:
-        print("Program exited");
+        GPIO.cleanup()  # Clean up GPIO on CTRL+C exit
         clear_screen()
-
 
