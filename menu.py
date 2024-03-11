@@ -3,6 +3,7 @@ from board import SCL, SDA
 import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
+import RPi.GPIO as GPIO
 
 
 screen_width, screen_height = 32, 128  # Screen dimensions
