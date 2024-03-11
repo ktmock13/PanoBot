@@ -117,16 +117,23 @@ def run_menu():
             draw_menu()
 
     def down_callback(channel):
+      def action():
         global selected_index, editing_mode
         if editing_mode and "increment" in menu_items[selected_index]:
-            # Decrease the value in editing mode
-            menu_items[selected_index]["value"] -= menu_items[selected_index]["increment"]
-            menu_items[selected_index]["value"] = round(menu_items[selected_index]["value"], 2)  # Maintain 2 decimal places
-            draw_menu()
+          # Decrease the value in editing mode
+          menu_items[selected_index]["value"] -= menu_items[selected_index]["increment"]
+          menu_items[selected_index]["value"] = round(menu_items[selected_index]["value"], 2)  # Maintain 2 decimal places
+          draw_menu()
         elif not editing_mode and selected_index < len(menu_items) - 1:
-            # Move selection down in navigation mode
-            selected_index += 1
-            draw_menu()
+          # Move selection down in navigation mode
+          selected_index += 1
+          draw_menu()
+      action()
+      while GPIO.input(21) == GPIO.LOW:  # While button is still pressed
+        # Here you would trigger your 'click' action
+        action()
+        time.sleep(0.25)  # Wait 250ms before the next action
+        
 
     def select_callback(channel):
         global editing_mode
