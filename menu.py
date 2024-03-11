@@ -105,8 +105,8 @@ def run_menu():
     GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Down button
     draw_menu()
     def up_callback(channel):
-        global selected_index, editing_mode
         def action():
+          global selected_index, editing_mode
           if editing_mode and "increment" in menu_items[selected_index]:
               # Increase the value in editing mode
               menu_items[selected_index]["value"] += menu_items[selected_index]["increment"]
@@ -123,8 +123,8 @@ def run_menu():
           time.sleep(0.25)  # Wait 250ms before the next action
 
     def down_callback(channel):
-      global selected_index, editing_mode
       def action():
+        global selected_index, editing_mode
         if editing_mode and "increment" in menu_items[selected_index]:
           # Decrease the value in editing mode
           menu_items[selected_index]["value"] -= menu_items[selected_index]["increment"]
