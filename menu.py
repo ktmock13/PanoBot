@@ -117,7 +117,7 @@ def run_menu():
               selected_index -= 1
               draw_menu()
         # action()
-        while GPIO.input(21) == GPIO.LOW:  # While button is still pressed
+        while GPIO.input(16) == GPIO.LOW:  # While button is still pressed
           # Here you would trigger your 'click' action
           action()
           time.sleep(0.25)  # Wait 250ms before the next action
