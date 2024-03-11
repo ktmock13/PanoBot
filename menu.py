@@ -33,6 +33,7 @@ menu_items = [
 # Initial state
 selected_index = 8
 editing_mode = False
+cancel_task = False
 
 # Create an image with PIL
 image = Image.new("1", (screen_width, screen_height), "black")
@@ -99,10 +100,26 @@ def adjust_value(direction):
     draw_menu()
 
 def long_task():
-    print("Starting...")  # Or perform the start action
-    sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
+    global cancel_task
+    print("Starting long task...")
+    cancel_task = False  # Reset the cancel flag at the start
+    sceneSettings = {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
     scene = Scene(**sceneSettings)
-    scene.runScene() 
+    
+    if cancel_task:  # Check if the cancel flag is set before starting
+        print("Long task was cancelled before starting.")
+        return
+    
+    try:
+        scene.runScene()  # Run the long task
+    except Exception as e:
+        print(f"Long task interrupted with error: {e}")
+
+    if cancel_task:  # Check if the cancel flag was set during the execution
+        print("Long task was cancelled during execution.")
+    else:
+        print("Long task completed.")
+
 def run_menu():
     GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Up button
     GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Select button
@@ -146,13 +163,19 @@ def run_menu():
         
 
     def select_callback(channel):
-        global editing_mode
-        if menu_items[selected_index]["value"] == "START":
-            long_task()
-        elif not editing_mode:
-            toggle_editing_mode()
-        else:
-            toggle_editing_mode()
+      global editing_mode, long_task_thread, cancel_task
+
+      if menu_items[selected_index]["value"] == "START":
+          if not editing_mode:
+              if 'long_task_thread' in globals() and long_task_thread.is_alive():
+                  # If the long task is running, set the cancel flag
+                  cancel_task = True
+              else:
+                  # Start the long task in a new thread
+                  long_task_thread = threading.Thread(target=long_task)
+                  long_task_thread.start()
+      else:
+          toggle_editing_mode()
 
     # Define the button press event callbacks
     GPIO.add_event_detect(16, GPIO.FALLING, callback=up_callback, bouncetime=300)
