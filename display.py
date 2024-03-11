@@ -36,35 +36,40 @@ class Display:
     self.isLogging = isLogging
     self.font = ImageFont.load_default()
 
-  def loader(self, percent, label="Loading"):
+  def loader(self, percent, label=""):
     print(percent)
-    label_space = 30  # Space for the label
+    # calculate the size and position of the loading bar
+    bar_width = self.display.width - 20  # subtract 10 pixels from the display's width for padding
+    bar_height = self.display.height -5 # subtract 20 pixels from the display's height for padding and label space
+    bar_x = 5  # set x-coordinate to 5 pixels for padding
+    bar_y = 0  # set y-coordinate to 15 pixels for padding
+
+    # draw the outline of the loading bar
+    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_width, bar_y + bar_height)], outline=255, fill=0)
     
-    # Calculate the size and position of the loading bar, adjusting for label space
-    bar_width = self.display.width - 20 - label_space
-    bar_height = self.display.height - 10
-    bar_x = 5 + label_space  # Start position adjusted for label space
-    bar_y = self.display.height - 5
-    
-    # Clear previous content
-    self.drawLog.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
-    
-    # Draw the label rotated 90 degrees
-    label_x = 2
-    label_y = self.display.height // 2
-    self.drawLog.text((label_x, label_y), label, font=self.font, fill=255, anchor="ms", angle=90)
-    
-    # Draw the outline of the loading bar
-    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_width, bar_y - bar_height)], outline=255, fill=0)
-    
-    # Calculate and draw the filled part of the loading bar, reversing the fill direction
+    # calculate the filled part of the loading bar
     fill_width = bar_width * percent / 100
-    self.drawLog.rectangle([(bar_x + bar_width - fill_width, bar_y), (bar_x + bar_width, bar_y - bar_height)], outline=255, fill=255)
-    
-    # Display the image
+
+    # draw the filled part of the loading bar
+    # Calculate and draw the filled part of the loading bar
+    fill_width = bar_width * percent / 100
+    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + fill_width, bar_y - bar_height)], outline=255, fill=255)
+    # Create an image for the label
+    label_image = Image.new("1", (bar_height, self.font.getsize(label)[1]))  # Create a new image with height of the bar and width of the text
+    label_draw = ImageDraw.Draw(label_image)
+
+    # Draw the label text onto the label image
+    label_draw.text((0, 0), label, font=self.font, fill=255)
+
+    # Rotate the label image by 90 degrees
+    rotated_label = label_image.rotate(90, expand=True)
+
+    # Paste the rotated label image onto the logImage
+    self.logImage.paste(rotated_label, (self.display.width - rotated_label.width, bar_y))
+
+    # Display image.
     self.display.image(self.logImage)
     self.display.show()
-
 
 
 
