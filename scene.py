@@ -1,5 +1,6 @@
 import math
 import time
+from Panobot.software.menu import draw_menu
 from robot import Robot
 from camera import Camera
 from display import Display
@@ -66,6 +67,8 @@ class Scene:
     def exitScene(self):
       if constants.DEBUG != True:
         GPIO.output(self.STEPPER_RELAY, GPIO.LOW) # low is how you deactivate the relay
+      GPIO.cleanup()  # Clean up GPIO on CTRL+C exit
+      draw_menu()
       self.display.clearLog()
 
     def runScene(self):
