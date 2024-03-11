@@ -132,6 +132,9 @@ def run_menu():
         global editing_mode
         if menu_items[selected_index]["value"] == "START":
             print("Starting...")  # Or perform the start action
+            sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
+            scene = Scene(**sceneSettings)
+            scene.runScene() 
         elif not editing_mode:
             toggle_editing_mode()
         else:
