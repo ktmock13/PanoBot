@@ -31,7 +31,7 @@ menu_items = [
 ]
 
 # Initial state
-selected_index = 0
+selected_index = 8
 editing_mode = False
 
 # Create an image with PIL
