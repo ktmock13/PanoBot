@@ -101,25 +101,11 @@ def adjust_value(direction):
     draw_menu()
 
 def long_task():
-    global cancel_task
-    print("Starting long task...")
-    cancel_task = False  # Reset the cancel flag at the start
+    global scene
+    print("scene long task...")
     sceneSettings = {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
     scene = Scene(**sceneSettings)
-    
-    if cancel_task:  # Check if the cancel flag is set before starting
-        print("Long task was cancelled before starting.")
-        return
-    
-    try:
-        scene.runScene()  # Run the long task
-    except Exception as e:
-        print(f"Long task interrupted with error: {e}")
-
-    if cancel_task:  # Check if the cancel flag was set during the execution
-        print("Long task was cancelled during execution.")
-    else:
-        print("Long task completed.")
+    scene.runScene()
 
 def run_menu():
     GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Up button
@@ -164,14 +150,13 @@ def run_menu():
         
 
     def select_callback(channel):
-      global editing_mode, long_task_thread, cancel_task
+      global editing_mode, long_task_thread, cancel_task, scene
 
       if menu_items[selected_index]["value"] == "START":
           if not editing_mode:
               if 'long_task_thread' in globals() and long_task_thread.is_alive():
                   # If the long task is running, set the cancel flag
-                  print("Cancelling long task...")
-                  cancel_task = True
+                  scene.exitScene()
               else:
                   # Start the long task in a new thread
                   long_task_thread = threading.Thread(target=long_task)
