@@ -93,22 +93,31 @@ def adjust_value(direction):
     draw_menu()
 
 
-# # Example interaction (replace with actual GPIO button handling)
-# try:
-#     while True:
-#         command = input("Enter command (up, down, select, edit): ").lower()
-#         if command == "up":
-#             change_selection("up")
-#         elif command == "down":
-#             change_selection("down")
-#         elif command == "select":
-#             if menu_items[selected_index]["value"] == "START":
-#                 print("Starting...")
-#             elif not editing_mode:
-#                 toggle_editing_mode()
-#             else:
-#                 toggle_editing_mode()
-#         elif command == "edit" and editing_mode:
-#             adjust_value("up")  # Example adjustment, replace with actual button input
-# except KeyboardInterrupt:
-#     print("Program exited")
+def runMenu(self):
+    draw_menu()
+    try:
+        while True:
+            command = input("Enter command (up, down, select, edit): ").lower()
+            if command == "up":
+                change_selection("up")
+            elif command == "down":
+                change_selection("down")
+            elif command == "select":
+                if menu_items[selected_index]["value"] == "START":
+                    print("Starting...")
+                    sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
+                    scene = Scene(**sceneSettings)
+                    scene.runScene()
+                    scene.exitScene()
+                    draw_menu()
+                elif not editing_mode:
+                    toggle_editing_mode()
+                else:
+                    toggle_editing_mode()
+            elif command == "edit" and editing_mode:
+                adjust_value("up")  # Example adjustment, replace with actual button input
+    except KeyboardInterrupt:
+        print("Program exited");
+        clear_screen()
+
+
