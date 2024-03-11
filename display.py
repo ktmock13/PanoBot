@@ -42,6 +42,48 @@ class Display:
     self.drawLog.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
 
     # Calculate the size and position of the loading bar
+    bar_width = self.display.height - 20  # Use height for width due to rotation, with padding
+    bar_height = 10  # Set the height of the loading bar
+    bar_x = (self.display.width - bar_height) // 2  # Center the bar horizontally
+    bar_y = 10  # Set y-coordinate to 10 pixels from the top (now the side)
+
+    # Draw the outline of the loading bar
+    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_height, bar_y + bar_width)], outline=255, fill=0)
+
+    # Calculate and draw the filled part of the loading bar
+    fill_width = bar_width * (percent / 100)
+    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_height, bar_y + fill_width)], outline=255, fill=255)
+
+    # Display the loading percentage label at the bottom of the screen (rotated)
+    label = f"{percent}%"
+    font = ImageFont.load_default()
+    text_width, text_height = self.drawLog.textsize(label, font=font)
+
+    # Because the screen is rotated, the label's x-coordinate is based on the display's width
+    label_x = self.display.width - text_height - 1  # Subtract text_height to account for rotation
+    label_y = (self.display.height - text_width) // 2  # Center the text along the display's height
+
+    # Create a new image for the rotated text
+    text_image = Image.new('1', (text_height, text_width))
+    text_draw = ImageDraw.Draw(text_image)
+
+    # Draw the text onto the text image
+    text_draw.text((0, 0), label, font=font, fill=255)
+
+    # Rotate the text image by 90 degrees to the right
+    rotated_text_image = text_image.rotate(90, expand=1)
+
+    # Paste the rotated text image onto the main image
+    self.logImage.paste(rotated_text_image, (label_x, label_y))
+
+    # Display the updated image on the OLED
+    self.display.image(self.logImage)
+    self.display.show()
+    print(percent)
+    # Clear the previous loader image
+    self.drawLog.rectangle((0, 0, self.display.width, self.display.height), outline=0, fill=0)
+
+    # Calculate the size and position of the loading bar
     bar_width = self.display.width - 20  # Subtract 10 pixels padding on each side
     bar_height = 10  # Set the height of the loading bar
     bar_x = 10  # Set x-coordinate to 10 pixels from the left
