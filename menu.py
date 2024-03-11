@@ -55,12 +55,8 @@ def draw_menu():
         text = str(item["value"])
         text_width, text_height = draw.textsize(text, font=font)
 
-        # Calculate y position based on index, adjust as needed
-        # When in editing mode, center the selected item vertically
-        if editing_mode:
-            y = (screen_height - text_height) // 2
-        else:
-            y = 3 + index * (screen_height // len(menu_items))
+        # Keep the y position calculation consistent regardless of editing mode
+        y = 3 + index * (screen_height // len(menu_items))
 
         if index == selected_index:
             # Highlight selected item: draw a white rectangle behind the text
@@ -70,9 +66,9 @@ def draw_menu():
             draw.text((2, y), text, font=font, fill="white")
 
     rotated_image = image.rotate(90, expand=True)
-
     display.image(rotated_image)
     display.show()
+
 
 def clear_screen():
     display.image(Image.new("1", (screen_width, screen_height), "black"))
