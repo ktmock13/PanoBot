@@ -51,7 +51,7 @@ class Display:
     fill_width = bar_width * percent / 100
 
     # draw the filled part of the loading bar
-    self.drawLog.rectangle([(bar_x-bar_width, bar_y-bar_height), (bar_x - fill_width, bar_y - bar_height)], outline=255, fill=255)
+    self.drawLog.rectangle([(bar_x+bar_width, bar_y+bar_height), (bar_x - fill_width, bar_y + bar_height)], outline=255, fill=255)
 
     # Create an image for the label
     label_image = Image.new("1", (bar_height, self.font.getsize(label)[1]))  # Create a new image with height of the bar and width of the text
