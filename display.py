@@ -45,11 +45,13 @@ class Display:
     bar_y = 0  # set y-coordinate to 15 pixels for padding
 
     # draw the outline of the loading bar
-    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_width, bar_y + bar_height)], outline=255, fill=0)
-    
-    # Calculate the filled part of the loading bar, but this time it decreases from the right
+    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_width, bar_y - bar_height)], outline=255, fill=0)
+
+    # calculate the filled part of the loading bar to load in the opposite direction
     fill_width = bar_width * percent / 100
-    # Draw the filled part of the loading bar starting from the right
+
+    # Adjust this line to reverse the direction of the loading bar:
+    # Change the starting point of the filled rectangle to the right side and subtract fill_width
     self.drawLog.rectangle([(bar_x + bar_width - fill_width, bar_y), (bar_x + bar_width, bar_y - bar_height)], outline=255, fill=255)
 
 
