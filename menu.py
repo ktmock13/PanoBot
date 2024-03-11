@@ -3,7 +3,7 @@ from board import SCL, SDA
 import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
-
+import RPi.GPIO as GPIO
 
 screen_width, screen_height = 32, 128  # Screen dimensions
 
@@ -117,7 +117,7 @@ def run_menu():
     GPIO.add_event_detect(16, GPIO.FALLING, callback=up_callback, bouncetime=300)
     GPIO.add_event_detect(20, GPIO.FALLING, callback=select_callback, bouncetime=300)
     GPIO.add_event_detect(21, GPIO.FALLING, callback=down_callback, bouncetime=300)
-    
+
     try:
         while True:
             time.sleep(0.1)  # Small delay to reduce CPU usage
