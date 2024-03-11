@@ -72,7 +72,7 @@ class Scene:
       #print scene dimensions 
       print(f"grid: {self.sceneDimensions}")
 
-      self.display.loader(0)
+      self.display.loader(0, self.sceneDimensions)
 
       # activate stepper relay
       if constants.DEBUG != True:
@@ -98,7 +98,7 @@ class Scene:
               # code to take photo
               self.camera.capture()
               #increment loader screen
-              self.display.loader((index + 1) / len(self.shotSequence) * 100, f"{shot.x}x{shot.y}")
+              self.display.loader((index + 1) / len(self.shotSequence) * 100, self.sceneDimensions)
               # delay to account for exposure
               timeout(self.exposureDelay)
 
