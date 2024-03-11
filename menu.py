@@ -106,6 +106,7 @@ def long_task():
     sceneSettings = {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
     scene = Scene(**sceneSettings)
     scene.runScene()
+    draw_menu()
 
 def run_menu():
     GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Up button
