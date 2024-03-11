@@ -42,7 +42,7 @@ class Display:
     bar_width = self.display.width - 20  # subtract 10 pixels from the display's width for padding
     bar_height = self.display.height  # subtract 20 pixels from the display's height for padding and label space
     bar_x = 5  # set x-coordinate to 5 pixels for padding
-    bar_y = 5  # set y-coordinate to 15 pixels for padding
+    bar_y = 0  # set y-coordinate to 15 pixels for padding
 
     # draw the outline of the loading bar
     self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_width, bar_y + bar_height)], outline=255, fill=0)
