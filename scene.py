@@ -17,7 +17,7 @@ class Shot:
   def str(self):
       return f"x:{self.x} y:{self.y})"
 class Scene:
-    def __init__(self, cameraFOV, cameraAspectRatio, focusDelay, exposureDelay, rangeX, rangeY, overlapPercent, robotSpeed):
+    def __init__(self, cameraFOV, cameraAspectRatio, overlapPercent,  rangeX, rangeY, focusDelay,exposureDelay, robotSpeed):
         self.running = False
         self.display = Display()
         # self.robot = Camera(cameraFOV, cameraAspect, cameraName, self.display)
