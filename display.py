@@ -38,6 +38,7 @@ class Display:
 
   def loader(self, percent, label="Loading"):
     print(percent)
+    label = percent
     # calculate the size and position of the loading bar
     bar_width = self.display.width - 20  # subtract 10 pixels from the display's width for padding
     bar_height = self.display.height - 20  # subtract 20 pixels from the display's height for padding and label space
