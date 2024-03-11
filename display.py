@@ -39,10 +39,10 @@ class Display:
   def loader(self, percent):
     print(percent)
     # calculate the size and position of the loading bar
-    bar_width = self.display.width - 10  # subtract 10 pixels from the display's width
-    bar_height = self.display.height - 40  # subtract 10 pixels from the display's height
+    bar_width = self.display.width - 20  # subtract 10 pixels from the display's width
+    bar_height = self.display.height - 10  # subtract 10 pixels from the display's height
     bar_x = 5  # set x-coordinate to 5 pixels
-    bar_y = self.display.height - 5  # set y-coordinate to 5 pixels less than the display's height
+    bar_y = self.display.height -   # set y-coordinate to 5 pixels less than the display's height
     # draw the outline of the loading bar
     self.drawLog.rectangle([(bar_x, bar_y), (bar_x + bar_width, bar_y - bar_height)], outline=255, fill=0)  # adjusted y-coordinates to flip the bar
     # calculate the filled part of the loading bar
