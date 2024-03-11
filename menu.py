@@ -120,7 +120,7 @@ def run_menu():
         while GPIO.input(16) == GPIO.LOW:  # While button is still pressed
           # Here you would trigger your 'click' action
           action()
-          time.sleep(0.25)  # Wait 250ms before the next action
+          time.sleep(0.12)  # Wait 250ms before the next action
 
     def down_callback(channel):
       def action():
@@ -138,7 +138,7 @@ def run_menu():
       while GPIO.input(21) == GPIO.LOW:  # While button is still pressed
         # Here you would trigger your 'click' action
         action()
-        time.sleep(0.25)  # Wait 250ms before the next action
+        time.sleep(0.12)  # Wait 250ms before the next action
         
 
     def select_callback(channel):
