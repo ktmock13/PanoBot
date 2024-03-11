@@ -85,7 +85,7 @@ class Scene:
         time.sleep(ms / 1000)
 
       #homing
-      robot.centerToHome(self.rangeX, self.rangeY)
+      # robot.centerToHome(self.rangeX, self.rangeY)
 
       # check for shot sequence
       if self.shotSequence:
