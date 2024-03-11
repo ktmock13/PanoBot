@@ -47,40 +47,28 @@ print(font.getsize("hello"))
 def draw_menu():
     draw.rectangle((0, 0, screen_width, screen_height), fill="black")  # Clear screen
 
-  
-    # Check if in editing mode
-    if editing_mode:
-        item = menu_items[selected_index]
+    for index, item in enumerate(menu_items):
+        # Skip non-selected items if in editing mode
+        if editing_mode and index != selected_index:
+            continue
+
         text = str(item["value"])
         text_width, text_height = draw.textsize(text, font=font)
 
-        # Calculate the y position to center the item vertically
-        y = (screen_height - text_height) // 2
+        # Calculate y position based on index, adjust as needed
+        # When in editing mode, center the selected item vertically
+        if editing_mode:
+            y = (screen_height - text_height) // 2
+        else:
+            y = 3 + index * (screen_height // len(menu_items))
 
-        # Draw the selected item's value, centered horizontally and vertically
-        x = (screen_width - text_width) // 2
-        draw.rectangle((0, y - 10, screen_width, y + text_height + 15), fill="white")  # Background for visibility
-        draw.text((x, y), text, font=font, fill="black")
-    else:
-        for index, item in enumerate(menu_items):
-            text = str(item["value"])
-            text_width, text_height = draw.textsize(text, font=font)
+        if index == selected_index:
+            # Highlight selected item: draw a white rectangle behind the text
+            draw.rectangle((0, y, screen_width, y + text_height), fill="white")
+            draw.text((2, y), text, font=font, fill="black")
+        else:
+            draw.text((2, y), text, font=font, fill="white")
 
-            # Calculate the x position to center the 'START' button or align other items to the left
-            if item["value"] == "START":
-                x = (screen_width - text_width) // 2  # Center 'START' horizontally
-            else:
-                x = 5  # Regular items aligned to the left
-
-            # Calculate the y position based on the index
-            y = 10 + index * (screen_height // len(menu_items))
-
-            # Highlight the selected item or set the color to white for others
-            if index == selected_index:
-                draw.rectangle((0, y, screen_width, y + text_height + 5), fill="white")
-                draw.text((x, y), text, font=font, fill="black")
-            else:
-                draw.text((x, y), text, font=font, fill="white")
     rotated_image = image.rotate(90, expand=True)
 
     display.image(rotated_image)
