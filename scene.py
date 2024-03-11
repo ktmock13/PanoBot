@@ -66,9 +66,8 @@ class Scene:
 
     def exitScene(self):
       self.running = False
-      if constants.DEBUG != True:
-        GPIO.output(self.STEPPER_RELAY, GPIO.LOW) # low is how you deactivate the relay
-      # GPIO.cleanup()  # Clean up GPIO on CTRL+C exit
+      GPIO.output(self.STEPPER_RELAY, GPIO.LOW) # low is how you deactivate the relay
+     
 
     def runScene(self):
       self.running = True
@@ -78,8 +77,7 @@ class Scene:
       self.display.loader(0, self.sceneDimensions)
 
       # activate stepper relay
-      if constants.DEBUG != True:
-        GPIO.output(self.STEPPER_RELAY, GPIO.LOW) #low is how you activate the relay
+      GPIO.output(self.STEPPER_RELAY, GPIO.LOW) #low is how you activate the relay
 
       # Init Robot
       robot = Robot(self.robotSpeed)
