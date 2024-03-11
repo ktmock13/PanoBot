@@ -68,8 +68,7 @@ class Scene:
       self.running = False
       if constants.DEBUG != True:
         GPIO.output(self.STEPPER_RELAY, GPIO.LOW) # low is how you deactivate the relay
-      GPIO.cleanup()  # Clean up GPIO on CTRL+C exit
-      self.display.clearLog()
+      # GPIO.cleanup()  # Clean up GPIO on CTRL+C exit
 
     def runScene(self):
       self.running = True
