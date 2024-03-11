@@ -36,7 +36,7 @@ class Display:
     self.isLogging = isLogging
     self.font = ImageFont.load_default()
 
-  def loader(self, percent, label=""):
+  def loader(self, percent, label="11x5"):
     print(percent)
     # calculate the size and position of the loading bar
     bar_width = self.display.width - 20  # subtract 10 pixels from the display's width for padding
@@ -51,9 +51,8 @@ class Display:
     fill_width = bar_width * percent / 100
 
     # draw the filled part of the loading bar
-    # Calculate and draw the filled part of the loading bar
-    fill_width = bar_width * percent / 100
-    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + fill_width, bar_y - bar_height)], outline=255, fill=255)
+    self.drawLog.rectangle([(bar_x, bar_y), (bar_x + fill_width, bar_y + bar_height)], outline=255, fill=255)
+
     # Create an image for the label
     label_image = Image.new("1", (bar_height, self.font.getsize(label)[1]))  # Create a new image with height of the bar and width of the text
     label_draw = ImageDraw.Draw(label_image)
