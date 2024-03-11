@@ -33,7 +33,6 @@ menu_items = [
 # Initial state
 selected_index = 8
 editing_mode = False
-program_running = False  # Add this line to define the program running flag
 
 # Create an image with PIL
 image = Image.new("1", (screen_width, screen_height), "black")
@@ -101,9 +100,6 @@ def adjust_value(direction):
 
 
 def run_menu():
-
-    sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
-    scene = Scene(**sceneSettings)
     GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Up button
     GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Select button
     GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Down button
@@ -133,15 +129,12 @@ def run_menu():
             draw_menu()
 
     def select_callback(channel):
-        global editing_mode, program_running
-        if program_running:
-           scene.exitScene()
-           program_running = False 
+        global editing_mode
         if menu_items[selected_index]["value"] == "START":
             print("Starting...")  # Or perform the start action
             sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
             scene = Scene(**sceneSettings)
-            scene.runScene()
+            scene.runScene() 
         elif not editing_mode:
             toggle_editing_mode()
         else:
