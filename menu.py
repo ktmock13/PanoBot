@@ -101,10 +101,28 @@ def run_menu():
     GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Down button
     draw_menu()
     def up_callback(channel):
-      change_selection("up")
+        global selected_index, editing_mode
+        if editing_mode and "increment" in menu_items[selected_index]:
+            # Increase the value in editing mode
+            menu_items[selected_index]["value"] += menu_items[selected_index]["increment"]
+            menu_items[selected_index]["value"] = round(menu_items[selected_index]["value"], 2)  # Maintain 2 decimal places
+            draw_menu()
+        elif not editing_mode and selected_index > 0:
+            # Move selection up in navigation mode
+            selected_index -= 1
+            draw_menu()
 
     def down_callback(channel):
-        change_selection("down")
+        global selected_index, editing_mode
+        if editing_mode and "increment" in menu_items[selected_index]:
+            # Decrease the value in editing mode
+            menu_items[selected_index]["value"] -= menu_items[selected_index]["increment"]
+            menu_items[selected_index]["value"] = round(menu_items[selected_index]["value"], 2)  # Maintain 2 decimal places
+            draw_menu()
+        elif not editing_mode and selected_index < len(menu_items) - 1:
+            # Move selection down in navigation mode
+            selected_index += 1
+            draw_menu()
 
     def select_callback(channel):
         global editing_mode
