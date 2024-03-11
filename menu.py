@@ -93,7 +93,7 @@ def adjust_value(direction):
     draw_menu()
 
 
-def runMenu(self):
+def run_menu():
     draw_menu()
     try:
         while True:
