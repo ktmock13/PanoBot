@@ -66,7 +66,7 @@ class Scene:
 
     def exitScene(self):
       self.running = False
-      GPIO.output(self.STEPPER_RELAY, GPIO.LOW) # low is how you deactivate the relay
+      GPIO.output(self.STEPPER_RELAY, GPIO.HIGH) # low is how you deactivate the relay
      
 
     def runScene(self):
