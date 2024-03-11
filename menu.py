@@ -3,8 +3,7 @@ from board import SCL, SDA
 import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
-import RPi.GPIO as GPIO
-import time
+
 
 screen_width, screen_height = 32, 128  # Screen dimensions
 
@@ -31,7 +30,7 @@ menu_items = [
 ]
 
 # Initial state
-selected_index = 8
+selected_index = 0
 editing_mode = False
 
 # Create an image with PIL
@@ -103,15 +102,12 @@ def run_menu():
       change_selection("up")
 
     def down_callback(channel):
-      change_selection("down")
+        change_selection("down")
 
     def select_callback(channel):
         global editing_mode
         if menu_items[selected_index]["value"] == "START":
             print("Starting...")  # Or perform the start action
-            sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
-            scene = Scene(**sceneSettings)
-            scene.runScene() 
         elif not editing_mode:
             toggle_editing_mode()
         else:
@@ -121,7 +117,6 @@ def run_menu():
     GPIO.add_event_detect(16, GPIO.FALLING, callback=up_callback, bouncetime=300)
     GPIO.add_event_detect(20, GPIO.FALLING, callback=select_callback, bouncetime=300)
     GPIO.add_event_detect(21, GPIO.FALLING, callback=down_callback, bouncetime=300)
-
     try:
         while True:
             time.sleep(0.1)  # Small delay to reduce CPU usage
