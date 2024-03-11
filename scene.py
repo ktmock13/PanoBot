@@ -89,9 +89,11 @@ class Scene:
       robot.centerToHome(self.rangeX, self.rangeY)
 
       # check for shot sequence
-      if self.shotSequence and self.running:
+      if self.shotSequence:
           # loop through shots
           for index, shot in enumerate(self.shotSequence):
+              if self.running == False:
+                break
               # code to move
               robot.updatePosition(shot.x, shot.y);
               # delay to account for movement settle
