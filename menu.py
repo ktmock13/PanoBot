@@ -81,6 +81,7 @@ def change_selection(direction):
 def toggle_editing_mode():
     global editing_mode
     editing_mode = not editing_mode
+    print("Editing mode:", editing_mode)
     draw_menu()
 
 def adjust_value(direction):
