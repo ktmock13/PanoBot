@@ -101,6 +101,7 @@ def adjust_value(direction):
 
 
 def run_menu():
+
     sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
     scene = Scene(**sceneSettings)
     GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Up button
@@ -132,7 +133,7 @@ def run_menu():
             draw_menu()
 
     def select_callback(channel):
-        global editing_mode
+        global editing_mode, program_running
         if program_running:
            scene.runScene()
            program_running = False 
