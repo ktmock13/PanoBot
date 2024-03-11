@@ -40,7 +40,7 @@ class Display:
     print(percent)
     # calculate the size and position of the loading bar
     bar_width = self.display.width - 10  # subtract 10 pixels from the display's width
-    bar_height = self.display.height - 10  # subtract 10 pixels from the display's height
+    bar_height = self.display.height - 40  # subtract 10 pixels from the display's height
     bar_x = 5  # set x-coordinate to 5 pixels
     bar_y = self.display.height - 5  # set y-coordinate to 5 pixels less than the display's height
     # draw the outline of the loading bar
@@ -51,6 +51,7 @@ class Display:
     self.drawLog.rectangle([(bar_x + bar_width, bar_y), (bar_x + bar_width - fill_width, bar_y - bar_height)], outline=255, fill=255)  # adjusted x-coordinates to flip the loading direction
     # Display image.
     self.display.image(self.logImage)
+    
     self.display.show()
 
   def printLog(self):
