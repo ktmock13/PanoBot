@@ -1,6 +1,5 @@
 import math
 import time
-from Panobot.software.menu import draw_menu
 from robot import Robot
 from camera import Camera
 from display import Display
@@ -19,6 +18,7 @@ class Shot:
       return f"x:{self.x} y:{self.y})"
 class Scene:
     def __init__(self, cameraFOV, cameraAspectRatio, focusDelay, exposureDelay, rangeX, rangeY, overlapPercent, robotSpeed):
+        self.running = False
         self.display = Display()
         # self.robot = Camera(cameraFOV, cameraAspect, cameraName, self.display)
         self.camera = Camera(cameraFOV, cameraAspectRatio)
@@ -65,13 +65,14 @@ class Scene:
         GPIO.setup(self.STEPPER_RELAY, GPIO.OUT)
 
     def exitScene(self):
+      self.running = False
       if constants.DEBUG != True:
         GPIO.output(self.STEPPER_RELAY, GPIO.LOW) # low is how you deactivate the relay
       GPIO.cleanup()  # Clean up GPIO on CTRL+C exit
-      draw_menu()
       self.display.clearLog()
 
     def runScene(self):
+      self.running = True
       #print scene dimensions 
       print(f"grid: {self.sceneDimensions}")
 
@@ -91,7 +92,7 @@ class Scene:
       robot.centerToHome(self.rangeX, self.rangeY)
 
       # check for shot sequence
-      if self.shotSequence:
+      if self.shotSequence and self.running:
           # loop through shots
           for index, shot in enumerate(self.shotSequence):
               # code to move
