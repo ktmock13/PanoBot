@@ -170,6 +170,7 @@ def run_menu():
           if not editing_mode:
               if 'long_task_thread' in globals() and long_task_thread.is_alive():
                   # If the long task is running, set the cancel flag
+                  print("Cancelling long task...")
                   cancel_task = True
               else:
                   # Start the long task in a new thread
