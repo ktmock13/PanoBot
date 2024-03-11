@@ -36,9 +36,8 @@ class Display:
     self.isLogging = isLogging
     self.font = ImageFont.load_default()
 
-  def loader(self, percent, label="Loading"):
+  def loader(self, percent, label="11x5"):
     print(percent)
-    label = percent
     # calculate the size and position of the loading bar
     bar_width = self.display.width - 20  # subtract 10 pixels from the display's width for padding
     bar_height = self.display.height - 20  # subtract 20 pixels from the display's height for padding and label space
