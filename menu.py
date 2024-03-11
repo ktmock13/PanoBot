@@ -98,7 +98,11 @@ def adjust_value(direction):
         menu_items[selected_index]["value"] = round(menu_items[selected_index]["value"], 2)  # Adjust rounding precision
     draw_menu()
 
-
+def long_task():
+    print("Starting...")  # Or perform the start action
+    sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
+    scene = Scene(**sceneSettings)
+    scene.runScene() 
 def run_menu():
     GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Up button
     GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Select button
@@ -144,10 +148,7 @@ def run_menu():
     def select_callback(channel):
         global editing_mode
         if menu_items[selected_index]["value"] == "START":
-            print("Starting...")  # Or perform the start action
-            sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
-            scene = Scene(**sceneSettings)
-            scene.runScene() 
+            long_task()
         elif not editing_mode:
             toggle_editing_mode()
         else:
