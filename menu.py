@@ -135,7 +135,7 @@ def run_menu():
     def select_callback(channel):
         global editing_mode, program_running
         if program_running:
-           scene.runScene()
+           scene.exitScene()
            program_running = False 
         if menu_items[selected_index]["value"] == "START":
             print("Starting...")  # Or perform the start action
