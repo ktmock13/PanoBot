@@ -4,7 +4,8 @@ from menu import clear_screen, menu_items, run_menu
 import RPi.GPIO as GPIO
 
 if __name__ == "__main__":
-  try:  
+  try:
+    GPIO.setmode(GPIO.BCM)
     run_menu()
   except KeyboardInterrupt:  
      print('Exiting gracefully')  
