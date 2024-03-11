@@ -5,7 +5,6 @@ from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 import RPi.GPIO as GPIO
 import time
-import threading
 
 screen_width, screen_height = 32, 128  # Screen dimensions
 
@@ -95,20 +94,10 @@ def adjust_value(direction):
     draw_menu()
 
 
-
-
 def run_menu():
     GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Up button
     GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Select button
     GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Down button
-    stop_event = threading.Event()  # Event to signal the task to stop
-
-    def start_long_running_task(task):
-      # Reset the event in case it was set from a previous run
-      stop_event.clear()
-      # Start the task in a background thread, passing the stop_event
-      threading.Thread(target=task, args=(stop_event,)).start()
-
     draw_menu()
     def up_callback(channel):
       change_selection("up")
@@ -122,7 +111,7 @@ def run_menu():
             print("Starting...")  # Or perform the start action
             sceneSettings =  {item['id']: item['value'] for item in menu_items if not item['id'].startswith("action")}
             scene = Scene(**sceneSettings)
-            start_long_running_task(scene.runScene()) 
+            scene.runScene() 
         elif not editing_mode:
             toggle_editing_mode()
         else:
