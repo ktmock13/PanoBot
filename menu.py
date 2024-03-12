@@ -166,9 +166,9 @@ def run_menu():
           toggle_editing_mode()
 
     # Define the button press event callbacks
-    GPIO.add_event_detect(16, GPIO.FALLING, callback=up_callback, bouncetime=300)
-    GPIO.add_event_detect(20, GPIO.FALLING, callback=select_callback, bouncetime=300)
-    GPIO.add_event_detect(21, GPIO.FALLING, callback=down_callback, bouncetime=300)
+    GPIO.add_event_detect(16, GPIO.FALLING, callback=up_callback, bouncetime=50)
+    GPIO.add_event_detect(20, GPIO.FALLING, callback=select_callback, bouncetime=50)
+    GPIO.add_event_detect(21, GPIO.FALLING, callback=down_callback, bouncetime=50)
     try:
         while True:
             time.sleep(0.1)  # Small delay to reduce CPU usage
