@@ -42,27 +42,43 @@
     class Scene {
       constructor(camera, rangeX, rangeY, overlapPercent = 0.333, shotCanvasId = "shotCanvas1") {
         this.camera = camera;
-        this.rangeX = rangeX; // total FOV degrees desired, ex. 100
-        this.rangeY = rangeY; // total FOV degrees desired, ex. 50
-        this.shotSequence = [] // will be computed below
-        /** @type {CanvasRenderingContext2D} */
-        this.canvas = document.getElementById(shotCanvasId).getContext("2d")
+        this.rangeX = rangeX;
+        this.rangeY = rangeY;
+        this.shotSequence = [];
+        this.canvas = document.getElementById(shotCanvasId).getContext("2d");
 
-        // set canvas dimensions
         this.canvas.width = 360 * ZOOM;
         this.canvas.height = 360 * ZOOM;
 
-        // FOV units between shots, considering overlap
-        const xSpacing = (this.camera.getHorizontalFov() * (1 - overlapPercent))
-        const ySpacing = (this.camera.getVerticalFov() * (1 - overlapPercent))
+        // Calculate the number of shots based on the camera's FOV and the desired overlap
+        const initialXSpacing = this.camera.getHorizontalFov() * (1 - overlapPercent);
+        const initialYSpacing = this.camera.getVerticalFov() * (1 - overlapPercent);
+        let minShotsX = Math.ceil(rangeX / initialXSpacing);
+        let minShotsY = Math.ceil(rangeY / initialYSpacing);
 
-        // Amount of FOV units that the shots overlap
-        const xOverlapAmount = (this.camera.getHorizontalFov() - xSpacing);
-        const yOverlapAmount = (this.camera.getVerticalFov() - ySpacing);
+        // Calculate the precise overlap to match the final FOV to the desired range exactly
+        const xOverlap = (this.camera.getHorizontalFov() * minShotsX - rangeX) / (minShotsX - 1 || 1);
+        const yOverlap = (this.camera.getVerticalFov() * minShotsY - rangeY) / (minShotsY - 1 || 1);
+        
+        // Use the larger of the calculated overlap or the requested minimum overlap
+        const xOverlapPercent = Math.max(overlapPercent, xOverlap / this.camera.getHorizontalFov());
+        const yOverlapPercent = Math.max(overlapPercent, yOverlap / this.camera.getVerticalFov());
 
-        // Min # of photos in each dimension to cover the desired range
-        let sceneDimensionX = Math.ceil((rangeX - xOverlapAmount) / xSpacing);
-        let sceneDimensionY = Math.ceil((rangeY - yOverlapAmount) / ySpacing);
+        // Recalculate the spacing and number of shots with the precise or minimum overlap
+        const xSpacing = this.camera.getHorizontalFov() * (1 - xOverlapPercent);
+        const ySpacing = this.camera.getVerticalFov() * (1 - yOverlapPercent);
+        let sceneDimensionX = Math.ceil((rangeX + xSpacing - this.camera.getHorizontalFov()) / xSpacing);
+        let sceneDimensionY = Math.ceil((rangeY + ySpacing - this.camera.getVerticalFov()) / ySpacing);
+
+        // Calculate final FOV ranges
+        const finalFOVRangeX = (sceneDimensionX - 1) * xSpacing + this.camera.getHorizontalFov();
+        const finalFOVRangeY = (sceneDimensionY - 1) * ySpacing + this.camera.getVerticalFov();
+
+        // Log the final FOV ranges
+        console.log(`Calculated xOverlapPercent: ${xOverlapPercent * 100}%`);
+        console.log(`Calculated yOverlapPercent: ${yOverlapPercent * 100}%`);
+        console.log(`Final FOV Range X: ${finalFOVRangeX} degrees`);
+        console.log(`Final FOV Range Y: ${finalFOVRangeY} degrees`);
 
         // All shots will be calculated from this frame of reference
         const firstShot = new Shot(0, 0, this.camera.getHorizontalFov(), this.camera.getVerticalFov())
