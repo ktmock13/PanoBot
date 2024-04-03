@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+  <style>
+    .canvas {
+      color: red;
+    }
+    .desired {
+      color: blue;
+    }
+    .actual {
+      color:green;
+    }
+  </style>
+</head>
 <body>
+  <p class="canvas">canvas 360x360 (projected sphere)</p>
   <div>
-    <label for="cameraSelect">Camera:</label>
+    <label for="cameraSelect">Camera Presets:</label>
     <select id="cameraSelect">
       <option value="IPHONE_5X_PORT">iPhone 5x Port</option>
-      <option value="IPHONE_2X_LAND">iPhone 2x Land</option>
+      <option value="IPHONE_3X_LAND">iPhone 2x Land</option>
       <option value="IPHONE_2X_PORT">iPhone 2x Port</option>
       <option value="IPHONE_1X_LAND">iPhone 1x Land</option>
-      <option value="SIMPLE_CAM">Simple Cam</option>
     </select>
-    
-    <label for="rangeX">Range X:</label>
+    <br>
+    <label class="desired" for="rangeX">Desired X FOV:</label>
     <input type="number" id="rangeX" name="rangeX" value="60">
-    
-    <label for="rangeY">Range Y:</label>
+    <br>
+
+    <label class="desired"  for="rangeY">Desired Y FOV:</label>
     <input type="number" id="rangeY" name="rangeY" value="30">
-    
+    <br>
+
     <label for="overlapPercent">Overlap Percent:</label>
     <input type="number" step="0.01" id="overlapPercent" name="overlapPercent" value="0.2">
-    
-    <button onclick="createAndPrintScene()">Create Scene</button>
+    <br>
+
+    <button onclick="createAndPrintScene()">Run Simulation</button>
+    <br><br>
+
   </div>
 
   <div id="finalFOV">
-    <p id="finalFOVX">Final FOV X: </p>
-    <p id="finalFOVY">Final FOV Y: </p>
+    <p class="actual">Note: the scene algorthm will get as close to desired size as possible without undershooting. This means the final photo will always be slightly larger. Below is the *actual* FOV, shown in green. </p>
+    <span class="actual" id="finalFOVX">Final FOV X: </span><br>
+    <span class="actual" id="finalFOVY">Final FOV Y: </span>
   </div>
   <canvas id="shotCanvas1" height="3600" width="3600"></canvas>
 
@@ -98,8 +116,8 @@
         this.finalFOVRangeY = sceneDimensionY * ySpacing + yOverlapAmount;
 
         // Log the final FOV ranges
-        console.log(`Final FOV Range X: ${this.finalFOVRangeX} degrees`);
-        console.log(`Final FOV Range Y: ${this.finalFOVRangeY} degrees`);
+        console.log(`Actual X FOV: ${this.finalFOVRangeX}`);
+        console.log(`Actual Y FOV: ${this.finalFOVRangeY}`);
 
         // All shots will be calculated from this frame of reference
         const firstShot = new Shot(0, 0, this.camera.getHorizontalFov(), this.camera.getVerticalFov())
@@ -167,7 +185,7 @@
         // Set the border color
         this.canvas.strokeStyle = "red";
         // Set the border thickness
-        this.canvas.lineWidth = 1;
+        this.canvas.lineWidth = 3;
         this.canvas.strokeRect(0, 0, 360 * ZOOM, 360 * ZOOM)
       }
       printSceneBounds() {
@@ -192,11 +210,11 @@
     }
 
     // Define the cameras outside of any function to make them globally accessible
-    const iPHONE_5X_PORT = new Camera(11.3, .75);
-    const iPHONE_3X_LAND = new Camera(22.8, 1.33);
-    const iPHONE_2X_PORT = new Camera(37.5, .75);
-    const iPHONE_1X_SQUARE = new Camera(75, 1);
-    const iPHONE_WIDE_LAND = new Camera(130, 1);
+    const IPHONE_5X_PORT = new Camera(11.3, .75);
+    const IPHONE_3X_LAND = new Camera(22.8, 1.33);
+    const IPHONE_2X_PORT = new Camera(37.5, .75);
+    const IPHONE_1X_SQUARE = new Camera(75, 1);
+    const IPHONE_WIDE_LAND = new Camera(130, 1);
     function clearCanvas() {
       const canvas = document.getElementById('shotCanvas1');
       const context = canvas.getContext('2d');
@@ -209,19 +227,19 @@
       let camera;
       switch (cameraSelect) {
         case 'IPHONE_5X_PORT':
-          camera = iPHONE_5X_PORT;
+          camera = IPHONE_5X_PORT;
           break;
         case 'IPHONE_3X_LAND':
-          camera = iPHONE_3X_LAND;
+          camera = IPHONE_3X_LAND;
           break;
-        case 'IPHONE_2X_LAND':
-          camera = iPHONE_2X_LAND;
+        case 'IPHONE_2X_PORT':
+          camera = IPHONE_2X_PORT;
           break;
         case 'IPHONE_1X_LAND':
-          camera = iPHONE_1X_LAND;
+          camera = IPHONE_1X_LAND;
           break;
-        case 'iPHONE_WIDE_LAND':
-          camera = iPHONE_WIDE_LAND;
+        case 'IPHONE_WIDE_LAND':
+          camera = IPHONE_WIDE_LAND;
           break;
       }
       
@@ -231,8 +249,8 @@
       
       const scene = new Scene(camera, rangeX, rangeY, overlapPercent, "shotCanvas1");
       // Update Final FOV display
-      document.getElementById('finalFOVX').textContent = `Final FOV X: ${scene.finalFOVRangeX} degrees`;
-      document.getElementById('finalFOVY').textContent = `Final FOV Y: ${scene.finalFOVRangeY} degrees`;
+      document.getElementById('finalFOVX').textContent = `Actual X FOV: ${scene.finalFOVRangeX}`;
+      document.getElementById('finalFOVY').textContent = `Actual Y FOV: ${scene.finalFOVRangeY}`;
 
       printScenesWithBoundaries([scene]);
     }
