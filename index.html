@@ -21,17 +21,19 @@
     <label for="cameraSelect">Camera Presets:</label>
     <select id="cameraSelect">
       <option value="IPHONE_5X_PORT">iPhone 5x Port</option>
-      <option value="IPHONE_3X_LAND">iPhone 2x Land</option>
+      <option value="IPHONE_3X_LAND">iPhone 3x Land</option>
       <option value="IPHONE_2X_PORT">iPhone 2x Port</option>
-      <option value="IPHONE_1X_LAND">iPhone 1x Land</option>
+      <option value="IPHONE_1X_SQUARE">iPhone 1x Square</option>
+      <option value="IPHONE_WIDE_LAND">iPhone 0.5x Land</option>
+
     </select>
     <br>
     <label class="desired" for="rangeX">Desired X FOV:</label>
-    <input type="number" id="rangeX" name="rangeX" value="60">
+    <input type="number" id="rangeX" name="rangeX" value="120">
     <br>
 
     <label class="desired"  for="rangeY">Desired Y FOV:</label>
-    <input type="number" id="rangeY" name="rangeY" value="30">
+    <input type="number" id="rangeY" name="rangeY" value="60">
     <br>
 
     <label for="overlapPercent">Overlap Percent:</label>
@@ -212,7 +214,7 @@
     }
 
     // Define the cameras outside of any function to make them globally accessible
-    const IPHONE_5X_PORT = new Camera(11.3, .75);
+    const IPHONE_5X_PORT = new Camera(15.5, .75);
     const IPHONE_3X_LAND = new Camera(22.8, 1.33);
     const IPHONE_2X_PORT = new Camera(37.5, .75);
     const IPHONE_1X_SQUARE = new Camera(75, 1);
@@ -237,8 +239,8 @@
         case 'IPHONE_2X_PORT':
           camera = IPHONE_2X_PORT;
           break;
-        case 'IPHONE_1X_LAND':
-          camera = IPHONE_1X_LAND;
+        case 'IPHONE_1X_SQUARE':
+          camera = IPHONE_1X_SQUARE;
           break;
         case 'IPHONE_WIDE_LAND':
           camera = IPHONE_WIDE_LAND;
