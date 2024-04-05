@@ -169,7 +169,7 @@
           const adjustedX = shot.x - xOffset;
           const adjustedY = shot.y - yOffset;
           // For each shot, append an XML node with the shot's position
-          this.xml += `\t\t<pict bracket="1">\n\t\t\t<position pitch="${adjustedY.toFixed(2)*-1}" yaw="${adjustedX.toFixed(2)}"/>\n\t\t</pict>\n`;
+          this.xml += `\t\t<pict bracket="1">\n\t\t\t<position pitch="${adjustedY.toFixed(2)}" yaw="${adjustedX.toFixed(2)}"/>\n\t\t</pict>\n`;
         });
 
         // Close the XML string
@@ -268,7 +268,7 @@
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `scene_${scene.sceneDimensionX}x${scene.sceneDimensionY}_${scene.rangeX}x${scene.rangeY}.xml`; // Name of the file to be downloaded
+      link.download = `papywizard_panobot_scene_${scene.sceneDimensionX}x${scene.sceneDimensionY}_${scene.rangeX}x${scene.rangeY}.xml`; // Name of the file to be downloaded
 
       // Append the link to the document, trigger the click, then remove the link
       document.body.appendChild(link);
