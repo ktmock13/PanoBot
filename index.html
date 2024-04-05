@@ -71,7 +71,7 @@
 
   <script type="text/javascript">
 
-    const ZOOM = 10; // each pixel is represented as 1 degree, this zoom multiplier does just that
+    const ZOOM = 5; // each pixel is represented as 1 degree, this zoom multiplier does just that
     class Shot {
       constructor(x, y, height, width) {
         this.x = x;
@@ -279,8 +279,8 @@
       const scene = new Scene(camera, rangeX, rangeY, overlapPercent, "shotCanvas1");
       document.getElementById('finalFOVX').textContent = `Actual X FOV: ${scene.finalFOVRangeX}`;
       document.getElementById('finalFOVY').textContent = `Actual Y FOV: ${scene.finalFOVRangeY}`;
-      document.getElementById('finalFOVX').textContent = `Actual X FOV: ${scene.finalFOVRangeX}`;
-      document.getElementById('finalFOVY').textContent = `Actual Y FOV: ${scene.finalFOVRangeY}`;
+      document.getElementById('dimensionX').textContent = scene.sceneDimensionX;
+      document.getElementById('dimensionY').textContent = scene.sceneDimensionY;
       scene.printCanvasBounds();
       scene.printSceneBounds();
       await scene.slowlyPrintScene(scene, 100);
