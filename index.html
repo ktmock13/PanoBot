@@ -51,8 +51,7 @@
     <input type="number" step="0.01" id="overlapPercent" name="overlapPercent" value="0.3">
     <br>
 
-    <button id="runSimulationBtn" onclick="createAndPrintScene()">Run Simulation</button>
-    <button onclick="createAndPrintScene()">Export Stitching Metadata</button>
+    <button id="runSimulationBtn" onclick="createAndPrintScene()">Generate Scene</button>
 
     <br><br>
 
@@ -62,16 +61,18 @@
   <div id="finalFOV">
     <p>Note: the scene algorthm will get as close to desired size as possible without undershooting. This means the final photo will always be slightly larger. Below is the *actual* FOV, shown in green. </p>
     <span class="actual" id="finalFOVX">Final FOV X: </span><br>
-    <span class="actual" id="finalFOVY">Final FOV Y: </span><br><br>
+    <span class="actual" id="finalFOVY">Final FOV Y: </span><br>
     <span id="dimensions">Scene Dimensions: <span id="dimensionX"></span> x <span id="dimensionY"></span></span>
 
-  </div>
+  </div><br>
+  <button id="downloadXmlBtn">Export Stitching Metadata</button><br>
+
   <br>
   <canvas id="shotCanvas1" height="3600" width="3600"></canvas>
 
   <script type="text/javascript">
 
-    const ZOOM = 5; // each pixel is represented as 1 degree, this zoom multiplier does just that
+    const ZOOM = 8; // each pixel is represented as 1 degree, this zoom multiplier does just that
     class Shot {
       constructor(x, y, height, width) {
         this.x = x;
@@ -83,7 +84,7 @@
         return [this.x, this.y, this.height, this.width]
       }
       getDisplayTexts() {
-        return [`x:${this.x}`, `y:${this.y}`, `h:${this.height}`, `w:${this.width}\n`]
+        return `x:${this.x} y:${this.y} h:${this.height} w:${this.width}`
       }
     }
 
@@ -139,7 +140,8 @@
         // Log the final FOV ranges
         console.log(`Actual X FOV: ${this.finalFOVRangeX}`);
         console.log(`Actual Y FOV: ${this.finalFOVRangeY}`);
-
+        console.log(`Scene X Dimension: ${this.sceneDimensionX}`);
+        console.log(`Scene Y Dimension: ${this.sceneDimensionY}`);
         // All shots will be calculated from this frame of reference
         const firstShot = new Shot(0, 0, this.camera.getHorizontalFov(), this.camera.getVerticalFov())
         // Helper function to move to make new shots relative to a shot
@@ -158,6 +160,15 @@
             }
          
         }
+        this.xml = '<?xml version="1.0" encoding="utf-8"?>\n<papywizard>\n\t<shoot>\n';
+        // Iterate over each shot in the scene
+        this.shotSequence.forEach(shot => {
+          // For each shot, append an XML node with the shot's position
+          this.xml += `\t\t<pict bracket="1">\n\t\t\t<position pitch="${shot.y}" yaw="${shot.x}"/>\n\t\t</pict>\n`;
+        });
+
+        // Close the XML string
+        this.xml += '\t</shoot>\n</papywizard>';
       }
       printShotText(shot) {
 
@@ -174,6 +185,7 @@
       printShot(shot) {
         this.canvas.fillStyle = "rgb(255 0 150 / 10%)";
         this.canvas.fillRect(...shot.getFillRectValue().map(val => val * ZOOM));
+        console.log(shot.getDisplayTexts())
       }
       printShots(shots) {
         if (shots.length) {
@@ -242,7 +254,28 @@
         customInputs.style.display = 'none';
       }
     }
+    
+    function downloadXML(xml) {
+      // Start of the XML string
+      
+      const blob = new Blob([xml], { type: 'application/xml' });
+
+      // Create a link and set the URL as the blob URL
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'scene.xml'; // Name of the file to be downloaded
+
+      // Append the link to the document, trigger the click, then remove the link
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Revoke the blob URL to free up resources
+      URL.revokeObjectURL(url);
+    }
     async function createAndPrintScene() {
+
       const runSimulationBtn = document.getElementById('runSimulationBtn');
       runSimulationBtn.disabled = true; // Disable the button at the start
 
@@ -272,11 +305,19 @@
         }
       }
 
+      // collect vlaues from form
       const rangeX = parseInt(document.getElementById('rangeX').value);
       const rangeY = parseInt(document.getElementById('rangeY').value);
       const overlapPercent = parseFloat(document.getElementById('overlapPercent').value);
       
+      // create scene
       const scene = new Scene(camera, rangeX, rangeY, overlapPercent, "shotCanvas1");
+      // add event to download for this scene 
+      document.getElementById('downloadXmlBtn').removeEventListener('click', window.downloadFn);
+      window.downloadFn = () => downloadXML(scene.xml);
+      document.getElementById('downloadXmlBtn').addEventListener('click', window.downloadFn);
+
+      // Print stuff to screen
       document.getElementById('finalFOVX').textContent = `Actual X FOV: ${scene.finalFOVRangeX}`;
       document.getElementById('finalFOVY').textContent = `Actual Y FOV: ${scene.finalFOVRangeY}`;
       document.getElementById('dimensionX').textContent = scene.sceneDimensionX;
@@ -287,6 +328,7 @@
       runSimulationBtn.disabled = false; // Re-enable the button after the simulation
 
     }
+
 
     // Set default values and load the scene on page load
     document.addEventListener('DOMContentLoaded', function() {
