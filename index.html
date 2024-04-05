@@ -11,23 +11,34 @@
     .actual {
       color:green;
     }
+    .customCameraInputs {
+      display: none;
+    }
   </style>
 </head>
 <body>
+  <h1>Scene Simulation</h1>
   <a href="menu.html"> try the menu Simulation</a>
 
   <p class="canvas">canvas 360x360 (projected sphere)</p>
   <div>
     <label for="cameraSelect">Camera Presets:</label>
-    <select id="cameraSelect">
+    <select id="cameraSelect" onchange="toggleCustomCameraInputs()">
       <option value="IPHONE_5X_PORT">iPhone 5x Port</option>
       <option value="IPHONE_3X_LAND">iPhone 3x Land</option>
       <option value="IPHONE_2X_PORT">iPhone 2x Port</option>
       <option value="IPHONE_1X_SQUARE">iPhone 1x Square</option>
-      <option value="IPHONE_WIDE_LAND">iPhone 0.5x Land</option>
-
+      <option value="CUSTOM">Custom</option>
     </select>
     <br>
+    <div id="customCameraInputs" class="customCameraInputs">
+      <label for="customFov">Custom Camera FOV:</label>
+      <input type="number" id="customFov" name="customFov" placeholder="15.5">
+      <br>
+      <label for="customAspectRatio">Custom Camera Aspect Ratio:</label>
+      <input type="number" step="0.01" id="customAspectRatio" name="customAspectRatio" placeholder=".75">
+      <br>
+    </div>
     <label class="desired" for="rangeX">Desired X FOV:</label>
     <input type="number" id="rangeX" name="rangeX" value="120">
     <br>
@@ -40,16 +51,22 @@
     <input type="number" step="0.01" id="overlapPercent" name="overlapPercent" value="0.3">
     <br>
 
-    <button onclick="createAndPrintScene()">Run Simulation</button>
+    <button id="runSimulationBtn" onclick="createAndPrintScene()">Run Simulation</button>
+    <button onclick="createAndPrintScene()">Export Stitching Metadata</button>
+
     <br><br>
 
   </div>
-
+  <hr>
+  <h2>Result</h2>
   <div id="finalFOV">
-    <p class="actual">Note: the scene algorthm will get as close to desired size as possible without undershooting. This means the final photo will always be slightly larger. Below is the *actual* FOV, shown in green. </p>
+    <p>Note: the scene algorthm will get as close to desired size as possible without undershooting. This means the final photo will always be slightly larger. Below is the *actual* FOV, shown in green. </p>
     <span class="actual" id="finalFOVX">Final FOV X: </span><br>
-    <span class="actual" id="finalFOVY">Final FOV Y: </span>
+    <span class="actual" id="finalFOVY">Final FOV Y: </span><br><br>
+    <span id="dimensions">Scene Dimensions: <span id="dimensionX"></span> x <span id="dimensionY"></span></span>
+
   </div>
+  <br>
   <canvas id="shotCanvas1" height="3600" width="3600"></canvas>
 
   <script type="text/javascript">
@@ -112,12 +129,12 @@
         const yOverlapAmount = (this.camera.getVerticalFov() - ySpacing);
 
         // Min # of photos in each dimension to cover the desired range
-        let sceneDimensionX = Math.ceil((rangeX - xOverlapAmount) / xSpacing);
-        let sceneDimensionY = Math.ceil((rangeY - yOverlapAmount) / ySpacing);
+        this.sceneDimensionX = Math.ceil((rangeX - xOverlapAmount) / xSpacing);
+        this.sceneDimensionY = Math.ceil((rangeY - yOverlapAmount) / ySpacing);
 
         // Calculate final FOV ranges
-        this.finalFOVRangeX = sceneDimensionX * xSpacing + xOverlapAmount;
-        this.finalFOVRangeY = sceneDimensionY * ySpacing + yOverlapAmount;
+        this.finalFOVRangeX = this.sceneDimensionX * xSpacing + xOverlapAmount;
+        this.finalFOVRangeY = this.sceneDimensionY * ySpacing + yOverlapAmount;
 
         // Log the final FOV ranges
         console.log(`Actual X FOV: ${this.finalFOVRangeX}`);
@@ -127,14 +144,14 @@
         const firstShot = new Shot(0, 0, this.camera.getHorizontalFov(), this.camera.getVerticalFov())
         // Helper function to move to make new shots relative to a shot
         const moveShot = (shot, xDistance, yDistance) => new Shot(shot.x + xDistance, shot.y + yDistance, shot.height, shot.width)
-        for (let iy = 0; iy < sceneDimensionY; iy++) {
+        for (let iy = 0; iy < this.sceneDimensionY; iy++) {
           if(iy%2===0){
-            for (let ix = 0; ix < sceneDimensionX; ix++) {
+            for (let ix = 0; ix < this.sceneDimensionX; ix++) {
               // compute each shot
               this.shotSequence.push(moveShot(firstShot, ix * xSpacing, iy * ySpacing))
             }}
             else {
-              for (let ix = sceneDimensionX-1; ix >= 0; ix--) {
+              for (let ix = this.sceneDimensionX-1; ix >= 0; ix--) {
                 // compute each shot
                 this.shotSequence.push(moveShot(firstShot, ix * xSpacing, iy * ySpacing))
               }
@@ -204,15 +221,6 @@
       }
     }
 
-    /* Display Helper */
-    function printScenesWithBoundaries(scenes) {
-      scenes.forEach((scene, i) => {
-        scene.printCanvasBounds();
-        scene.printSceneBounds();
-        scene.slowlyPrintScene(scene, 100);
-      })
-    }
-
     // Define the cameras outside of any function to make them globally accessible
     const IPHONE_5X_PORT = new Camera(15.5, .75);
     const IPHONE_3X_LAND = new Camera(22.8, 1.33);
@@ -224,39 +232,60 @@
       const context = canvas.getContext('2d');
       context.clearRect(0, 0, canvas.width, canvas.height);
     }
-    function createAndPrintScene() {
+    
+    function toggleCustomCameraInputs() {
+      const cameraSelect = document.getElementById('cameraSelect');
+      const customInputs = document.getElementById('customCameraInputs');
+      if (cameraSelect.value === 'CUSTOM') {
+        customInputs.style.display = 'block';
+      } else {
+        customInputs.style.display = 'none';
+      }
+    }
+    async function createAndPrintScene() {
+      const runSimulationBtn = document.getElementById('runSimulationBtn');
+      runSimulationBtn.disabled = true; // Disable the button at the start
+
       clearCanvas(); // Clear the canvas before drawing a new scene
 
       const cameraSelect = document.getElementById('cameraSelect').value;
       let camera;
-      switch (cameraSelect) {
-        case 'IPHONE_5X_PORT':
-          camera = IPHONE_5X_PORT;
-          break;
-        case 'IPHONE_3X_LAND':
-          camera = IPHONE_3X_LAND;
-          break;
-        case 'IPHONE_2X_PORT':
-          camera = IPHONE_2X_PORT;
-          break;
-        case 'IPHONE_1X_SQUARE':
-          camera = IPHONE_1X_SQUARE;
-          break;
-        case 'IPHONE_WIDE_LAND':
-          camera = IPHONE_WIDE_LAND;
-          break;
+      if (cameraSelect === 'CUSTOM') {
+        const customFov = parseFloat(document.getElementById('customFov').value);
+        const customAspectRatio = parseFloat(document.getElementById('customAspectRatio').value);
+        camera = new Camera(customFov, customAspectRatio);
+      } else {
+        switch (cameraSelect) {
+          case 'IPHONE_5X_PORT':
+            camera = IPHONE_5X_PORT;
+            break;
+          case 'IPHONE_3X_LAND':
+            camera = IPHONE_3X_LAND;
+            break;
+          case 'IPHONE_2X_PORT':
+            camera = IPHONE_2X_PORT;
+            break;
+          case 'IPHONE_1X_SQUARE':
+            camera = IPHONE_1X_SQUARE;
+            break;
+          // Add other predefined cameras here
+        }
       }
-      
+
       const rangeX = parseInt(document.getElementById('rangeX').value);
       const rangeY = parseInt(document.getElementById('rangeY').value);
       const overlapPercent = parseFloat(document.getElementById('overlapPercent').value);
       
       const scene = new Scene(camera, rangeX, rangeY, overlapPercent, "shotCanvas1");
-      // Update Final FOV display
       document.getElementById('finalFOVX').textContent = `Actual X FOV: ${scene.finalFOVRangeX}`;
       document.getElementById('finalFOVY').textContent = `Actual Y FOV: ${scene.finalFOVRangeY}`;
+      document.getElementById('finalFOVX').textContent = `Actual X FOV: ${scene.finalFOVRangeX}`;
+      document.getElementById('finalFOVY').textContent = `Actual Y FOV: ${scene.finalFOVRangeY}`;
+      scene.printCanvasBounds();
+      scene.printSceneBounds();
+      await scene.slowlyPrintScene(scene, 100);
+      runSimulationBtn.disabled = false; // Re-enable the button after the simulation
 
-      printScenesWithBoundaries([scene]);
     }
 
     // Set default values and load the scene on page load
