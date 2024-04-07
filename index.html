@@ -48,7 +48,7 @@
     <br>
 
     <label for="overlapPercent">Overlap Percent:</label>
-    <input type="number" step="0.01" id="overlapPercent" name="overlapPercent" value="0.3">
+    <input type="number" step="0.01" id="overlapPercent" name="overlapPercent" value="0.15">
     <br>
 
     <button id="runSimulationBtn" onclick="createAndPrintScene()">Generate Scene</button>
@@ -106,7 +106,7 @@
     }
 
     class Scene {
-      constructor(camera, rangeX, rangeY, overlapPercent = 0.333, shotCanvasId = "shotCanvas1") {
+      constructor(camera, rangeX, rangeY, overlapPercent = 0.15, shotCanvasId = "shotCanvas1") {
         this.camera = camera;
         this.rangeX = rangeX; // total FOV degrees desired, ex. 100
         this.rangeY = rangeY; // total FOV degrees desired, ex. 50

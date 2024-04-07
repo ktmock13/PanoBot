@@ -21,7 +21,7 @@ display.show()
 menu_items = [
     {"id": "cameraFOV", "value": 15.5, "increment": 0.5},
     {"id": "cameraAspectRatio", "value": 0.75, "increment": 0.05},
-    {"id": "overlapPercent", "value": 0.3, "increment": 0.05},
+    {"id": "overlapPercent", "value": 0.15, "increment": 0.05},
     {"id": "rangeX", "value": 120, "increment": 5},
     {"id": "rangeY", "value": 60, "increment": 5},
     {"id": "focusDelay", "value": 300, "increment": 100},
