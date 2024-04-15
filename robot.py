@@ -44,7 +44,7 @@ class Robot:
     else: 
       print('invalid axis')
 
-  def centerToFirstShot(self, xFOV,yFOV, reversed):
+  def centerToHome(self, xFOV,yFOV, reversed):
     # theoretical center
     xPosition = xFOV / 2
     yPosition = yFOV / 2
