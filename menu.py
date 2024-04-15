@@ -22,11 +22,11 @@ menu_items = [
     {"id": "cameraFOV", "value": 15.5, "increment": 0.5},
     {"id": "cameraAspectRatio", "value": 0.75, "increment": 0.05},
     {"id": "overlapPercent", "value": 0.15, "increment": 0.05},
-    {"id": "rangeX", "value": 60, "increment": 5},
-    {"id": "rangeY", "value": 30, "increment": 5},
-    {"id": "focusDelay", "value": 250, "increment": 100},
-    {"id": "exposureDelay", "value": 250, "increment": 100},
-    {"id": "robotSpeed", "value": 10, "increment": 1},
+    {"id": "rangeX", "value": 100, "increment": 5},
+    {"id": "rangeY", "value": 50, "increment": 5},
+    {"id": "focusDelay", "value": 1000, "increment": 100},
+    {"id": "exposureDelay", "value": 1000, "increment": 100},
+    {"id": "robotSpeed", "value": 6, "increment": 1},
     # Add more menu items as needed
     {"id": "action-start", "value": "START"}  # 'START' as the last menu item
 ]
