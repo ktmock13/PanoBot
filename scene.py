@@ -110,7 +110,6 @@ class Scene:
 
 
       self.takeShots()
-      self.reverseShots()
       self.takeShots()
 
       # deactivate stepper relay
