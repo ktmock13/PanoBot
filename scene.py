@@ -83,7 +83,7 @@ class Scene:
               if self.running == False:
                 break
               # code to move
-              robot.updatePosition(shot.x, shot.y);
+              self.robot.updatePosition(shot.x, shot.y);
               # delay to account for movement settle
               timeout(self.focusDelay)
               # code to take photo
@@ -103,10 +103,10 @@ class Scene:
       GPIO.output(self.STEPPER_RELAY, GPIO.LOW) #low is how you activate the relay
 
       # Init Robot
-      robot = Robot(self.robotSpeed)
+      self.robot = Robot(self.robotSpeed)
 
       #initial stepper homing
-      robot.centerToHome(self.rangeX, self.rangeY)
+      self.robot.centerToHome(self.rangeX, self.rangeY)
 
 
       self.takeShots()
