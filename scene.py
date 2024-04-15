@@ -67,28 +67,16 @@ class Scene:
     def exitScene(self):
       self.running = False
       GPIO.output(self.STEPPER_RELAY, GPIO.HIGH) # low is how you deactivate the relay
-     
 
-    def runScene(self):
-      self.running = True
-      #print scene dimensions 
-      print(f"grid: {self.sceneDimensions}")
+    def reverseShots(self):
+      # reverse shot sequence
+      self.shotSequence.reverse()
 
-      self.display.loader(0, self.sceneDimensions)
-
-      # activate stepper relay
-      GPIO.output(self.STEPPER_RELAY, GPIO.LOW) #low is how you activate the relay
-
-      # Init Robot
-      robot = Robot(self.robotSpeed)
+    def takeShots(self):
       # helper fn
       def timeout(ms):
         time.sleep(ms / 1000)
-
-      #homing
-      robot.centerToHome(self.rangeX, self.rangeY)
-
-      # check for shot sequence
+       # check for shot sequence
       if self.shotSequence:
           # loop through shots
           for index, shot in enumerate(self.shotSequence):
@@ -103,7 +91,27 @@ class Scene:
               #increment loader screen
               self.display.loader((index + 1) / len(self.shotSequence) * 100, self.sceneDimensions)
               # delay to account for exposure
-              timeout(self.exposureDelay)
+              timeout(self.exposureDelay)       
+    def runScene(self):
+      self.running = True
+      #print scene dimensions 
+      print(f"grid: {self.sceneDimensions}")
+
+      self.display.loader(0, self.sceneDimensions)
+
+      # activate stepper relay
+      GPIO.output(self.STEPPER_RELAY, GPIO.LOW) #low is how you activate the relay
+
+      # Init Robot
+      robot = Robot(self.robotSpeed)
+
+      #initial stepper homing
+      robot.centerToHome(self.rangeX, self.rangeY)
+
+
+      self.takeShots()
+      self.reverseShots()
+      self.takeShots()
 
       # deactivate stepper relay
       self.exitScene()
