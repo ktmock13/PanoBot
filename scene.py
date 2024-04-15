@@ -110,6 +110,8 @@ class Scene:
 
 
       self.takeShots()
+      self.robot.centerToHome(self.rangeX, self.rangeY)
+
       self.takeShots()
 
       # deactivate stepper relay
