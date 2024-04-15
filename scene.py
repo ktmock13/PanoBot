@@ -106,10 +106,11 @@ class Scene:
       self.robot = Robot(self.robotSpeed)
 
       #initial stepper homing
-      self.robot.centerToHome(self.rangeX, self.rangeY, True)
+      self.robot.centerToHome(self.rangeX, self.rangeY)
 
+
+      self.takeShots()
       self.reverseShots()
-
       self.takeShots()
 
       # deactivate stepper relay
