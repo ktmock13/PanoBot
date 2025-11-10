@@ -24,7 +24,8 @@
   <div>
     <label for="cameraSelect">Camera Presets:</label>
     <select id="cameraSelect" onchange="toggleCustomCameraInputs()">
-      <option value="IPHONE_5X_PORT">iPhone 5x Port</option>
+      <option value="IPHONE_4X_PORT">iPhone 17 Pro Max 4x Port</option>
+      <option value="IPHONE_5X_PORT">iPhone 15 Pro Max 5x Port</option>
       <option value="IPHONE_3X_LAND">iPhone 3x Land</option>
       <option value="IPHONE_2X_PORT">iPhone 2x Port</option>
       <option value="IPHONE_1X_SQUARE">iPhone 1x Square</option>
@@ -239,7 +240,8 @@
     }
 
     // Define the cameras outside of any function to make them globally accessible
-    const IPHONE_5X_PORT = new Camera(15.5, .75);
+    const IPHONE_4X_PORT = new Camera(19.5, 0.75);  // iPhone 17 Pro Max 4x telephoto
+    const IPHONE_5X_PORT = new Camera(15.5, .75);  // iPhone 15 Pro Max 5x telephoto
     const IPHONE_3X_LAND = new Camera(22.8, 1.33);
     const IPHONE_2X_PORT = new Camera(37.5, .75);
     const IPHONE_1X_SQUARE = new Camera(75, 1);
@@ -293,6 +295,9 @@
         camera = new Camera(customFov, customAspectRatio);
       } else {
         switch (cameraSelect) {
+          case 'IPHONE_4X_PORT':
+            camera = IPHONE_4X_PORT;
+            break;
           case 'IPHONE_5X_PORT':
             camera = IPHONE_5X_PORT;
             break;

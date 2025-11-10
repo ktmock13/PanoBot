@@ -19,8 +19,8 @@ display.show()
 
 # Menu items definition
 menu_items = [
-    {"id": "cameraFOV", "value": 15.5, "increment": 0.5},
-    {"id": "cameraAspectRatio", "value": 0.75, "increment": 0.05},
+    {"id": "cameraFOV", "value": 19.5, "increment": 0.5},  # iPhone 17 Pro Max 4x telephoto FOV
+    {"id": "cameraAspectRatio", "value": 0.75, "increment": 0.05},  # 4:3 aspect ratio
     {"id": "overlapPercent", "value": 0.15, "increment": 0.05},
     {"id": "rangeX", "value": 100, "increment": 5},
     {"id": "rangeY", "value": 50, "increment": 5},

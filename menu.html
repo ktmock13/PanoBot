@@ -27,12 +27,14 @@
     let selectedIndex = 0;
 
     const menuItems = [
-      { id: 1, value: 8.75, increment: 0.25 }, // photo FOV
-      { id: 2, value: 15.4, increment: .1 }, // photo aspect
-      { id: 3, value: 500, increment: 5.0 }, // photo overlap
-      { id: 4, value: 250, increment: 10.0 }, // scene FOV x
-      { id: 5, value: 68, increment: 0.1 }, // scene FOV y
-      { id: 6, value: 38, increment: 0.5 },
+      { id: 1, value: 19.5, increment: 0.5 }, // photo FOV - iPhone 17 Pro Max 4x
+      { id: 2, value: 0.75, increment: 0.05 }, // photo aspect ratio (4:3)
+      { id: 3, value: 0.15, increment: 0.05 }, // photo overlap percent
+      { id: 4, value: 100, increment: 5 }, // scene FOV x
+      { id: 5, value: 50, increment: 5 }, // scene FOV y
+      { id: 6, value: 1000, increment: 100 }, // focus delay
+      { id: 7, value: 1000, increment: 100 }, // exposure delay
+      { id: 8, value: 6, increment: 1 }, // robot speed
       { value: 'START', callback: function () { alert('Starting...'); } }
     ];
 
